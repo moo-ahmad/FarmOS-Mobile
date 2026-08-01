@@ -11,6 +11,10 @@ module.exports = {
   testEnvironment: 'node',
   roots: ['<rootDir>/src'],
   testMatch: ['**/*.test.ts'],
+  // Mirror the tsconfig `@/*` path alias for Jest's module resolver.
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
   transform: {
     '^.+\\.tsx?$': [
       'ts-jest',
