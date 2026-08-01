@@ -8,3 +8,4 @@ coverage/
 pnpm-lock.yaml
 expo-env.d.ts
 src/db/migrations/
+src/api/schema.d.ts

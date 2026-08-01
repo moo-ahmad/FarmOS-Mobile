@@ -28,6 +28,7 @@
       "expo-router",
       "expo-dev-client",
       "expo-background-task",
+      "expo-secure-store",
       [
         "expo-splash-screen",
         {

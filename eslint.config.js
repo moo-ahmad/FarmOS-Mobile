@@ -30,6 +30,7 @@ module.exports = [
       'expo-env.d.ts',
       'scripts/**',
       'src/db/migrations/**',
+      'src/api/schema.d.ts',
     ],
   },
   ...expoFlatConfig,
