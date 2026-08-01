@@ -57,5 +57,12 @@ module.exports = [
       'local/no-money-arithmetic': 'error',
     },
   },
+  {
+    // Jest test files run in Node with Jest globals.
+    files: ['**/*.test.{ts,tsx}', '**/__tests__/**/*.{ts,tsx}'],
+    languageOptions: {
+      globals: { ...globals.jest, ...globals.node },
+    },
+  },
   eslintConfigPrettier,
 ];
