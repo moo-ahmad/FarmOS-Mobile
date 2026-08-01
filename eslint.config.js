@@ -29,6 +29,7 @@ module.exports = [
       'ios/**',
       'expo-env.d.ts',
       'scripts/**',
+      'src/db/migrations/**',
     ],
   },
   ...expoFlatConfig,

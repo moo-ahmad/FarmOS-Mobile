@@ -1,3 +1,6 @@
+// Polyfill crypto.getRandomValues before anything generates a UUID (ids layer).
+import 'react-native-get-random-values';
+
 import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useColorScheme } from 'react-native';
