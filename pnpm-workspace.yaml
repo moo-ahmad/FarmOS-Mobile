@@ -1,0 +1,4 @@
+# pnpm settings (pnpm 11 reads build-script approvals from here, not package.json).
+# Native postinstall build scripts are blocked by default; allow the ones we trust.
+allowBuilds:
+  unrs-resolver: true
