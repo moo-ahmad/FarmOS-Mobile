@@ -46,6 +46,9 @@ coverage/
 
 example
 
+# design handoff assets (not part of the app source)
+design_handoff_farmos_mobile/
+
 # generated native folders
 /ios
 /android
