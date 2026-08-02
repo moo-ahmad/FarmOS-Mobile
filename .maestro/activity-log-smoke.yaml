@@ -1,0 +1,14 @@
+# Maestro smoke test: log an activity offline and see it in the list.
+# Run with a build installed on a device/emulator:  maestro test .maestro
+# appId is the production package; for dev/preview builds append .dev / .preview.
+appId: com.farmos.mobile
+---
+- launchApp:
+    clearState: true
+- tapOn: 'Activity'
+- assertVisible: 'Log activity'
+- tapOn: 'Quantity'
+- inputText: '12.5'
+- tapOn: 'Save'
+# Default type is Irrigation and unit kg, so the new row reads "12.5 kg".
+- assertVisible: '12.5 kg'

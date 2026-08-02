@@ -32,6 +32,7 @@ with the **New Architecture** enabled.
 - `pnpm typecheck` — `tsc --noEmit`
 - `pnpm lint` / `pnpm lint:fix`
 - `pnpm format` / `pnpm format:check`
+- `pnpm test` — Jest (two projects: `node` logic + `components` via jest-expo)
 - `pnpm start` — Expo dev server (Dev Client)
 - `pnpm android` / `pnpm ios` — `expo run:*` (needs native toolchain)
 
