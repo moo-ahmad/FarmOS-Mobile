@@ -36,7 +36,7 @@ export function DatabaseGate({ children }: PropsWithChildren) {
   if (error) {
     return (
       <View className="flex-1 items-center justify-center gap-2 p-6">
-        <Text variant="heading" tone="danger">
+        <Text variant="heading" tone="accent">
           Database error
         </Text>
         <Text tone="muted">{error.message}</Text>

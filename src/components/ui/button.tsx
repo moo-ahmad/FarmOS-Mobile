@@ -1,44 +1,30 @@
+import { ArrowRight } from 'lucide-react-native';
 import {
   ActivityIndicator,
   Pressable,
   type PressableProps,
 } from 'react-native';
 
-import * as haptics from '@/lib/haptics';
 import { cn } from '@/lib/cn';
+import * as haptics from '@/lib/haptics';
+import { colors } from '@/theme';
 
-import { Text, type TextTone } from './text';
+import { Text } from './text';
 
-export type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger';
-export type ButtonSize = 'md' | 'lg';
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
 export type ButtonHaptic = 'selection' | 'success' | 'none';
 
-const BASE =
-  'min-h-tap flex-row items-center justify-center gap-2 rounded-xl px-5';
-
 const variantClass: Record<ButtonVariant, string> = {
-  primary: 'bg-primary-600 active:bg-primary-700',
-  secondary: 'bg-neutral-100 active:bg-neutral-200 dark:bg-neutral-800',
-  ghost: 'bg-transparent active:bg-neutral-100 dark:active:bg-neutral-800',
-  danger: 'bg-danger active:opacity-90',
-};
-
-const labelTone: Record<ButtonVariant, TextTone> = {
-  primary: 'inverse',
-  secondary: 'default',
-  ghost: 'primary',
-  danger: 'inverse',
-};
-
-const sizeClass: Record<ButtonSize, string> = {
-  md: '',
-  lg: 'min-h-[56px] px-6',
+  primary:
+    'min-h-tap w-full flex-row items-center justify-between bg-accent px-4 py-3.5 active:bg-accent-700',
+  secondary:
+    'min-h-tap w-full flex-row items-center justify-between border-field border-ink bg-transparent px-4 py-3.5',
+  ghost: 'flex-row items-center self-start px-1 py-1',
 };
 
 export interface ButtonProps extends Omit<PressableProps, 'children'> {
   title: string;
   variant?: ButtonVariant;
-  size?: ButtonSize;
   loading?: boolean;
   /** Feedback fired before onPress. Defaults to a light selection tick. */
   haptic?: ButtonHaptic;
@@ -46,13 +32,13 @@ export interface ButtonProps extends Omit<PressableProps, 'children'> {
 }
 
 /**
- * Primary action button. Guarantees the 48px minimum tap target and gives
- * haptic confirmation, since the user often isn't looking at the screen.
+ * Modernist primary action: a flush-left label with a trailing arrow, in a
+ * full-width red block (zero radius). Guarantees the 48px tap target and gives
+ * haptic confirmation.
  */
 export function Button({
   title,
   variant = 'primary',
-  size = 'md',
   loading = false,
   haptic = 'selection',
   disabled,
@@ -61,6 +47,9 @@ export function Button({
   ...rest
 }: ButtonProps) {
   const isDisabled = disabled || loading;
+  const isBlock = variant !== 'ghost';
+  const labelTone = variant === 'primary' ? 'inverse' : 'accent';
+  const arrowColor = variant === 'primary' ? colors.white : colors.ink;
 
   return (
     <Pressable
@@ -68,10 +57,8 @@ export function Button({
       accessibilityState={{ disabled: isDisabled, busy: loading }}
       disabled={isDisabled}
       className={cn(
-        BASE,
         variantClass[variant],
-        sizeClass[size],
-        isDisabled && 'opacity-50',
+        isDisabled && 'opacity-45',
         className,
       )}
       onPress={(event) => {
@@ -82,17 +69,17 @@ export function Button({
       {...rest}
     >
       {loading ? (
-        <ActivityIndicator
-          color={variant === 'secondary' ? '#16a34a' : '#fff'}
-        />
+        <ActivityIndicator color={arrowColor} />
       ) : (
-        <Text
-          variant="label"
-          tone={labelTone[variant]}
-          className={size === 'lg' ? 'text-body' : undefined}
-        >
-          {title}
-        </Text>
+        <>
+          <Text
+            tone={labelTone}
+            className="font-archivo-bold text-[15px] leading-tight"
+          >
+            {title}
+          </Text>
+          {isBlock ? <ArrowRight size={20} color={arrowColor} /> : null}
+        </>
       )}
     </Pressable>
   );

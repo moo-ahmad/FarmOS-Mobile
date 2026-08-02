@@ -2,25 +2,37 @@ import { Text as RNText, type TextProps } from 'react-native';
 
 import { cn } from '@/lib/cn';
 
-export type TextVariant = 'title' | 'heading' | 'body' | 'label' | 'caption';
+export type TextVariant =
+  | 'hero-lg'
+  | 'hero'
+  | 'title'
+  | 'heading'
+  | 'row'
+  | 'body'
+  | 'label'
+  | 'caption'
+  | 'micro'
+  | 'kicker';
 
-export type TextTone =
-  'default' | 'muted' | 'primary' | 'danger' | 'warning' | 'inverse';
+export type TextTone = 'default' | 'muted' | 'accent' | 'inverse';
 
 const variantClass: Record<TextVariant, string> = {
-  title: 'text-title font-bold',
-  heading: 'text-heading font-semibold',
-  body: 'text-body',
-  label: 'text-label font-medium',
-  caption: 'text-caption',
+  'hero-lg': 'font-archivo-bold text-hero-lg tracking-hero',
+  hero: 'font-archivo-bold text-hero tracking-hero',
+  title: 'font-archivo-bold text-title tracking-tight',
+  heading: 'font-archivo-bold text-heading',
+  row: 'font-archivo-bold text-row',
+  body: 'font-archivo text-body',
+  label: 'font-archivo-medium text-label',
+  caption: 'font-archivo text-caption',
+  micro: 'font-archivo-medium text-micro uppercase tracking-micro',
+  kicker: 'font-archivo-medium text-kicker uppercase tracking-kicker',
 };
 
 const toneClass: Record<TextTone, string> = {
-  default: 'text-neutral-900 dark:text-neutral-0',
-  muted: 'text-neutral-500 dark:text-neutral-400',
-  primary: 'text-primary-700 dark:text-primary-400',
-  danger: 'text-danger',
-  warning: 'text-warning',
+  default: 'text-ink',
+  muted: 'text-neutral-500',
+  accent: 'text-accent',
   inverse: 'text-neutral-0',
 };
 
@@ -30,7 +42,7 @@ export interface AppTextProps extends TextProps {
   className?: string;
 }
 
-/** Typographic text primitive with a constrained variant/tone scale. */
+/** Modernist text primitive — everything is set in Archivo. */
 export function Text({
   variant = 'body',
   tone = 'default',

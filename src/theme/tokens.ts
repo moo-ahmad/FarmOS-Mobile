@@ -1,46 +1,55 @@
 /**
- * Runtime-accessible design tokens. These mirror the values in
- * `tailwind.config.js` for the places that can't use `className` — React
- * Navigation themes, icon colors, hit slops. Keep the two in sync; Tailwind is
- * the source of truth for styling, this is the JS escape hatch.
+ * Runtime-accessible Modernist design tokens. These mirror tailwind.config.js
+ * for the places that can't use `className` — SVG charts, Lucide icon colors,
+ * the custom tab bar. Tailwind is the source of truth for styling; keep in sync.
  */
 
-export const palette = {
-  primary: {
-    500: '#22c55e',
-    600: '#16a34a',
-    700: '#15803d',
+export const colors = {
+  ink: '#201e1d',
+  paper: '#f3f2f2',
+  surface: '#eae9e9',
+  white: '#ffffff',
+  divider: 'rgba(32,30,29,0.4)',
+  accent: {
+    DEFAULT: '#ec3013',
+    100: '#fff2ef',
+    200: '#ffe0d9',
+    300: '#ffc4b8',
+    400: '#ff9783',
+    500: '#ff563c',
+    600: '#dd2b0f',
+    700: '#ae1800',
+    800: '#7c1405',
+    900: '#4d170e',
   },
   neutral: {
     0: '#ffffff',
-    100: '#f1f5f9',
-    500: '#64748b',
-    900: '#0f172a',
-    950: '#020617',
+    100: '#f8f4f4',
+    200: '#eae7e7',
+    300: '#d7d3d3',
+    400: '#bab6b6',
+    500: '#9b9797',
+    600: '#7d7979',
+    700: '#605d5d',
+    800: '#444141',
+    900: '#2d2b2b',
   },
-  success: '#16a34a',
-  warning: '#d97706',
-  danger: '#dc2626',
-  info: '#2563eb',
 } as const;
 
-/** Minimum tap target (px). A hard requirement for outdoor, one-handed use. */
+/** Loaded Archivo family names (weight is baked into the family on RN). */
+export const fonts = {
+  regular: 'Archivo_400Regular',
+  medium: 'Archivo_600SemiBold',
+  bold: 'Archivo_800ExtraBold',
+} as const;
+
+/** Structural rule widths, in px. */
+export const rules = {
+  section: 2.5,
+  total: 2,
+  field: 1.5,
+  divider: 1,
+} as const;
+
+/** Minimum tap target (px). Design requires ≥44; the project keeps 48. */
 export const MIN_TAP_TARGET = 48;
-
-export const lightTheme = {
-  text: palette.neutral[900],
-  background: palette.neutral[0],
-  surface: palette.neutral[100],
-  primary: palette.primary[600],
-  border: '#e2e8f0',
-} as const;
-
-export const darkTheme = {
-  text: palette.neutral[0],
-  background: palette.neutral[950],
-  surface: palette.neutral[900],
-  primary: palette.primary[500],
-  border: '#1e293b',
-} as const;
-
-export type ThemeColors = typeof lightTheme;

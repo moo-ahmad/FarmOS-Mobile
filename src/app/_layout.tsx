@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import AppTabs from '@/components/app-tabs';
 import { DatabaseGate } from '@/components/database-gate';
+import { FontGate } from '@/components/font-gate';
 import i18n, { syncLayoutDirection, type SupportedLanguage } from '@/i18n';
 import { initSentry, Sentry } from '@/lib/observability/sentry';
 import { QueryProvider } from '@/lib/query';
@@ -32,9 +33,11 @@ function TabLayout() {
           value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
         >
           <AnimatedSplashOverlay />
-          <DatabaseGate>
-            <AppTabs />
-          </DatabaseGate>
+          <FontGate>
+            <DatabaseGate>
+              <AppTabs />
+            </DatabaseGate>
+          </FontGate>
         </ThemeProvider>
       </QueryProvider>
     </GestureHandlerRootView>
