@@ -11,5 +11,31 @@
     "signIn": "سائن ان کریں",
     "email": "ای میل",
     "password": "پاس ورڈ"
+  },
+  "validation": {
+    "required": "لازمی ہے",
+    "positiveNumber": "صفر سے بڑا عدد درج کریں",
+    "amount": "درست رقم درج کریں",
+    "tooLong": "بہت طویل ہے"
+  },
+  "activity": {
+    "title": "سرگرمی درج کریں",
+    "recent": "حالیہ سرگرمی",
+    "empty": "ابھی کوئی سرگرمی نہیں",
+    "pending": "سنک نہیں ہوا",
+    "fields": {
+      "type": "سرگرمی",
+      "quantity": "مقدار",
+      "unit": "اکائی",
+      "cost": "لاگت (اختیاری)",
+      "notes": "نوٹس (اختیاری)"
+    },
+    "types": {
+      "irrigation": "آبپاشی",
+      "fertilizer": "کھاد",
+      "pesticide": "کیڑے مار دوا",
+      "harvest": "کٹائی",
+      "other": "دیگر"
+    }
   }
 }

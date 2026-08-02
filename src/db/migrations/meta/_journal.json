@@ -8,6 +8,13 @@
       "when": 1785604404855,
       "tag": "0000_flat_red_ghost",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1785647816965,
+      "tag": "0001_magenta_warbound",
+      "breakpoints": true
     }
   ]
 }

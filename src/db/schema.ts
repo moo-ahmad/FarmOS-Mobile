@@ -69,3 +69,43 @@ export const syncMeta = sqliteTable('sync_meta', {
 });
 
 export type SyncMetaRow = typeof syncMeta.$inferSelect;
+
+/**
+ * Activity log — the first domain aggregate (Phase 5). A record of a field
+ * activity (irrigation, input application, harvest...). `quantity` and `cost`
+ * are decimal strings stored as TEXT, never REAL. The enum literals mirror
+ * src/features/activity-log/model.ts — keep the two in sync.
+ */
+export const activityLogs = sqliteTable(
+  'activity_logs',
+  {
+    /** Client-generated UUIDv7, becomes the server PublicId. */
+    id: text('id').primaryKey(),
+    farmId: text('farm_id').notNull(),
+    activityType: text('activity_type', {
+      enum: ['irrigation', 'fertilizer', 'pesticide', 'harvest', 'other'],
+    }).notNull(),
+    /** Quantity (decimal string). */
+    quantity: text('quantity').notNull(),
+    unit: text('unit', {
+      enum: ['kg', 'L', 'bag', 'hour', 'acre'],
+    }).notNull(),
+    /** Money (decimal string); null if no cost recorded. */
+    cost: text('cost'),
+    notes: text('notes'),
+    /** When the activity happened (UTC ISO), farmer-editable. */
+    occurredAt: text('occurred_at').notNull(),
+    /** Device time of creation — mirrors the outbox ordering key. */
+    clientCreatedAtUtc: text('client_created_at_utc').notNull(),
+    createdAt: text('created_at').notNull(),
+    updatedAt: text('updated_at').notNull(),
+    /** Set once the server has acknowledged this row via sync; null = local-only. */
+    syncedAt: text('synced_at'),
+  },
+  (table) => [
+    index('activity_logs_farm_occurred_idx').on(table.farmId, table.occurredAt),
+  ],
+);
+
+export type ActivityLogRow = typeof activityLogs.$inferSelect;
+export type NewActivityLogRow = typeof activityLogs.$inferInsert;

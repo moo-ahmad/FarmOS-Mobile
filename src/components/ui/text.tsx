@@ -4,7 +4,8 @@ import { cn } from '@/lib/cn';
 
 export type TextVariant = 'title' | 'heading' | 'body' | 'label' | 'caption';
 
-export type TextTone = 'default' | 'muted' | 'primary' | 'danger' | 'inverse';
+export type TextTone =
+  'default' | 'muted' | 'primary' | 'danger' | 'warning' | 'inverse';
 
 const variantClass: Record<TextVariant, string> = {
   title: 'text-title font-bold',
@@ -19,6 +20,7 @@ const toneClass: Record<TextTone, string> = {
   muted: 'text-neutral-500 dark:text-neutral-400',
   primary: 'text-primary-700 dark:text-primary-400',
   danger: 'text-danger',
+  warning: 'text-warning',
   inverse: 'text-neutral-0',
 };
 
