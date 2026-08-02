@@ -29,6 +29,7 @@
       "expo-dev-client",
       "expo-background-task",
       "expo-secure-store",
+      "expo-localization",
       [
         "expo-splash-screen",
         {

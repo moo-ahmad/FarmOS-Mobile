@@ -46,6 +46,19 @@ Pre-commit runs `lint-staged` (eslint --fix + prettier) via Husky.
 - `sync/` — outbox + `/sync/batch` engine _(Phase 2)_
 - `api/` — generated OpenAPI types + client _(Phase 3)_
 - `features/` — vertical feature slices _(Phase 5)_
-- `i18n/`, `theme/` — localization (en/ur, RTL) + design tokens _(Phase 4)_
+- `i18n/` — i18next (en/ur) + RTL sync; `theme/` — design tokens
+- `components/ui/` — in-house kit (NativeWind): `Button`, `TextField`,
+  `NumericField`, `Text`, `Screen`
 
 Directories marked _(Phase N)_ are skeletons (`.gitkeep`) until that phase.
+
+## UI conventions
+
+- **NativeWind v4** for styling (`className`). Tailwind theme in
+  `tailwind.config.js` is the source of truth; `src/theme/tokens.ts` mirrors the
+  few values needed in JS. Under pnpm, `react-native-css-interop` must be a
+  direct dependency (Metro can't resolve NativeWind's JSX runtime otherwise).
+- **48px minimum tap targets** (`min-h-tap`) and **numeric keypad by default**
+  (`NumericField`) are requirements, baked into the kit — don't hand-roll inputs.
+- Numeric input pairs with the decimal helpers (`toMoney`/`toQuantity`); never
+  parse a field value as a JS `number`.
