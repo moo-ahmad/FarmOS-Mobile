@@ -11,5 +11,31 @@
     "signIn": "Sign in",
     "email": "Email",
     "password": "Password"
+  },
+  "validation": {
+    "required": "Required",
+    "positiveNumber": "Enter a number greater than zero",
+    "amount": "Enter a valid amount",
+    "tooLong": "Too long"
+  },
+  "activity": {
+    "title": "Log activity",
+    "recent": "Recent activity",
+    "empty": "No activity yet",
+    "pending": "Not synced",
+    "fields": {
+      "type": "Activity",
+      "quantity": "Quantity",
+      "unit": "Unit",
+      "cost": "Cost (optional)",
+      "notes": "Notes (optional)"
+    },
+    "types": {
+      "irrigation": "Irrigation",
+      "fertilizer": "Fertilizer",
+      "pesticide": "Pesticide",
+      "harvest": "Harvest",
+      "other": "Other"
+    }
   }
 }
