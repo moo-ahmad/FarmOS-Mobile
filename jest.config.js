@@ -42,7 +42,7 @@ module.exports = {
       // in the path (`.*`) instead, transforming the RN/Expo/NativeWind ESM that
       // ships untranspiled.
       transformIgnorePatterns: [
-        'node_modules/(?!.*(react-native|@react-native|@react-navigation|expo|@expo|@shopify|@gorhom|nativewind|react-native-css-interop|react-native-svg|sentry-expo|@sentry))',
+        'node_modules/(?!.*(react-native|@react-native|@react-navigation|expo|@expo|@shopify|@gorhom|nativewind|react-native-css-interop|react-native-svg|lucide-react-native|sentry-expo|@sentry))',
       ],
     },
   ],

@@ -3,6 +3,8 @@ import { fireEvent, render } from '@testing-library/react-native';
 
 import { Button } from './button';
 
+jest.mock('lucide-react-native', () => ({ ArrowRight: () => null }));
+
 jest.mock('expo-haptics', () => ({
   selectionAsync: jest.fn(),
   notificationAsync: jest.fn(),

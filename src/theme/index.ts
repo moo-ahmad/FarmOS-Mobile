@@ -1,7 +1,1 @@
-export {
-  palette,
-  lightTheme,
-  darkTheme,
-  MIN_TAP_TARGET,
-  type ThemeColors,
-} from './tokens';
+export { colors, fonts, rules, MIN_TAP_TARGET } from './tokens';

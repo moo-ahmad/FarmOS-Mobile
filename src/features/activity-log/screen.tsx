@@ -29,7 +29,7 @@ function ActivityLogItem({ log }: { log: ActivityLogRow }) {
           {log.cost ? ` · ${log.cost}` : ''}
         </Text>
         {log.syncedAt ? null : (
-          <Text variant="caption" tone="warning">
+          <Text variant="caption" tone="accent">
             {t('activity.pending')}
           </Text>
         )}

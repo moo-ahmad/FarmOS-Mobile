@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { TextInput, type TextInputProps, View } from 'react-native';
 
 import { cn } from '@/lib/cn';
+import { colors } from '@/theme';
 
 import { Text } from './text';
 
@@ -11,32 +13,52 @@ export interface TextFieldProps extends TextInputProps {
   containerClassName?: string;
 }
 
-/** Labelled text input with the 48px minimum tap target and error state. */
+/**
+ * Modernist text input: surface fill, a 1.5px border that goes ink on focus
+ * (accent on error), zero radius, set in Archivo.
+ */
 export function TextField({
   label,
   error,
   className,
   containerClassName,
+  onFocus,
+  onBlur,
   ...rest
 }: TextFieldProps) {
+  const [focused, setFocused] = useState(false);
+  const borderClass = error
+    ? 'border-accent'
+    : focused
+      ? 'border-ink'
+      : 'border-divider';
+
   return (
-    <View className={cn('gap-1', containerClassName)}>
+    <View className={cn('gap-1.5', containerClassName)}>
       {label ? (
-        <Text variant="label" tone="muted">
+        <Text variant="micro" tone="muted">
           {label}
         </Text>
       ) : null}
       <TextInput
-        placeholderTextColor="#94a3b8"
+        placeholderTextColor={colors.neutral[500]}
+        onFocus={(event) => {
+          setFocused(true);
+          onFocus?.(event);
+        }}
+        onBlur={(event) => {
+          setFocused(false);
+          onBlur?.(event);
+        }}
         className={cn(
-          'min-h-tap rounded-xl border border-neutral-200 px-4 text-body text-neutral-900 dark:border-neutral-700 dark:text-neutral-0',
-          error && 'border-danger',
+          'min-h-tap border-field bg-surface px-3 font-archivo text-body text-ink',
+          borderClass,
           className,
         )}
         {...rest}
       />
       {error ? (
-        <Text variant="caption" tone="danger">
+        <Text variant="caption" tone="accent">
           {error}
         </Text>
       ) : null}

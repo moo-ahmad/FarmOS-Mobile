@@ -9,7 +9,11 @@ export interface ScreenProps extends ViewProps {
   edgeToEdgeBottom?: boolean;
 }
 
-/** Safe-area screen container with the app background and default padding. */
+/**
+ * Safe-area screen container. Scroll bodies in the Modernist system are pure
+ * white; sections manage their own horizontal padding and dividers, so this
+ * adds none by default.
+ */
 export function Screen({
   className,
   style,
@@ -20,7 +24,7 @@ export function Screen({
   const insets = useSafeAreaInsets();
   return (
     <View
-      className={cn('flex-1 bg-neutral-0 px-4 dark:bg-neutral-950', className)}
+      className={cn('flex-1 bg-neutral-0', className)}
       style={[
         {
           paddingTop: insets.top,
