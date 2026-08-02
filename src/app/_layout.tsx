@@ -12,14 +12,18 @@ import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import AppTabs from '@/components/app-tabs';
 import { DatabaseGate } from '@/components/database-gate';
 import i18n, { syncLayoutDirection, type SupportedLanguage } from '@/i18n';
+import { initSentry, Sentry } from '@/lib/observability/sentry';
 import { QueryProvider } from '@/lib/query';
+
+// Initialise crash reporting before anything else can throw.
+initSentry();
 
 SplashScreen.preventAutoHideAsync();
 
 // Align native layout direction (LTR/RTL) with the resolved language at startup.
 syncLayoutDirection(i18n.language as SupportedLanguage);
 
-export default function TabLayout() {
+function TabLayout() {
   const colorScheme = useColorScheme();
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
@@ -36,3 +40,7 @@ export default function TabLayout() {
     </GestureHandlerRootView>
   );
 }
+
+// Sentry.wrap enables native crash context, performance tracing, and the
+// error boundary. It's a no-op reporting-wise until a DSN is configured.
+export default Sentry.wrap(TabLayout);

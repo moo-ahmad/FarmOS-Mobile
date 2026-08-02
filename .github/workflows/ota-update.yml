@@ -1,0 +1,47 @@
+name: OTA update
+
+# Ships a JS-only (over-the-air) update to an EAS Update channel without a new
+# store build. Manually dispatched so production updates are always deliberate.
+on:
+  workflow_dispatch:
+    inputs:
+      channel:
+        description: EAS Update channel to publish to
+        type: choice
+        options: [preview, production]
+        default: preview
+      message:
+        description: Update message
+        type: string
+        required: true
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: '0'
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check EXPO_TOKEN is set
+        run: test -n "$EXPO_TOKEN" || { echo "EXPO_TOKEN secret is missing"; exit 1; }
+
+      - name: Publish EAS Update
+        run: >
+          pnpm dlx eas-cli update
+          --channel "${{ inputs.channel }}"
+          --message "${{ inputs.message }}"
+          --non-interactive
+        env:
+          APP_ENV: ${{ inputs.channel }}

@@ -1,0 +1,33 @@
+name: Release build
+
+# Triggers a production EAS Build when a version tag is pushed (e.g. v1.2.0).
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: '0'
+      EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check EXPO_TOKEN is set
+        run: test -n "$EXPO_TOKEN" || { echo "EXPO_TOKEN secret is missing"; exit 1; }
+
+      # The EAS build itself runs in Expo's cloud; this only uploads and triggers
+      # it (--no-wait), so the workflow finishes fast.
+      - name: EAS build (Android, production)
+        run: pnpm dlx eas-cli build --platform android --profile production --non-interactive --no-wait

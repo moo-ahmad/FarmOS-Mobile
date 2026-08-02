@@ -7,6 +7,10 @@
     "icon": "./assets/images/icon.png",
     "scheme": "farmos",
     "userInterfaceStyle": "automatic",
+    "runtimeVersion": { "policy": "appVersion" },
+    "updates": {
+      "url": "https://u.expo.dev/c6867146-4602-4824-a6b6-cbe11580db8a"
+    },
     "ios": {
       "icon": "./assets/expo.icon",
       "supportsTablet": true
