@@ -71,10 +71,11 @@ export const syncMeta = sqliteTable('sync_meta', {
 export type SyncMetaRow = typeof syncMeta.$inferSelect;
 
 /**
- * Activity log — the first domain aggregate (Phase 5). A record of a field
- * activity (irrigation, input application, harvest...). `quantity` and `cost`
- * are decimal strings stored as TEXT, never REAL. The enum literals mirror
- * src/features/activity-log/model.ts — keep the two in sync.
+ * Activity log — the first domain aggregate (Phase 5), rebuilt (Log Activity,
+ * canvas `1a` frame 6) to match the design exactly: an operation on a
+ * field/crop, with a spray's product/dose/water/PHI details when relevant.
+ * `doseValue`/`waterValue` are decimal strings (Quantity) — never REAL. The
+ * enum literals mirror src/features/activity-log/model.ts — keep in sync.
  */
 export const activityLogs = sqliteTable(
   'activity_logs',
@@ -82,17 +83,25 @@ export const activityLogs = sqliteTable(
     /** Client-generated UUIDv7, becomes the server PublicId. */
     id: text('id').primaryKey(),
     farmId: text('farm_id').notNull(),
-    activityType: text('activity_type', {
-      enum: ['irrigation', 'fertilizer', 'pesticide', 'harvest', 'other'],
+    operation: text('operation', {
+      enum: ['irrigation', 'spray', 'fertilizer', 'weeding'],
     }).notNull(),
-    /** Quantity (decimal string). */
-    quantity: text('quantity').notNull(),
-    unit: text('unit', {
-      enum: ['kg', 'L', 'bag', 'hour', 'acre'],
-    }).notNull(),
-    /** Money (decimal string); null if no cost recorded. */
-    cost: text('cost'),
-    notes: text('notes'),
+    /** Denormalized field/crop snapshot — fields aren't a synced table yet. */
+    fieldCode: text('field_code').notNull(),
+    cropLabel: text('crop_label').notNull(),
+    /** Spray only: product name, dose/acre and water volume (Quantity strings). */
+    product: text('product'),
+    doseValue: text('dose_value'),
+    doseUnit: text('dose_unit'),
+    waterValue: text('water_value'),
+    waterUnit: text('water_unit'),
+    /** Ambient conditions captured at spray time — informational, not editable. */
+    conditionsTempC: integer('conditions_temp_c'),
+    conditionsWindKph: integer('conditions_wind_kph'),
+    conditionsPpe: integer('conditions_ppe', { mode: 'boolean' }),
+    /** Pre-harvest interval, computed and stored at save time (UTC ISO + days). */
+    safeHarvestDate: text('safe_harvest_date'),
+    phiDays: integer('phi_days'),
     /** When the activity happened (UTC ISO), farmer-editable. */
     occurredAt: text('occurred_at').notNull(),
     /** Device time of creation — mirrors the outbox ordering key. */

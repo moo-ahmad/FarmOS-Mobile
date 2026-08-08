@@ -14,6 +14,8 @@ export { TextField, type TextFieldProps } from './text-field';
 export { NumericField, type NumericFieldProps } from './numeric-field';
 export { Screen, type ScreenProps } from './screen';
 export { AppHeader, type AppHeaderProps } from './app-header';
+export { CaptureHeader, type CaptureHeaderProps } from './capture-header';
+export { CaptureFooter, type CaptureFooterProps } from './capture-footer';
 
 export { Rule, Divider, TotalRule } from './rule';
 export { Kicker, MicroLabel, HeroFigure, type HeroFigureProps } from './labels';

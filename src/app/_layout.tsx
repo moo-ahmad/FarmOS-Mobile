@@ -3,6 +3,7 @@ import 'react-native-get-random-values';
 // Load Tailwind/NativeWind styles at the app root.
 import '@/global.css';
 
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
@@ -44,7 +45,30 @@ function RootLayout() {
             <AnimatedSplashOverlay />
             <StatusBar style="dark" />
             <FontGate>
-              <Stack screenOptions={{ headerShown: false }} />
+              <BottomSheetModalProvider>
+                <Stack screenOptions={{ headerShown: false }}>
+                  <Stack.Screen
+                    name="capture/index"
+                    options={{ presentation: 'modal' }}
+                  />
+                  <Stack.Screen
+                    name="capture/activity"
+                    options={{ presentation: 'modal' }}
+                  />
+                  <Stack.Screen
+                    name="capture/harvest"
+                    options={{ presentation: 'modal' }}
+                  />
+                  <Stack.Screen
+                    name="capture/expense"
+                    options={{ presentation: 'modal' }}
+                  />
+                  <Stack.Screen
+                    name="capture/attendance"
+                    options={{ presentation: 'modal' }}
+                  />
+                </Stack>
+              </BottomSheetModalProvider>
             </FontGate>
           </SessionProvider>
         </ThemeProvider>

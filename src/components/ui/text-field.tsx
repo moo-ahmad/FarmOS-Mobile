@@ -65,7 +65,10 @@ export function TextField({
             setFocused(false);
             onBlur?.(event);
           }}
-          className={cn('flex-1 font-archivo text-body text-ink', className)}
+          className={cn(
+            'flex-1 font-archivo-bold text-body text-ink',
+            className,
+          )}
           {...rest}
         />
         {trailing}

@@ -84,7 +84,7 @@ export function ChipRow<T extends string>({
             onPress={() => onChange(option)}
             className={cn(
               'min-h-tap justify-center border-field px-3.5',
-              selected ? 'border-accent bg-accent' : 'border-divider',
+              selected ? 'border-ink bg-accent' : 'border-divider',
             )}
           >
             <Text

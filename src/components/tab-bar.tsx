@@ -71,8 +71,8 @@ function CaptureFab() {
   return (
     <Pressable
       accessibilityRole="button"
-      accessibilityLabel="Log activity"
-      onPress={() => router.push('/activity')}
+      accessibilityLabel="Quick capture"
+      onPress={() => router.push('/capture')}
       className="flex-1 items-center justify-center"
     >
       <View className="-mt-0.5 h-11 w-11 items-center justify-center bg-accent">
@@ -88,9 +88,9 @@ function CaptureFab() {
  * the center slot is a 44×44 red square (quick-capture), not a labeled tab.
  *
  * Built as a plain component (not React Navigation's tabBar customization)
- * since the center FAB isn't a route — pressing it pushes /activity directly
- * and never becomes "active". Tab presses use router.replace so switching
- * tabs doesn't grow the back stack.
+ * since the center FAB isn't a route — pressing it opens the quick-capture
+ * chooser modal and never becomes "active". Tab presses use router.replace so
+ * switching tabs doesn't grow the back stack.
  */
 export function TabBar() {
   const pathname = usePathname();

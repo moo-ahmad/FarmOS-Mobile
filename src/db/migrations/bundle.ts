@@ -12,15 +12,15 @@ const bundle = {
       },
       {
         "idx": 1,
-        "when": 1785647816965,
-        "tag": "0001_magenta_warbound",
+        "when": 1786214483086,
+        "tag": "0001_lively_master_mold",
         "breakpoints": true
       }
     ]
   },
   "migrations": {
     "m0000": "CREATE TABLE `outbox` (\r\n\t`id` text PRIMARY KEY NOT NULL,\r\n\t`entity_type` text NOT NULL,\r\n\t`entity_id` text NOT NULL,\r\n\t`op_type` text NOT NULL,\r\n\t`payload` text,\r\n\t`status` text DEFAULT 'pending' NOT NULL,\r\n\t`attempts` integer DEFAULT 0 NOT NULL,\r\n\t`last_error` text,\r\n\t`batch_id` text,\r\n\t`client_created_at_utc` text NOT NULL,\r\n\t`created_at` text NOT NULL,\r\n\t`updated_at` text NOT NULL\r\n);\r\n--> statement-breakpoint\r\nCREATE INDEX `outbox_status_client_created_idx` ON `outbox` (`status`,`client_created_at_utc`);--> statement-breakpoint\r\nCREATE INDEX `outbox_entity_idx` ON `outbox` (`entity_type`,`entity_id`);--> statement-breakpoint\r\nCREATE TABLE `sync_meta` (\r\n\t`key` text PRIMARY KEY NOT NULL,\r\n\t`value` text NOT NULL,\r\n\t`updated_at` text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ','now')) NOT NULL\r\n);\r\n",
-    "m0001": "CREATE TABLE `activity_logs` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`farm_id` text NOT NULL,\n\t`activity_type` text NOT NULL,\n\t`quantity` text NOT NULL,\n\t`unit` text NOT NULL,\n\t`cost` text,\n\t`notes` text,\n\t`occurred_at` text NOT NULL,\n\t`client_created_at_utc` text NOT NULL,\n\t`created_at` text NOT NULL,\n\t`updated_at` text NOT NULL,\n\t`synced_at` text\n);\n--> statement-breakpoint\nCREATE INDEX `activity_logs_farm_occurred_idx` ON `activity_logs` (`farm_id`,`occurred_at`);"
+    "m0001": "CREATE TABLE `activity_logs` (\n\t`id` text PRIMARY KEY NOT NULL,\n\t`farm_id` text NOT NULL,\n\t`operation` text NOT NULL,\n\t`field_code` text NOT NULL,\n\t`crop_label` text NOT NULL,\n\t`product` text,\n\t`dose_value` text,\n\t`dose_unit` text,\n\t`water_value` text,\n\t`water_unit` text,\n\t`conditions_temp_c` integer,\n\t`conditions_wind_kph` integer,\n\t`conditions_ppe` integer,\n\t`safe_harvest_date` text,\n\t`phi_days` integer,\n\t`occurred_at` text NOT NULL,\n\t`client_created_at_utc` text NOT NULL,\n\t`created_at` text NOT NULL,\n\t`updated_at` text NOT NULL,\n\t`synced_at` text\n);\n--> statement-breakpoint\nCREATE INDEX `activity_logs_farm_occurred_idx` ON `activity_logs` (`farm_id`,`occurred_at`);"
   }
 };
 

@@ -3,21 +3,21 @@ import { Pressable, View } from 'react-native';
 import { Tag, Text } from '@/components/ui';
 import { colors } from '@/theme';
 
-import type { Reminder } from '../fixtures';
+import type { Reminder, ReminderTarget } from '../fixtures';
 
 export interface ReminderRowProps {
   reminder: Reminder;
-  /** Called only when the reminder references a field (reminder.fieldCode is set). */
-  onOpenField?: (fieldCode: string) => void;
+  /** Called only when the reminder has a target (reminder.target is set). */
+  onNavigate?: (target: ReminderTarget) => void;
 }
 
 /**
- * One reminder row: icon (red if critical), title/sub, trailing tag. Rows that
- * reference a field are tappable and open it; others are static (the design's
+ * One reminder row: icon (red if critical), title/sub, trailing tag. Rows with
+ * a target are tappable and navigate there; others are static (the design's
  * broader per-type actions — Assign/Pay/Verify/Plan — aren't built yet).
  */
-export function ReminderRow({ reminder, onOpenField }: ReminderRowProps) {
-  const { Icon, fieldCode } = reminder;
+export function ReminderRow({ reminder, onNavigate }: ReminderRowProps) {
+  const { Icon, target } = reminder;
   const content = (
     <>
       <Icon
@@ -37,11 +37,11 @@ export function ReminderRow({ reminder, onOpenField }: ReminderRowProps) {
 
   const className = 'flex-row items-center gap-3 px-4 py-3';
 
-  if (fieldCode) {
+  if (target) {
     return (
       <Pressable
         accessibilityRole="button"
-        onPress={() => onOpenField?.(fieldCode)}
+        onPress={() => onNavigate?.(target)}
         className={className}
       >
         {content}

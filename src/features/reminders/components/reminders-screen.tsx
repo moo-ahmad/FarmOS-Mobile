@@ -9,7 +9,7 @@ import {
   Text,
 } from '@/components/ui';
 
-import { reminders as allReminders } from '../fixtures';
+import { reminders as allReminders, type ReminderTarget } from '../fixtures';
 import { filterAndGroupReminders } from '../group-reminders';
 import { REMINDER_FILTERS, URGENCY_LABEL, type ReminderFilter } from '../model';
 import { GroupHeader } from './group-header';
@@ -31,10 +31,10 @@ const FILTER_OPTIONS = REMINDER_FILTERS.map((value) => ({
  * can't express.
  */
 export interface RemindersScreenProps {
-  onOpenField?: (fieldCode: string) => void;
+  onNavigate?: (target: ReminderTarget) => void;
 }
 
-export function RemindersScreen({ onOpenField }: RemindersScreenProps) {
+export function RemindersScreen({ onNavigate }: RemindersScreenProps) {
   const [filter, setFilter] = useState<ReminderFilter>('all');
   const openCount = useMemo(
     () => allReminders.filter((r) => r.status === 'open').length,
@@ -87,7 +87,7 @@ export function RemindersScreen({ onOpenField }: RemindersScreenProps) {
                   index === group.items.length - 1;
                 return (
                   <View key={item.id}>
-                    <ReminderRow reminder={item} onOpenField={onOpenField} />
+                    <ReminderRow reminder={item} onNavigate={onNavigate} />
                     {isLastOverall ? null : <Divider className="mx-4" />}
                   </View>
                 );

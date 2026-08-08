@@ -2,7 +2,7 @@ export {
   RemindersScreen,
   type RemindersScreenProps,
 } from './components/reminders-screen';
-export { reminders, type Reminder } from './fixtures';
+export { reminders, type Reminder, type ReminderTarget } from './fixtures';
 export {
   REMINDER_FILTERS,
   URGENCY_LABEL,
