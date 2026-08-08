@@ -3,9 +3,9 @@ import 'react-native-get-random-values';
 // Load Tailwind/NativeWind styles at the app root.
 import '@/global.css';
 
-import { DarkTheme, DefaultTheme, Stack, ThemeProvider } from 'expo-router';
+import { DefaultTheme, Stack, ThemeProvider } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import { AnimatedSplashOverlay } from '@/components/animated-icon';
@@ -27,17 +27,22 @@ syncLayoutDirection(i18n.language as SupportedLanguage);
  * Root layout. Always renders the root <Stack> navigator (Expo Router requires
  * it); the `login` route and the `(tabs)` group each redirect based on session.
  * FontGate holds render (keeping the splash up) until Archivo is loaded.
+ *
+ * The Modernist design has no dark-mode variant — every screen is a light
+ * (paper/white) background with dark ink text — so the app is locked to light
+ * appearance (`userInterfaceStyle: "light"` in app.json) and the status bar is
+ * forced to dark (visible) icons here, rather than following the system theme.
+ * Letting either follow the device's dark mode is what caused the status bar
+ * icons to render invisible (white-on-white).
  */
 function RootLayout() {
-  const colorScheme = useColorScheme();
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <QueryProvider>
-        <ThemeProvider
-          value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
-        >
+        <ThemeProvider value={DefaultTheme}>
           <SessionProvider>
             <AnimatedSplashOverlay />
+            <StatusBar style="dark" />
             <FontGate>
               <Stack screenOptions={{ headerShown: false }} />
             </FontGate>
