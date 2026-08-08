@@ -1,74 +1,65 @@
-import { FlashList } from '@shopify/flash-list';
-import { useTranslation } from 'react-i18next';
-import { View } from 'react-native';
+import { useRef } from 'react';
+import { ScrollView } from 'react-native';
 
-import { Screen, Text } from '@/components/ui';
-import type { ActivityLogRow } from '@/db/schema';
-import { formatInTimeZone } from '@/lib/datetime';
+import { Button, CaptureFooter, CaptureHeader, Screen } from '@/components/ui';
+import type { CropCycle } from '@/features/home';
 import { getCurrentFarmId } from '@/lib/farm';
 
-import { ActivityLogForm } from './components/activity-log-form';
-import { useActivityLogs, useCreateActivityLog } from './hooks';
+import {
+  ActivityLogForm,
+  type ActivityLogFormHandle,
+} from './components/activity-log-form';
+import { useCreateActivityLog } from './hooks';
+import type { Operation } from './model';
 
-// Provisional until the farm's timezone comes from the API.
-const FARM_TIME_ZONE = 'Asia/Karachi';
-
-function ActivityLogItem({ log }: { log: ActivityLogRow }) {
-  const { t } = useTranslation();
-  return (
-    <View className="rounded-xl border border-neutral-200 p-3 dark:border-neutral-800">
-      <View className="flex-row items-center justify-between">
-        <Text variant="label">{t(`activity.types.${log.activityType}`)}</Text>
-        <Text variant="body">
-          {log.quantity} {log.unit}
-        </Text>
-      </View>
-      <View className="mt-1 flex-row items-center justify-between">
-        <Text variant="caption" tone="muted">
-          {formatInTimeZone(log.occurredAt, FARM_TIME_ZONE)}
-          {log.cost ? ` · ${log.cost}` : ''}
-        </Text>
-        {log.syncedAt ? null : (
-          <Text variant="caption" tone="accent">
-            {t('activity.pending')}
-          </Text>
-        )}
-      </View>
-      {log.notes ? (
-        <Text variant="caption" tone="muted" className="mt-1">
-          {log.notes}
-        </Text>
-      ) : null}
-    </View>
-  );
+export interface ActivityLogScreenProps {
+  onClose: () => void;
+  /** Called after the entry is saved — the route decides where to go next. */
+  onSaved: () => void;
+  /** Pre-fills the field/crop selector — the reminder deep-link path. */
+  initialCycle?: CropCycle;
+  /** Pre-selects the operation chip — also part of the deep-link path. */
+  initialOperation?: Operation;
 }
 
-export function ActivityLogScreen() {
-  const { t } = useTranslation();
+/**
+ * Log Activity (canvas `1a`, frame 6): a capture modal. ✕ dismisses; the
+ * footer button saves the entry (writes locally + enqueues for sync) and
+ * returns to the screen the FAB/deep-link was opened from.
+ */
+export function ActivityLogScreen({
+  onClose,
+  onSaved,
+  initialCycle,
+  initialOperation,
+}: ActivityLogScreenProps) {
   const farmId = getCurrentFarmId();
-  const { data } = useActivityLogs(farmId);
   const create = useCreateActivityLog(farmId);
+  const formRef = useRef<ActivityLogFormHandle>(null);
 
   return (
-    <Screen>
-      <FlashList
-        data={data ?? []}
-        keyExtractor={(item) => item.id}
-        ListHeaderComponent={
-          <View className="gap-4 py-4">
-            <Text variant="title">{t('activity.title')}</Text>
-            <ActivityLogForm
-              onSubmit={(values) => create.mutate(values)}
-              submitting={create.isPending}
-            />
-            <Text variant="heading">{t('activity.recent')}</Text>
-          </View>
-        }
-        ListEmptyComponent={<Text tone="muted">{t('activity.empty')}</Text>}
-        ItemSeparatorComponent={() => <View className="h-2" />}
-        renderItem={({ item }) => <ActivityLogItem log={item} />}
-        contentContainerStyle={{ paddingBottom: 24 }}
+    <Screen edgeToEdgeBottom={false}>
+      <CaptureHeader
+        kicker="New entry"
+        title="Log activity"
+        onClose={onClose}
       />
+      <ScrollView className="bg-neutral-0">
+        <ActivityLogForm
+          ref={formRef}
+          initialCycle={initialCycle}
+          initialOperation={initialOperation}
+          onSubmit={(values) => create.mutate(values, { onSuccess: onSaved })}
+        />
+      </ScrollView>
+      <CaptureFooter>
+        <Button
+          title="Log activity"
+          haptic="success"
+          loading={create.isPending}
+          onPress={() => formRef.current?.submit()}
+        />
+      </CaptureFooter>
     </Screen>
   );
 }

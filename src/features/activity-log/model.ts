@@ -1,25 +1,30 @@
 /**
- * Activity-log domain vocabulary. These enum literals must stay in sync with the
- * `activity_logs` table in src/db/schema.ts.
+ * Activity-log domain vocabulary (Log Activity, canvas `1a` frame 6). These
+ * enum literals must stay in sync with the `activity_logs` table in
+ * src/db/schema.ts.
  */
 
-export const ACTIVITY_TYPES = [
+export const OPERATIONS = [
   'irrigation',
+  'spray',
   'fertilizer',
-  'pesticide',
-  'harvest',
-  'other',
+  'weeding',
 ] as const;
-export type ActivityType = (typeof ACTIVITY_TYPES)[number];
+export type Operation = (typeof OPERATIONS)[number];
 
-export const UNITS = ['kg', 'L', 'bag', 'hour', 'acre'] as const;
-export type Unit = (typeof UNITS)[number];
-
-/** i18n keys for activity-type labels (units are symbols, shown as-is). */
-export const ACTIVITY_TYPE_TKEY: Record<ActivityType, string> = {
-  irrigation: 'activity.types.irrigation',
-  fertilizer: 'activity.types.fertilizer',
-  pesticide: 'activity.types.pesticide',
-  harvest: 'activity.types.harvest',
-  other: 'activity.types.other',
+export const OPERATION_LABEL: Record<Operation, string> = {
+  irrigation: 'Irrigation',
+  spray: 'Spray',
+  fertilizer: 'Fertilizer',
+  weeding: 'Weeding',
 };
+
+/** Only a spray records a product/dose/water/PHI — the rest just log the operation. */
+export function requiresSprayDetails(operation: Operation): boolean {
+  return operation === 'spray';
+}
+
+// Fixed units for now — the design shows no unit picker, only a filled example
+// ("200 ml", "120 L"). Revisit if products with other units are added.
+export const DOSE_UNIT = 'ml';
+export const WATER_UNIT = 'L';

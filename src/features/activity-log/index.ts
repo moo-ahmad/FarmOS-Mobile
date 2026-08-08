@@ -1,5 +1,9 @@
-export { ActivityLogScreen } from './screen';
-export { ActivityLogForm } from './components/activity-log-form';
+export { ActivityLogScreen, type ActivityLogScreenProps } from './screen';
+export {
+  ActivityLogForm,
+  type ActivityLogFormProps,
+  type ActivityLogFormHandle,
+} from './components/activity-log-form';
 export {
   useActivityLogs,
   useCreateActivityLog,
@@ -16,9 +20,12 @@ export {
   type ActivityLogSyncPayload,
 } from './payload';
 export {
-  ACTIVITY_TYPES,
-  UNITS,
-  ACTIVITY_TYPE_TKEY,
-  type ActivityType,
-  type Unit,
+  OPERATIONS,
+  OPERATION_LABEL,
+  DOSE_UNIT,
+  WATER_UNIT,
+  requiresSprayDetails,
+  type Operation,
 } from './model';
+export { PRODUCT_PHI_DAYS, lookupPhiDays, computeSafeHarvestDate } from './phi';
+export { currentConditions } from './fixtures';

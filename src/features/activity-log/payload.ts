@@ -8,11 +8,19 @@ import type { ActivityLogRow } from '@/db/schema';
 export interface ActivityLogSyncPayload {
   publicId: string;
   farmId: string;
-  activityType: string;
-  quantity: string;
-  unit: string;
-  cost: string | null;
-  notes: string | null;
+  operation: string;
+  fieldCode: string;
+  cropLabel: string;
+  product: string | null;
+  doseValue: string | null;
+  doseUnit: string | null;
+  waterValue: string | null;
+  waterUnit: string | null;
+  conditionsTempC: number | null;
+  conditionsWindKph: number | null;
+  conditionsPpe: boolean | null;
+  safeHarvestDate: string | null;
+  phiDays: number | null;
   occurredAt: string;
   clientCreatedAtUtc: string;
 }
@@ -23,11 +31,19 @@ export function toActivityLogSyncPayload(
   return {
     publicId: row.id,
     farmId: row.farmId,
-    activityType: row.activityType,
-    quantity: row.quantity,
-    unit: row.unit,
-    cost: row.cost,
-    notes: row.notes,
+    operation: row.operation,
+    fieldCode: row.fieldCode,
+    cropLabel: row.cropLabel,
+    product: row.product,
+    doseValue: row.doseValue,
+    doseUnit: row.doseUnit,
+    waterValue: row.waterValue,
+    waterUnit: row.waterUnit,
+    conditionsTempC: row.conditionsTempC,
+    conditionsWindKph: row.conditionsWindKph,
+    conditionsPpe: row.conditionsPpe,
+    safeHarvestDate: row.safeHarvestDate,
+    phiDays: row.phiDays,
     occurredAt: row.occurredAt,
     clientCreatedAtUtc: row.clientCreatedAtUtc,
   };

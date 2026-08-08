@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "59a77548-056e-4ef6-8da1-3b8e140609c1",
+  "id": "b5ec63f3-8c97-4efa-9ac0-6febfdb9c239",
   "prevId": "0975ec70-d1c9-403d-96d0-894781d7617c",
   "tables": {
     "activity_logs": {
@@ -21,37 +21,93 @@
           "notNull": true,
           "autoincrement": false
         },
-        "activity_type": {
-          "name": "activity_type",
+        "operation": {
+          "name": "operation",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "quantity": {
-          "name": "quantity",
+        "field_code": {
+          "name": "field_code",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "unit": {
-          "name": "unit",
+        "crop_label": {
+          "name": "crop_label",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "cost": {
-          "name": "cost",
+        "product": {
+          "name": "product",
           "type": "text",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
         },
-        "notes": {
-          "name": "notes",
+        "dose_value": {
+          "name": "dose_value",
           "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "dose_unit": {
+          "name": "dose_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "water_value": {
+          "name": "water_value",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "water_unit": {
+          "name": "water_unit",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "conditions_temp_c": {
+          "name": "conditions_temp_c",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "conditions_wind_kph": {
+          "name": "conditions_wind_kph",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "conditions_ppe": {
+          "name": "conditions_ppe",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "safe_harvest_date": {
+          "name": "safe_harvest_date",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false
+        },
+        "phi_days": {
+          "name": "phi_days",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

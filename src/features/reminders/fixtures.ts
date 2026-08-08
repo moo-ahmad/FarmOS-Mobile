@@ -13,6 +13,11 @@ import type { TagVariant } from '@/components/ui';
 
 import type { ReminderStatus, ReminderUrgency } from './model';
 
+/** Where tapping a reminder should navigate — see reminders-screen.tsx. */
+export type ReminderTarget =
+  | { kind: 'field'; fieldCode: string }
+  | { kind: 'logActivity'; fieldCode: string; operation: string };
+
 /**
  * Sample data for the Reminders screen (canvas `1a`, frame 3). Stands in for
  * the derived reminders domain (see src/features/home/fixtures.ts for the
@@ -29,8 +34,8 @@ export interface Reminder {
   critical: boolean;
   tagLabel: string;
   tagVariant: TagVariant;
-  /** Set when this reminder references a specific field — makes the row tappable. */
-  fieldCode?: string;
+  /** Set when this reminder references a field/action — makes the row tappable. */
+  target?: ReminderTarget;
 }
 
 export const reminders: Reminder[] = [
@@ -44,7 +49,8 @@ export const reminders: Reminder[] = [
     critical: true,
     tagLabel: '−2d',
     tagVariant: 'solid',
-    fieldCode: 'F1',
+    // Irrigation is an activity to perform — deep-links into Log Activity.
+    target: { kind: 'logActivity', fieldCode: 'F1', operation: 'irrigation' },
   },
   {
     id: 'reminder-wages',
@@ -67,7 +73,7 @@ export const reminders: Reminder[] = [
     critical: false,
     tagLabel: 'Today',
     tagVariant: 'accent',
-    fieldCode: 'F3',
+    target: { kind: 'field', fieldCode: 'F3' },
   },
   {
     id: 'reminder-reorder',
@@ -90,7 +96,8 @@ export const reminders: Reminder[] = [
     critical: false,
     tagLabel: 'Today',
     tagVariant: 'accent',
-    fieldCode: 'F1',
+    // Applying fertilizer is an activity to perform — deep-links into Log Activity.
+    target: { kind: 'logActivity', fieldCode: 'F1', operation: 'fertilizer' },
   },
   {
     id: 'reminder-machinery',
@@ -113,6 +120,6 @@ export const reminders: Reminder[] = [
     critical: false,
     tagLabel: 'Sun',
     tagVariant: 'neutral',
-    fieldCode: 'F3',
+    target: { kind: 'field', fieldCode: 'F3' },
   },
 ];
