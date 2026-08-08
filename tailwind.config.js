@@ -102,6 +102,7 @@ module.exports = {
         label: ['14px', '18px'],
         row: ['14px', '18px'],
         heading: ['20px', '24px'],
+        'title-sm': ['22px', '24px'],
         title: ['26px', '30px'],
         hero: ['38px', '40px'],
         'hero-lg': ['44px', '46px'],

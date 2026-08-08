@@ -16,6 +16,8 @@ export interface AppHeaderProps {
   right?: ReactNode;
   /** When set, shows a back chevron on the left (detail screens). */
   onBack?: () => void;
+  /** 22px title instead of 26px — for drill-in detail screens like Crop P&L. */
+  compact?: boolean;
   className?: string;
 }
 
@@ -28,6 +30,7 @@ export function AppHeader({
   title,
   right,
   onBack,
+  compact = false,
   className,
 }: AppHeaderProps) {
   return (
@@ -49,7 +52,7 @@ export function AppHeader({
       ) : null}
       <View className="flex-1">
         {kicker ? <Kicker>{kicker}</Kicker> : null}
-        <Text variant="title">{title}</Text>
+        <Text variant={compact ? 'title-sm' : 'title'}>{title}</Text>
       </View>
       {right}
     </View>
