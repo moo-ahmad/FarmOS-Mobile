@@ -12,6 +12,18 @@
     "email": "Email",
     "password": "Password"
   },
+  "login": {
+    "tagline": "Field operations, cost allocation and a trustworthy per-crop P&L — in your pocket.",
+    "identifier": "Email or phone",
+    "password": "Password",
+    "togglePassword": "Toggle password visibility",
+    "forgotPassword": "Forgot password",
+    "signIn": "Sign in",
+    "fieldWorker": "Field worker",
+    "pinTitle": "Quick sign-in with PIN",
+    "pinSub": "Capture-only field mode",
+    "footer": "Greenfield Farms · v1.0"
+  },
   "validation": {
     "required": "Required",
     "positiveNumber": "Enter a number greater than zero",

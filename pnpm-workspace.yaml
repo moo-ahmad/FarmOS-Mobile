@@ -1,4 +1,10 @@
-# pnpm settings (pnpm 11 reads build-script approvals from here, not package.json).
+# pnpm settings (pnpm 11 reads these here, not from .npmrc / package.json).
+
+# Flat node_modules (no symlinks/.pnpm nesting). React Native's Metro and the
+# native (CMake/NDK) build both resolve realpaths; the deep .pnpm store paths
+# otherwise blow past Windows' CMake object-path limit on native builds.
+nodeLinker: hoisted
+
 # Native postinstall build scripts are blocked by default; allow the ones we trust.
 allowBuilds:
   '@sentry/cli': true
