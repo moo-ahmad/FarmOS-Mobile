@@ -1,4 +1,3 @@
-import { zodResolver } from '@hookform/resolvers/zod';
 import { Eye, EyeOff, Lock } from 'lucide-react-native';
 import { useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -16,7 +15,7 @@ import {
 } from '@/components/ui';
 import { colors } from '@/theme';
 
-import { loginSchema, type LoginValues } from '../schema';
+import type { LoginValues } from '../schema';
 
 export interface LoginScreenProps {
   onSubmit: (values: LoginValues) => void;
@@ -35,12 +34,15 @@ export function LoginScreen({
 }: LoginScreenProps) {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
+  // No resolver: sign-in is a stub until the backend exists (see app/login.tsx),
+  // so the form intentionally skips validation — pressing "Sign in" always
+  // proceeds. Re-add `resolver: zodResolver(loginSchema)` when wiring the
+  // real API.
   const {
     control,
-    handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
     defaultValues: { identifier: '', password: '' },
   });
 
@@ -139,7 +141,7 @@ export function LoginScreen({
             <Button
               title={t('login.signIn')}
               loading={submitting}
-              onPress={handleSubmit(onSubmit)}
+              onPress={() => onSubmit(getValues())}
             />
           </View>
 

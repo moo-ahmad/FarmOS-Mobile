@@ -1,23 +1,15 @@
 import { Redirect } from 'expo-router';
 
-import { LoginScreen, useSession, useSignIn } from '@/features/auth';
+import { LoginScreen, useSession } from '@/features/auth';
 
-/** Manager sign-in. Redirects into the app once a session is open. */
+// TEMPORARY: bypasses the real POST /api/auth/login (see useSignIn) until the
+// backend is wired up. Sign in just opens a session and redirects home.
 export default function LoginRoute() {
-  const { signedIn } = useSession();
-  const signIn = useSignIn();
+  const { signedIn, signIn } = useSession();
 
   if (signedIn) {
     return <Redirect href="/" />;
   }
 
-  return (
-    <LoginScreen
-      onSubmit={(values) => signIn.mutate(values)}
-      submitting={signIn.isPending}
-      errorMessage={
-        signIn.isError ? (signIn.error as Error).message : undefined
-      }
-    />
-  );
+  return <LoginScreen onSubmit={() => signIn('manager')} />;
 }
