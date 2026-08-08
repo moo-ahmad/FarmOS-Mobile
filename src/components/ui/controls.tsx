@@ -15,6 +15,8 @@ export interface SegmentedControlProps<T extends string> {
   onChange: (value: T) => void;
   /** This option renders selected in ink instead of red (e.g. "Absent"). */
   negativeValue?: T;
+  /** Smaller 11px label — used for compact controls like Expense's "Paid by". */
+  compact?: boolean;
   className?: string;
 }
 
@@ -24,6 +26,7 @@ export function SegmentedControl<T extends string>({
   value,
   onChange,
   negativeValue,
+  compact = false,
   className,
 }: SegmentedControlProps<T>) {
   return (
@@ -45,7 +48,10 @@ export function SegmentedControl<T extends string>({
           >
             <Text
               tone={selected ? 'inverse' : 'default'}
-              className="font-archivo-medium text-label"
+              className={cn(
+                'font-archivo-medium',
+                compact ? 'text-caption' : 'text-label',
+              )}
             >
               {option.label}
             </Text>

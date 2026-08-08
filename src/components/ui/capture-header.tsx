@@ -1,4 +1,5 @@
 import { X } from 'lucide-react-native';
+import type { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 
 import { cn } from '@/lib/cn';
@@ -11,6 +12,8 @@ export interface CaptureHeaderProps {
   kicker: string;
   title: string;
   onClose: () => void;
+  /** Right-aligned slot, e.g. Attendance's "6 / 8" count. */
+  right?: ReactNode;
   className?: string;
 }
 
@@ -23,6 +26,7 @@ export function CaptureHeader({
   kicker,
   title,
   onClose,
+  right,
   className,
 }: CaptureHeaderProps) {
   return (
@@ -44,6 +48,7 @@ export function CaptureHeader({
         <Kicker>{kicker}</Kicker>
         <Text variant="heading">{title}</Text>
       </View>
+      {right}
     </View>
   );
 }
