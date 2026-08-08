@@ -1,4 +1,4 @@
-import { router, usePathname } from 'expo-router';
+import { router, usePathname, type Href } from 'expo-router';
 import {
   Bell,
   Home,
@@ -11,18 +11,27 @@ import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '@/components/ui';
+import { cropCycles } from '@/features/home';
 import { colors } from '@/theme';
 
 interface TabItem {
   key: string;
-  href: '/' | '/cycles' | '/stock' | '/alerts';
+  href: Href;
   label: string;
   Icon: LucideIcon;
+  /** Matches any pathname under this prefix (e.g. the per-cycle Crop P&L route). */
+  activePrefix?: string;
 }
 
 const LEFT_TABS: TabItem[] = [
   { key: 'home', href: '/', label: 'Home', Icon: Home },
-  { key: 'cycles', href: '/cycles', label: 'Cycles', Icon: Sprout },
+  {
+    key: 'cycles',
+    href: `/crop-pnl/${cropCycles[0]?.id ?? ''}` as Href,
+    label: 'Cycles',
+    Icon: Sprout,
+    activePrefix: '/crop-pnl',
+  },
 ];
 
 const RIGHT_TABS: TabItem[] = [
@@ -102,7 +111,15 @@ export function TabBar() {
       style={{ paddingBottom: insets.bottom }}
     >
       {LEFT_TABS.map((item) => (
-        <Tab key={item.key} item={item} active={pathname === item.href} />
+        <Tab
+          key={item.key}
+          item={item}
+          active={
+            item.activePrefix
+              ? pathname.startsWith(item.activePrefix)
+              : pathname === item.href
+          }
+        />
       ))}
       <CaptureFab />
       {RIGHT_TABS.map((item) => (

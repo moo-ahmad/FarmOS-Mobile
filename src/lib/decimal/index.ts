@@ -18,6 +18,7 @@ export {
   equalsMoney,
   moneyToString,
 } from './money';
+export { formatMoneyDisplay } from './format';
 
 export type { Quantity } from './quantity';
 export {

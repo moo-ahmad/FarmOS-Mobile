@@ -6,6 +6,7 @@ export type TextVariant =
   | 'hero-lg'
   | 'hero'
   | 'title'
+  | 'title-sm'
   | 'heading'
   | 'row'
   | 'body'
@@ -20,6 +21,7 @@ const variantClass: Record<TextVariant, string> = {
   'hero-lg': 'font-archivo-bold text-hero-lg tracking-hero',
   hero: 'font-archivo-bold text-hero tracking-hero',
   title: 'font-archivo-bold text-title tracking-tight',
+  'title-sm': 'font-archivo-bold text-title-sm tracking-tight',
   heading: 'font-archivo-bold text-heading',
   row: 'font-archivo-bold text-row',
   body: 'font-archivo text-body',
