@@ -1,20 +1,21 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChevronRight, Droplet } from 'lucide-react-native';
+import { Droplet } from 'lucide-react-native';
 import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { Controller, useForm, useWatch } from 'react-hook-form';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 
 import {
   Callout,
   ChipRow,
   MicroLabel,
   NumericField,
-  SquareBadge,
   Tag,
   Text,
   TextField,
 } from '@/components/ui';
+import { CyclePicker } from '@/components/cycle-picker';
+import { CycleSelectorRow } from '@/components/cycle-selector-row';
 import type { CropCycle } from '@/features/home';
 import { colors } from '@/theme';
 
@@ -29,7 +30,6 @@ import {
 } from '../model';
 import { computeSafeHarvestDate, lookupPhiDays } from '../phi';
 import { activityLogFormSchema, type ActivityLogFormValues } from '../schema';
-import { FieldCropPicker } from './field-crop-picker';
 
 export interface ActivityLogFormProps {
   onSubmit: (values: ActivityLogFormValues) => void;
@@ -101,23 +101,15 @@ export const ActivityLogForm = forwardRef<
       />
 
       <MicroLabel>Field &amp; crop</MicroLabel>
-      <Pressable
-        accessibilityRole="button"
-        onPress={() => pickerRef.current?.present()}
-        className="mb-[18px] mt-2 min-h-tap flex-row items-center gap-2.5 border-field border-ink px-3.5 py-2.5"
-      >
-        {fieldCode ? <SquareBadge code={fieldCode} size={30} /> : null}
-        <View className="flex-1">
-          <Text variant="row">{cropLabel || 'Select field & crop'}</Text>
-          {fieldCode ? (
-            <Text variant="caption" tone="muted">
-              Field {fieldCode.replace('F', '')}
-            </Text>
-          ) : null}
-        </View>
-        <ChevronRight size={18} color={colors.accent.DEFAULT} strokeWidth={2} />
-      </Pressable>
-      <FieldCropPicker
+      <View className="mb-[18px] mt-2">
+        <CycleSelectorRow
+          fieldCode={fieldCode}
+          cropLabel={cropLabel}
+          sub={fieldCode ? `Field ${fieldCode.replace('F', '')}` : undefined}
+          onPress={() => pickerRef.current?.present()}
+        />
+      </View>
+      <CyclePicker
         ref={pickerRef}
         onSelect={(cycle) => {
           setValue('fieldCode', cycle.fieldCode, { shouldValidate: true });

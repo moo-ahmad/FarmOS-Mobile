@@ -77,46 +77,47 @@ export interface StepperProps {
   onDecrement: () => void;
   onIncrement: () => void;
   unit?: string;
-  /** Render the value at hero size (e.g. harvest gross weight). */
-  big?: boolean;
 }
 
-/** Numeric stepper with square −/+ controls; the + is solid red. */
+/**
+ * Big bordered stepper box (e.g. harvest gross weight): 2px ink border, a
+ * 44px value + muted unit, and square −/+ controls floated right — the + is
+ * solid red.
+ */
 export function Stepper({
   value,
   onDecrement,
   onIncrement,
   unit,
-  big = false,
 }: StepperProps) {
   return (
-    <View className="flex-row items-stretch border-field border-divider">
-      <View className="flex-1 flex-row items-baseline gap-1 px-3 py-2">
-        <Text variant={big ? 'hero-lg' : 'heading'} className="tracking-hero">
-          {value}
+    <View className="flex-row items-baseline gap-2 border-total border-ink p-4">
+      <Text variant="hero-lg" className="tracking-hero">
+        {value}
+      </Text>
+      {unit ? (
+        <Text className="font-archivo-bold text-heading text-neutral-500">
+          {unit}
         </Text>
-        {unit ? (
-          <Text variant="body" tone="muted">
-            {unit}
-          </Text>
-        ) : null}
+      ) : null}
+      <View className="ml-auto flex-row gap-1.5">
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Decrease"
+          onPress={onDecrement}
+          className="h-[34px] w-[34px] items-center justify-center border-field border-divider"
+        >
+          <Minus size={18} color={colors.ink} />
+        </Pressable>
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel="Increase"
+          onPress={onIncrement}
+          className="h-[34px] w-[34px] items-center justify-center border-field border-ink bg-accent"
+        >
+          <Plus size={18} color={colors.white} />
+        </Pressable>
       </View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Decrease"
-        onPress={onDecrement}
-        className="min-h-tap w-12 items-center justify-center border-l-field border-divider"
-      >
-        <Minus size={20} color={colors.ink} />
-      </Pressable>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel="Increase"
-        onPress={onIncrement}
-        className="min-h-tap w-12 items-center justify-center bg-accent"
-      >
-        <Plus size={20} color={colors.white} />
-      </Pressable>
     </View>
   );
 }
