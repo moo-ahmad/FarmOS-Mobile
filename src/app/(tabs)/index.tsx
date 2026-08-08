@@ -1,7 +1,14 @@
-import { HomeScreen } from '@/features/home';
+import { router } from 'expo-router';
 
-// onOpenCycle wires to the Crop P&L screen once that route exists (canvas `1a`,
-// frame 2) — cycle rows are inert for now rather than linking to a dead route.
+import { cropCycles, HomeScreen } from '@/features/home';
+
 export default function HomeRoute() {
-  return <HomeScreen />;
+  return (
+    <HomeScreen
+      onOpenCycle={(cycleId) => {
+        const cycle = cropCycles.find((c) => c.id === cycleId);
+        if (cycle) router.push(`/fields?focus=${cycle.fieldCode}`);
+      }}
+    />
+  );
 }

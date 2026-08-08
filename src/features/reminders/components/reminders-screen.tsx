@@ -30,7 +30,11 @@ const FILTER_OPTIONS = REMINDER_FILTERS.map((value) => ({
  * (one 2.5px bottom rule for both), which AppHeader's single-row shape
  * can't express.
  */
-export function RemindersScreen() {
+export interface RemindersScreenProps {
+  onOpenField?: (fieldCode: string) => void;
+}
+
+export function RemindersScreen({ onOpenField }: RemindersScreenProps) {
   const [filter, setFilter] = useState<ReminderFilter>('all');
   const openCount = useMemo(
     () => allReminders.filter((r) => r.status === 'open').length,
@@ -83,7 +87,7 @@ export function RemindersScreen() {
                   index === group.items.length - 1;
                 return (
                   <View key={item.id}>
-                    <ReminderRow reminder={item} />
+                    <ReminderRow reminder={item} onOpenField={onOpenField} />
                     {isLastOverall ? null : <Divider className="mx-4" />}
                   </View>
                 );
