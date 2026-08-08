@@ -1,56 +1,30 @@
-import { Redirect } from 'expo-router';
-import { NativeTabs } from 'expo-router/unstable-native-tabs';
-import { useColorScheme } from 'react-native';
+import { Redirect, Stack } from 'expo-router';
+import { View } from 'react-native';
 
 import { DatabaseGate } from '@/components/database-gate';
-import { Colors } from '@/constants/theme';
+import { TabBar } from '@/components/tab-bar';
 import { useSession } from '@/features/auth';
 
 /**
- * The signed-in app: bottom tabs, gated on an open session and on the database
- * being migrated. Signed-out users are redirected to the login route.
+ * The signed-in app: a nested Stack (renders whichever tab route currently
+ * matches) with the Modernist TabBar fixed below it, gated on an open session
+ * and on the database being migrated. Signed-out users are redirected to login.
  */
 export default function TabsLayout() {
   const { signedIn } = useSession();
-  const scheme = useColorScheme();
 
   if (!signedIn) {
     return <Redirect href="/login" />;
   }
 
-  const colors = Colors[scheme === 'unspecified' ? 'light' : scheme];
-
   return (
     <DatabaseGate>
-      <NativeTabs
-        backgroundColor={colors.background}
-        indicatorColor={colors.backgroundElement}
-        labelStyle={{ selected: { color: colors.text } }}
-      >
-        <NativeTabs.Trigger name="index">
-          <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon
-            src={require('@/assets/images/tabIcons/home.png')}
-            renderingMode="template"
-          />
-        </NativeTabs.Trigger>
-
-        <NativeTabs.Trigger name="activity">
-          <NativeTabs.Trigger.Label>Activity</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon
-            src={require('@/assets/images/tabIcons/explore.png')}
-            renderingMode="template"
-          />
-        </NativeTabs.Trigger>
-
-        <NativeTabs.Trigger name="explore">
-          <NativeTabs.Trigger.Label>Explore</NativeTabs.Trigger.Label>
-          <NativeTabs.Trigger.Icon
-            src={require('@/assets/images/tabIcons/explore.png')}
-            renderingMode="template"
-          />
-        </NativeTabs.Trigger>
-      </NativeTabs>
+      <View className="flex-1">
+        <View className="flex-1">
+          <Stack screenOptions={{ headerShown: false }} />
+        </View>
+        <TabBar />
+      </View>
     </DatabaseGate>
   );
 }
