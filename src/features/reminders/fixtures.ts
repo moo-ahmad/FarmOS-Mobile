@@ -29,6 +29,8 @@ export interface Reminder {
   critical: boolean;
   tagLabel: string;
   tagVariant: TagVariant;
+  /** Set when this reminder references a specific field — makes the row tappable. */
+  fieldCode?: string;
 }
 
 export const reminders: Reminder[] = [
@@ -42,6 +44,7 @@ export const reminders: Reminder[] = [
     critical: true,
     tagLabel: '−2d',
     tagVariant: 'solid',
+    fieldCode: 'F1',
   },
   {
     id: 'reminder-wages',
@@ -64,6 +67,7 @@ export const reminders: Reminder[] = [
     critical: false,
     tagLabel: 'Today',
     tagVariant: 'accent',
+    fieldCode: 'F3',
   },
   {
     id: 'reminder-reorder',
@@ -86,6 +90,7 @@ export const reminders: Reminder[] = [
     critical: false,
     tagLabel: 'Today',
     tagVariant: 'accent',
+    fieldCode: 'F1',
   },
   {
     id: 'reminder-machinery',
@@ -108,5 +113,6 @@ export const reminders: Reminder[] = [
     critical: false,
     tagLabel: 'Sun',
     tagVariant: 'neutral',
+    fieldCode: 'F3',
   },
 ];

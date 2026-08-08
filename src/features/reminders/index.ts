@@ -1,4 +1,7 @@
-export { RemindersScreen } from './components/reminders-screen';
+export {
+  RemindersScreen,
+  type RemindersScreenProps,
+} from './components/reminders-screen';
 export { reminders, type Reminder } from './fixtures';
 export {
   REMINDER_FILTERS,
