@@ -9,7 +9,6 @@ import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
 import { FontGate } from '@/components/font-gate';
 import { SessionProvider } from '@/features/auth';
 import i18n, { syncLayoutDirection, type SupportedLanguage } from '@/i18n';
@@ -42,7 +41,6 @@ function RootLayout() {
       <QueryProvider>
         <ThemeProvider value={DefaultTheme}>
           <SessionProvider>
-            <AnimatedSplashOverlay />
             <StatusBar style="dark" />
             <FontGate>
               <BottomSheetModalProvider>
