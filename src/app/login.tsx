@@ -1,4 +1,4 @@
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 
 import { LoginScreen, useSession } from '@/features/auth';
 
@@ -11,5 +11,10 @@ export default function LoginRoute() {
     return <Redirect href="/" />;
   }
 
-  return <LoginScreen onSubmit={() => signIn('manager')} />;
+  return (
+    <LoginScreen
+      onSubmit={() => signIn('manager')}
+      onCreateFarm={() => router.push('/register')}
+    />
+  );
 }

@@ -5,7 +5,8 @@
     "delete": "Delete",
     "retry": "Retry",
     "loading": "Loading…",
-    "offline": "Offline"
+    "offline": "Offline",
+    "back": "Back"
   },
   "auth": {
     "signIn": "Sign in",
@@ -22,13 +23,30 @@
     "fieldWorker": "Field worker",
     "pinTitle": "Quick sign-in with PIN",
     "pinSub": "Capture-only field mode",
-    "footer": "Greenfield Farms · v1.0"
+    "footer": "Greenfield Farms · v1.0",
+    "newFarmPrompt": "New farm?",
+    "createOne": "Create one"
+  },
+  "register": {
+    "title": "Create your farm",
+    "modeNew": "New account",
+    "modeExisting": "Add to existing account",
+    "farmName": "Farm name",
+    "ownerName": "Owner name",
+    "email": "Email",
+    "password": "Password",
+    "confirmPassword": "Confirm password",
+    "submit": "Create farm",
+    "existingHelper": "Sign in to your account, then name the farm you're adding.",
+    "submitExisting": "Add farm"
   },
   "validation": {
     "required": "Required",
     "positiveNumber": "Enter a number greater than zero",
     "amount": "Enter a valid amount",
-    "tooLong": "Too long"
+    "tooLong": "Too long",
+    "email": "Enter a valid email",
+    "passwordMismatch": "Passwords don't match."
   },
   "activity": {
     "title": "Log activity",
