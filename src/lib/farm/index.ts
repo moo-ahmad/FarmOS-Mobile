@@ -2,8 +2,9 @@ import { kv } from '@/lib/kv';
 
 /**
  * Current farm context. The active farm's PublicId is sent as `X-Farm-Id` and
- * scopes local data. This is provisional: it reads from MMKV with a dev
- * fallback until sign-in + `GET /api/farms/current` populate it.
+ * scopes local data. Populated by `useSignIn` from `GET /api/farms/current`
+ * after login; falls back to a dev id for screens exercised before sign-in
+ * wiring reaches them.
  */
 
 const FARM_ID_KEY = 'farmos.currentFarmId';
@@ -16,3 +17,5 @@ export function getCurrentFarmId(): string {
 export function setCurrentFarmId(farmId: string): void {
   kv.set(FARM_ID_KEY, farmId);
 }
+
+export { fetchCurrentFarm, type CurrentFarmResponse } from './api';

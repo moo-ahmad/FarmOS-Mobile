@@ -1,11 +1,17 @@
 import { Redirect, router } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 
-import { LoginScreen, useSession } from '@/features/auth';
+import {
+  LoginScreen,
+  signInErrorKey,
+  useSession,
+  useSignIn,
+} from '@/features/auth';
 
-// TEMPORARY: bypasses the real POST /api/auth/login (see useSignIn) until the
-// backend is wired up. Sign in just opens a session and redirects home.
 export default function LoginRoute() {
-  const { signedIn, signIn } = useSession();
+  const { t } = useTranslation();
+  const { signedIn } = useSession();
+  const signIn = useSignIn();
 
   if (signedIn) {
     return <Redirect href="/" />;
@@ -13,7 +19,11 @@ export default function LoginRoute() {
 
   return (
     <LoginScreen
-      onSubmit={() => signIn('manager')}
+      onSubmit={(values) => signIn.mutate(values)}
+      submitting={signIn.isPending}
+      errorMessage={
+        signIn.isError ? t(signInErrorKey(signIn.error)) : undefined
+      }
       onCreateFarm={() => router.push('/register')}
     />
   );

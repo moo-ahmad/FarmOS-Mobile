@@ -1,33 +1,40 @@
 import { useMutation } from '@tanstack/react-query';
 
-import type { components } from '@/api';
-import { env } from '@/lib/config/env';
+import { login, saveTokens, tokensFromResponse } from '@/lib/auth';
+import { fetchCurrentFarm, setCurrentFarmId } from '@/lib/farm';
+import { ApiError } from '@/lib/http';
 
 import type { LoginValues } from './schema';
 import { useSession } from './session';
 
-type LoginRequest = components['schemas']['LoginRequest'];
-
-async function postLogin(body: LoginRequest): Promise<void> {
-  const response = await fetch(`${env.apiBaseUrl}/api/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body),
+async function signInWithCredentials(values: LoginValues): Promise<void> {
+  const tokens = await login({
+    email: values.identifier,
+    password: values.password,
   });
-  if (!response.ok) {
-    throw new Error(`Sign-in failed (HTTP ${response.status})`);
-  }
-  // TODO: the API's login response is not yet described in the OpenAPI document.
-  // Once it returns a JWT + refresh token, persist them via
-  // src/lib/auth/token-store instead of only flipping the session flag.
+  await saveTokens(tokensFromResponse(tokens));
+
+  const farm = await fetchCurrentFarm(tokens.accessToken);
+  setCurrentFarmId(farm.publicId);
 }
 
-/** Sign-in mutation: POST /api/auth/login, then mark the session signed in. */
+/** Maps a failed sign-in to an i18n key the login screen can show directly. */
+export function signInErrorKey(error: unknown): string {
+  if (error instanceof ApiError && error.status === 401) {
+    return 'login.errors.invalidCredentials';
+  }
+  return 'login.errors.generic';
+}
+
+/**
+ * Sign-in mutation: POST /api/auth/login, persist tokens + farm context, then
+ * mark the session signed in. This is the manager/owner form only — field
+ * workers use the separate PIN flow (`onWorkerPin`), not yet built.
+ */
 export function useSignIn() {
   const { signIn } = useSession();
   return useMutation({
-    mutationFn: (values: LoginValues) =>
-      postLogin({ email: values.identifier, password: values.password }),
+    mutationFn: signInWithCredentials,
     onSuccess: () => signIn('manager'),
   });
 }

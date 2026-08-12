@@ -4,7 +4,7 @@ export {
   RegisterScreen,
   type RegisterScreenProps,
 } from './components/register-screen';
-export { useSignIn } from './use-sign-in';
+export { useSignIn, signInErrorKey } from './use-sign-in';
 export {
   loginSchema,
   type LoginValues,

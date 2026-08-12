@@ -7,6 +7,7 @@ import {
   useState,
 } from 'react';
 
+import { clearTokens } from '@/lib/auth';
 import { kv } from '@/lib/kv';
 
 export type UserRole = 'manager' | 'worker';
@@ -44,6 +45,9 @@ export function SessionProvider({ children }: PropsWithChildren) {
     kv.remove(SIGNED_IN_KEY);
     kv.remove(ROLE_KEY);
     setState({ signedIn: false, role: null });
+    // Tokens live in SecureStore, not MMKV — clear them too so a stale
+    // access/refresh token can't outlive the session that issued it.
+    void clearTokens();
   }, []);
 
   const value = useMemo<SessionValue>(

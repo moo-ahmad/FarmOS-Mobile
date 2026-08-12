@@ -25,7 +25,11 @@
     "pinSub": "Capture-only field mode",
     "footer": "Greenfield Farms · v1.0",
     "newFarmPrompt": "New farm?",
-    "createOne": "Create one"
+    "createOne": "Create one",
+    "errors": {
+      "invalidCredentials": "Incorrect email or password.",
+      "generic": "Couldn't sign in. Check your connection and try again."
+    }
   },
   "register": {
     "title": "Create your farm",
