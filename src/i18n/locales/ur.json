@@ -6,7 +6,12 @@
     "retry": "دوبارہ کوشش کریں",
     "loading": "لوڈ ہو رہا ہے…",
     "offline": "آف لائن",
-    "back": "پیچھے"
+    "back": "پیچھے",
+    "logout": "لاگ آؤٹ"
+  },
+  "home": {
+    "logoutConfirmTitle": "لاگ آؤٹ کریں؟",
+    "logoutConfirmMessage": "کیا آپ واقعی لاگ آؤٹ کرنا چاہتے ہیں؟"
   },
   "auth": {
     "signIn": "سائن ان کریں",

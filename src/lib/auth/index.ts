@@ -9,6 +9,7 @@ export { isAccessTokenExpired, DEFAULT_EXPIRY_SKEW_MS } from './expiry';
 export {
   login,
   register,
+  logout,
   type LoginRequestBody,
   type RegisterRequestBody,
 } from './api';

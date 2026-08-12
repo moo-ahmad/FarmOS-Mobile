@@ -6,7 +6,12 @@
     "retry": "Retry",
     "loading": "Loading…",
     "offline": "Offline",
-    "back": "Back"
+    "back": "Back",
+    "logout": "Log out"
+  },
+  "home": {
+    "logoutConfirmTitle": "Log out?",
+    "logoutConfirmMessage": "Are you sure you want to log out?"
   },
   "auth": {
     "signIn": "Sign in",
