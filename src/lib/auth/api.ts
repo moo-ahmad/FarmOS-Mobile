@@ -57,3 +57,8 @@ export async function login(
 export async function register(body: RegisterRequestBody): Promise<void> {
   await postJson('/api/auth/register', body);
 }
+
+/** POST /api/auth/logout — revokes the given refresh token (204 No Content). */
+export async function logout(refreshToken: string): Promise<void> {
+  await postJson('/api/auth/logout', { refreshToken });
+}

@@ -1,7 +1,9 @@
-import { Bell } from 'lucide-react-native';
-import { Pressable, ScrollView, View } from 'react-native';
+import { LogOut } from 'lucide-react-native';
+import { useTranslation } from 'react-i18next';
+import { Alert, Pressable, ScrollView, View } from 'react-native';
 
 import { AppHeader, Divider, Screen } from '@/components/ui';
+import { useSignOut } from '@/features/auth';
 import { colors } from '@/theme';
 
 import {
@@ -26,6 +28,20 @@ export interface HomeScreenProps {
  * sample fixtures in ../fixtures until the cycles/reminders API exists.
  */
 export function HomeScreen({ onOpenCycle }: HomeScreenProps) {
+  const { t } = useTranslation();
+  const signOut = useSignOut();
+
+  const confirmLogout = () => {
+    Alert.alert(t('home.logoutConfirmTitle'), t('home.logoutConfirmMessage'), [
+      { text: t('common.cancel'), style: 'cancel' },
+      {
+        text: t('common.logout'),
+        style: 'destructive',
+        onPress: () => signOut.mutate(),
+      },
+    ]);
+  };
+
   return (
     <Screen edgeToEdgeBottom={false}>
       <AppHeader
@@ -34,12 +50,11 @@ export function HomeScreen({ onOpenCycle }: HomeScreenProps) {
         right={
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="Notifications"
+            accessibilityLabel={t('common.logout')}
+            disabled={signOut.isPending}
+            onPress={confirmLogout}
           >
-            <View>
-              <Bell size={22} color={colors.ink} />
-              <View className="absolute -right-0.5 -top-0.5 h-2 w-2 bg-accent" />
-            </View>
+            <LogOut size={22} color={colors.ink} />
           </Pressable>
         }
       />

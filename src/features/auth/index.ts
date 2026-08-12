@@ -5,6 +5,7 @@ export {
   type RegisterScreenProps,
 } from './components/register-screen';
 export { useSignIn, signInErrorKey } from './use-sign-in';
+export { useSignOut } from './use-sign-out';
 export {
   useCreateFarm,
   useJoinFarm,
