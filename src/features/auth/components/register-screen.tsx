@@ -26,6 +26,7 @@ export interface RegisterScreenProps {
   onCreateFarm: (values: RegisterValues) => void;
   onAddFarm: (values: JoinFarmValues) => void;
   submitting?: boolean;
+  errorMessage?: string;
   onBack?: () => void;
   onForgotPassword?: () => void;
 }
@@ -39,6 +40,7 @@ export function RegisterScreen({
   onCreateFarm,
   onAddFarm,
   submitting = false,
+  errorMessage,
   onBack,
   onForgotPassword,
 }: RegisterScreenProps) {
@@ -319,6 +321,11 @@ export function RegisterScreen({
       </ScrollView>
 
       <View className="border-t-rule border-ink px-4 py-3">
+        {errorMessage ? (
+          <Text variant="caption" tone="accent" className="pb-3">
+            {errorMessage}
+          </Text>
+        ) : null}
         {mode === 'new' ? (
           <Button
             title={t('register.submit')}
