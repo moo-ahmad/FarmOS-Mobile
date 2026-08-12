@@ -31,6 +31,69 @@
         }
       }
     },
+    "/api/auth/refresh": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "Refresh",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RefreshRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/logout": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "Logout",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LogoutRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/auth/register": {
+      "post": {
+        "tags": ["Auth"],
+        "operationId": "Register",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/farms/current": {
       "get": {
         "tags": ["Farms"],
@@ -41,10 +104,40 @@
           }
         }
       }
+    },
+    "/api/farms": {
+      "post": {
+        "tags": ["Farms"],
+        "operationId": "CreateFarm",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFarmRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "CreateFarmRequest": {
+        "required": ["farmName"],
+        "type": "object",
+        "properties": {
+          "farmName": {
+            "type": "string"
+          }
+        }
+      },
       "LoginRequest": {
         "required": ["email", "password"],
         "type": "object",
@@ -56,9 +149,58 @@
             "type": "string"
           }
         }
+      },
+      "LogoutRequest": {
+        "required": ["refreshToken"],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "RefreshRequest": {
+        "required": ["refreshToken"],
+        "type": "object",
+        "properties": {
+          "refreshToken": {
+            "type": "string"
+          }
+        }
+      },
+      "RegisterRequest": {
+        "required": ["farmName", "ownerName", "email", "password"],
+        "type": "object",
+        "properties": {
+          "farmName": {
+            "type": "string"
+          },
+          "ownerName": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "Bearer": {
+        "type": "http",
+        "description": "Paste the token returned by POST /api/auth/login.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   },
+  "security": [
+    {
+      "Bearer": []
+    }
+  ],
   "tags": [
     {
       "name": "Auth"
