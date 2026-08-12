@@ -16,9 +16,9 @@ import { colors } from '@/theme/tokens';
 /** How long the tagline shows before the splash switches to the syncing copy. */
 const TAGLINE_DURATION_MS = 2000;
 /** Duration of one indeterminate loader sweep. */
-const SWEEP_DURATION_MS = 1200;
+const SWEEP_DURATION_MS = 2000;
 /** Width of the sweeping fill, as a fraction of the track. */
-const SWEEP_WIDTH_PERCENT = 32;
+const SWEEP_WIDTH_PERCENT = 30;
 
 /** Splash (canvas `1a`): shown while fonts load, before the app boots. */
 export function SplashScreen() {
@@ -62,8 +62,8 @@ export function SplashScreen() {
         </Text>
       </View>
       <View className="pb-[34px]">
-        <View className="h-0.5 overflow-hidden bg-surface">
-          {syncing ? (
+        {syncing ? (
+          <View className="h-0.5 overflow-hidden bg-surface">
             <Animated.View
               style={[
                 {
@@ -75,10 +75,8 @@ export function SplashScreen() {
                 sweepStyle,
               ]}
             />
-          ) : (
-            <View className="h-full w-[38%] bg-accent" />
-          )}
-        </View>
+          </View>
+        ) : null}
         <View className="mt-3 flex-row justify-between">
           <MicroLabel>Greenfield Farms</MicroLabel>
           {version ? <MicroLabel>v{version}</MicroLabel> : null}
