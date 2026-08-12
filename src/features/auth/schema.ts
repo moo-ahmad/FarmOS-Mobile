@@ -14,7 +14,7 @@ export type LoginValues = z.infer<typeof loginSchema>;
 export const REGISTER_MODES = ['new', 'existing'] as const;
 export type RegisterMode = (typeof REGISTER_MODES)[number];
 
-/** Create-farm (sign-up) form. Only the "new account" mode is validated. */
+/** Create-farm (sign-up) form — the "new account" register mode. */
 export const registerSchema = z
   .object({
     farmName: z.string().trim().min(1, 'validation.required'),
@@ -33,3 +33,19 @@ export const registerSchema = z
   });
 
 export type RegisterValues = z.infer<typeof registerSchema>;
+
+/**
+ * Add-farm form — the "add to existing account" register mode: sign in with
+ * an existing account, then name the new farm being added to it.
+ */
+export const joinFarmSchema = z.object({
+  email: z
+    .string()
+    .trim()
+    .min(1, 'validation.required')
+    .email('validation.email'),
+  password: z.string().min(1, 'validation.required'),
+  farmName: z.string().trim().min(1, 'validation.required'),
+});
+
+export type JoinFarmValues = z.infer<typeof joinFarmSchema>;

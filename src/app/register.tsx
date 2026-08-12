@@ -2,9 +2,10 @@ import { Redirect, router } from 'expo-router';
 
 import { RegisterScreen, useSession } from '@/features/auth';
 
-// TEMPORARY: bypasses the real create-farm endpoint (not yet described in
-// the OpenAPI document) until the backend is wired up, same as app/login.tsx.
-// Submitting just opens a manager session and redirects home.
+// TEMPORARY: bypasses the real create-farm/add-farm endpoints (not yet
+// described in the OpenAPI document) until the backend is wired up, same as
+// app/login.tsx. Submitting either form just opens a manager session and
+// redirects home.
 export default function RegisterRoute() {
   const { signedIn, signIn } = useSession();
 
@@ -15,7 +16,8 @@ export default function RegisterRoute() {
   return (
     <RegisterScreen
       onBack={() => router.back()}
-      onSubmit={() => signIn('manager')}
+      onCreateFarm={() => signIn('manager')}
+      onAddFarm={() => signIn('manager')}
     />
   );
 }

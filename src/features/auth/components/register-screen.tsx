@@ -15,13 +15,16 @@ import {
 import { colors } from '@/theme';
 
 import {
+  joinFarmSchema,
   registerSchema,
+  type JoinFarmValues,
   type RegisterMode,
   type RegisterValues,
 } from '../schema';
 
 export interface RegisterScreenProps {
-  onSubmit: (values: RegisterValues) => void;
+  onCreateFarm: (values: RegisterValues) => void;
+  onAddFarm: (values: JoinFarmValues) => void;
   submitting?: boolean;
   onBack?: () => void;
   onForgotPassword?: () => void;
@@ -33,7 +36,8 @@ const MODE_OPTIONS: { value: RegisterMode; label: string }[] = [
 ];
 
 export function RegisterScreen({
-  onSubmit,
+  onCreateFarm,
+  onAddFarm,
   submitting = false,
   onBack,
   onForgotPassword,
@@ -42,11 +46,9 @@ export function RegisterScreen({
   const [mode, setMode] = useState<RegisterMode>('new');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<RegisterValues>({
+  const [showExistingPassword, setShowExistingPassword] = useState(false);
+
+  const newForm = useForm<RegisterValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
       farmName: '',
@@ -55,6 +57,11 @@ export function RegisterScreen({
       password: '',
       confirmPassword: '',
     },
+  });
+
+  const existingForm = useForm<JoinFarmValues>({
+    resolver: zodResolver(joinFarmSchema),
+    defaultValues: { email: '', password: '', farmName: '' },
   });
 
   return (
@@ -87,7 +94,7 @@ export function RegisterScreen({
           {mode === 'new' ? (
             <View className="gap-4">
               <Controller
-                control={control}
+                control={newForm.control}
                 name="farmName"
                 render={({ field }) => (
                   <TextField
@@ -95,15 +102,15 @@ export function RegisterScreen({
                     value={field.value}
                     onChangeText={field.onChange}
                     error={
-                      errors.farmName
-                        ? t(errors.farmName.message ?? '')
+                      newForm.formState.errors.farmName
+                        ? t(newForm.formState.errors.farmName.message ?? '')
                         : undefined
                     }
                   />
                 )}
               />
               <Controller
-                control={control}
+                control={newForm.control}
                 name="ownerName"
                 render={({ field }) => (
                   <TextField
@@ -111,15 +118,15 @@ export function RegisterScreen({
                     value={field.value}
                     onChangeText={field.onChange}
                     error={
-                      errors.ownerName
-                        ? t(errors.ownerName.message ?? '')
+                      newForm.formState.errors.ownerName
+                        ? t(newForm.formState.errors.ownerName.message ?? '')
                         : undefined
                     }
                   />
                 )}
               />
               <Controller
-                control={control}
+                control={newForm.control}
                 name="email"
                 render={({ field }) => (
                   <TextField
@@ -131,14 +138,16 @@ export function RegisterScreen({
                     value={field.value}
                     onChangeText={field.onChange}
                     error={
-                      errors.email ? t(errors.email.message ?? '') : undefined
+                      newForm.formState.errors.email
+                        ? t(newForm.formState.errors.email.message ?? '')
+                        : undefined
                     }
                   />
                 )}
               />
               <View className="gap-1.5">
                 <Controller
-                  control={control}
+                  control={newForm.control}
                   name="password"
                   render={({ field }) => (
                     <TextField
@@ -147,8 +156,8 @@ export function RegisterScreen({
                       value={field.value}
                       onChangeText={field.onChange}
                       error={
-                        errors.password
-                          ? t(errors.password.message ?? '')
+                        newForm.formState.errors.password
+                          ? t(newForm.formState.errors.password.message ?? '')
                           : undefined
                       }
                       trailing={
@@ -179,7 +188,7 @@ export function RegisterScreen({
                 </Pressable>
               </View>
               <Controller
-                control={control}
+                control={newForm.control}
                 name="confirmPassword"
                 render={({ field }) => (
                   <TextField
@@ -188,8 +197,11 @@ export function RegisterScreen({
                     value={field.value}
                     onChangeText={field.onChange}
                     error={
-                      errors.confirmPassword
-                        ? t(errors.confirmPassword.message ?? '')
+                      newForm.formState.errors.confirmPassword
+                        ? t(
+                            newForm.formState.errors.confirmPassword.message ??
+                              '',
+                          )
                         : undefined
                     }
                     trailing={
@@ -211,24 +223,116 @@ export function RegisterScreen({
               />
             </View>
           ) : (
-            <View className="items-center gap-2 py-10">
-              <Text variant="body" tone="muted" className="text-center">
-                {t('register.existingComingSoon')}
+            <View className="gap-4">
+              <Text variant="caption" tone="muted" className="leading-snug">
+                {t('register.existingHelper')}
               </Text>
+              <Controller
+                control={existingForm.control}
+                name="email"
+                render={({ field }) => (
+                  <TextField
+                    label={t('register.email')}
+                    placeholder="jamil@greenfield.farm"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    keyboardType="email-address"
+                    value={field.value}
+                    onChangeText={field.onChange}
+                    error={
+                      existingForm.formState.errors.email
+                        ? t(existingForm.formState.errors.email.message ?? '')
+                        : undefined
+                    }
+                  />
+                )}
+              />
+              <View className="gap-1.5">
+                <Controller
+                  control={existingForm.control}
+                  name="password"
+                  render={({ field }) => (
+                    <TextField
+                      label={t('register.password')}
+                      secureTextEntry={!showExistingPassword}
+                      value={field.value}
+                      onChangeText={field.onChange}
+                      error={
+                        existingForm.formState.errors.password
+                          ? t(
+                              existingForm.formState.errors.password.message ??
+                                '',
+                            )
+                          : undefined
+                      }
+                      trailing={
+                        <Pressable
+                          accessibilityRole="button"
+                          accessibilityLabel={t('login.togglePassword')}
+                          hitSlop={8}
+                          onPress={() =>
+                            setShowExistingPassword((prev) => !prev)
+                          }
+                        >
+                          {showExistingPassword ? (
+                            <EyeOff size={20} color={colors.neutral[500]} />
+                          ) : (
+                            <Eye size={20} color={colors.neutral[500]} />
+                          )}
+                        </Pressable>
+                      }
+                    />
+                  )}
+                />
+                <Pressable
+                  accessibilityRole="button"
+                  className="self-end"
+                  onPress={onForgotPassword}
+                >
+                  <Text tone="accent" className="font-archivo-bold text-[12px]">
+                    {t('login.forgotPassword')}
+                  </Text>
+                </Pressable>
+              </View>
+              <Controller
+                control={existingForm.control}
+                name="farmName"
+                render={({ field }) => (
+                  <TextField
+                    label={t('register.farmName')}
+                    value={field.value}
+                    onChangeText={field.onChange}
+                    error={
+                      existingForm.formState.errors.farmName
+                        ? t(
+                            existingForm.formState.errors.farmName.message ??
+                              '',
+                          )
+                        : undefined
+                    }
+                  />
+                )}
+              />
             </View>
           )}
         </View>
       </ScrollView>
 
-      {mode === 'new' ? (
-        <View className="border-t-rule border-ink px-4 py-3">
+      <View className="border-t-rule border-ink px-4 py-3">
+        {mode === 'new' ? (
           <Button
             title={t('register.submit')}
             loading={submitting}
-            onPress={() => void handleSubmit(onSubmit)()}
+            onPress={() => void newForm.handleSubmit(onCreateFarm)()}
           />
-        </View>
-      ) : null}
+        ) : (
+          <Button
+            title={t('register.submitExisting')}
+            loading={submitting}
+            onPress={() => void existingForm.handleSubmit(onAddFarm)()}
+          />
+        )}
+      </View>
     </Screen>
   );
 }

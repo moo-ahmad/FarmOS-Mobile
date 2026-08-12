@@ -37,7 +37,8 @@
     "password": "Password",
     "confirmPassword": "Confirm password",
     "submit": "Create farm",
-    "existingComingSoon": "Adding to an existing account is coming soon."
+    "existingHelper": "Sign in to your account, then name the farm you're adding.",
+    "submitExisting": "Add farm"
   },
   "validation": {
     "required": "Required",
