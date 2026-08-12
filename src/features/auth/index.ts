@@ -6,6 +6,12 @@ export {
 } from './components/register-screen';
 export { useSignIn, signInErrorKey } from './use-sign-in';
 export {
+  useCreateFarm,
+  useJoinFarm,
+  createFarmErrorKey,
+  joinFarmErrorKey,
+} from './use-register';
+export {
   loginSchema,
   type LoginValues,
   registerSchema,

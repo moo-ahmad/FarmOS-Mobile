@@ -42,7 +42,11 @@
     "confirmPassword": "Confirm password",
     "submit": "Create farm",
     "existingHelper": "Sign in to your account, then name the farm you're adding.",
-    "submitExisting": "Add farm"
+    "submitExisting": "Add farm",
+    "errors": {
+      "emailInUse": "That email is already registered.",
+      "generic": "Couldn't create your farm. Check your connection and try again."
+    }
   },
   "validation": {
     "required": "Required",

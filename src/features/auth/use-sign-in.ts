@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 
-import { login, saveTokens, tokensFromResponse } from '@/lib/auth';
-import { fetchCurrentFarm, setCurrentFarmId } from '@/lib/farm';
+import { login } from '@/lib/auth';
 import { ApiError } from '@/lib/http';
 
+import { establishSession } from './establish-session';
 import type { LoginValues } from './schema';
 import { useSession } from './session';
 
@@ -12,10 +12,7 @@ async function signInWithCredentials(values: LoginValues): Promise<void> {
     email: values.identifier,
     password: values.password,
   });
-  await saveTokens(tokensFromResponse(tokens));
-
-  const farm = await fetchCurrentFarm(tokens.accessToken);
-  setCurrentFarmId(farm.publicId);
+  await establishSession(tokens);
 }
 
 /** Maps a failed sign-in to an i18n key the login screen can show directly. */

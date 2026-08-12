@@ -18,4 +18,4 @@ export function setCurrentFarmId(farmId: string): void {
   kv.set(FARM_ID_KEY, farmId);
 }
 
-export { fetchCurrentFarm, type CurrentFarmResponse } from './api';
+export { fetchCurrentFarm, createFarm, type CurrentFarmResponse } from './api';
