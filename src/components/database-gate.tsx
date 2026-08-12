@@ -21,6 +21,10 @@ export function DatabaseGate({ children }: PropsWithChildren) {
         await runMigrations(getDb());
         if (mounted) setReady(true);
       } catch (caught) {
+        // Drizzle wraps the driver failure, and its `message` stops at
+        // "params:" without the underlying SQLite reason. Log the whole chain
+        // so `adb logcat` shows what actually went wrong.
+        console.error('[DatabaseGate] migration failed', caught);
         if (mounted) {
           setError(
             caught instanceof Error ? caught : new Error(String(caught)),
@@ -40,6 +44,14 @@ export function DatabaseGate({ children }: PropsWithChildren) {
           Database error
         </Text>
         <Text tone="muted">{error.message}</Text>
+        {error.cause ? (
+          <Text tone="muted">
+            Cause:{' '}
+            {error.cause instanceof Error
+              ? error.cause.message
+              : String(error.cause)}
+          </Text>
+        ) : null}
       </View>
     );
   }
