@@ -5,7 +5,8 @@
     "delete": "حذف کریں",
     "retry": "دوبارہ کوشش کریں",
     "loading": "لوڈ ہو رہا ہے…",
-    "offline": "آف لائن"
+    "offline": "آف لائن",
+    "back": "پیچھے"
   },
   "auth": {
     "signIn": "سائن ان کریں",
@@ -22,13 +23,29 @@
     "fieldWorker": "فیلڈ ورکر",
     "pinTitle": "پن کے ساتھ فوری سائن ان",
     "pinSub": "صرف کیپچر فیلڈ موڈ",
-    "footer": "گرین فیلڈ فارمز · v1.0"
+    "footer": "گرین فیلڈ فارمز · v1.0",
+    "newFarmPrompt": "نیا فارم؟",
+    "createOne": "ایک بنائیں"
+  },
+  "register": {
+    "title": "اپنا فارم بنائیں",
+    "modeNew": "نیا اکاؤنٹ",
+    "modeExisting": "موجودہ اکاؤنٹ میں شامل کریں",
+    "farmName": "فارم کا نام",
+    "ownerName": "مالک کا نام",
+    "email": "ای میل",
+    "password": "پاس ورڈ",
+    "confirmPassword": "پاس ورڈ کی تصدیق کریں",
+    "submit": "فارم بنائیں",
+    "existingComingSoon": "موجودہ اکاؤنٹ میں شامل ہونے کی سہولت جلد آ رہی ہے۔"
   },
   "validation": {
     "required": "لازمی ہے",
     "positiveNumber": "صفر سے بڑا عدد درج کریں",
     "amount": "درست رقم درج کریں",
-    "tooLong": "بہت طویل ہے"
+    "tooLong": "بہت طویل ہے",
+    "email": "درست ای میل درج کریں",
+    "passwordMismatch": "پاس ورڈز مماثل نہیں ہیں۔"
   },
   "activity": {
     "title": "سرگرمی درج کریں",

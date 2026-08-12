@@ -23,6 +23,7 @@ export interface LoginScreenProps {
   errorMessage?: string;
   onForgotPassword?: () => void;
   onWorkerPin?: () => void;
+  onCreateFarm?: () => void;
 }
 
 export function LoginScreen({
@@ -31,6 +32,7 @@ export function LoginScreen({
   errorMessage,
   onForgotPassword,
   onWorkerPin,
+  onCreateFarm,
 }: LoginScreenProps) {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
@@ -143,6 +145,21 @@ export function LoginScreen({
               loading={submitting}
               onPress={() => onSubmit(getValues())}
             />
+
+            <View className="flex-row justify-center gap-1.5">
+              <Text variant="caption" tone="muted">
+                {t('login.newFarmPrompt')}
+              </Text>
+              <Pressable accessibilityRole="button" onPress={onCreateFarm}>
+                <Text
+                  variant="caption"
+                  tone="accent"
+                  className="font-archivo-bold"
+                >
+                  {t('login.createOne')}
+                </Text>
+              </Pressable>
+            </View>
           </View>
 
           {/* Spacer pushes the worker entry to the bottom of the scroll body */}
