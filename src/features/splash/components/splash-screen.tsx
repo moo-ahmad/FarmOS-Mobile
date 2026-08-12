@@ -1,11 +1,51 @@
 import Constants from 'expo-constants';
+import { useEffect, useState } from 'react';
 import { View } from 'react-native';
+import Animated, {
+  Easing,
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withTiming,
+} from 'react-native-reanimated';
 
 import { HeroFigure, MicroLabel, Screen, Text } from '@/components/ui';
+import { colors } from '@/theme/tokens';
+
+/** How long the tagline shows before the splash switches to the syncing copy. */
+const TAGLINE_DURATION_MS = 2000;
+/** Duration of one indeterminate loader sweep. */
+const SWEEP_DURATION_MS = 1200;
+/** Width of the sweeping fill, as a fraction of the track. */
+const SWEEP_WIDTH_PERCENT = 32;
 
 /** Splash (canvas `1a`): shown while fonts load, before the app boots. */
 export function SplashScreen() {
   const version = Constants.expoConfig?.version;
+  const [syncing, setSyncing] = useState(false);
+  const sweep = useSharedValue(0);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setSyncing(true), TAGLINE_DURATION_MS);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!syncing) return;
+    sweep.value = withRepeat(
+      withTiming(1, {
+        duration: SWEEP_DURATION_MS,
+        easing: Easing.inOut(Easing.ease),
+      }),
+      -1,
+      false,
+    );
+  }, [syncing, sweep]);
+
+  const sweepStyle = useAnimatedStyle(() => ({
+    left: `${interpolate(sweep.value, [0, 1], [-SWEEP_WIDTH_PERCENT, 100])}%`,
+  }));
 
   return (
     <Screen className="px-8">
@@ -16,12 +56,28 @@ export function SplashScreen() {
         </HeroFigure>
         <View className="mt-[18px] h-[3px] w-14 bg-accent" />
         <Text variant="body" tone="muted" className="mt-[18px] max-w-[230px]">
-          Field operations, cost allocation and a trustworthy per-crop P&amp;L.
+          {syncing
+            ? 'Syncing your farm…'
+            : 'Field operations, cost allocation and a trustworthy per-crop P&amp;L.'}
         </Text>
       </View>
       <View className="pb-[34px]">
-        <View className="h-0.5 bg-surface">
-          <View className="h-full w-[38%] bg-accent" />
+        <View className="h-0.5 overflow-hidden bg-surface">
+          {syncing ? (
+            <Animated.View
+              style={[
+                {
+                  position: 'absolute',
+                  height: '100%',
+                  width: `${SWEEP_WIDTH_PERCENT}%`,
+                  backgroundColor: colors.accent.DEFAULT,
+                },
+                sweepStyle,
+              ]}
+            />
+          ) : (
+            <View className="h-full w-[38%] bg-accent" />
+          )}
         </View>
         <View className="mt-3 flex-row justify-between">
           <MicroLabel>Greenfield Farms</MicroLabel>
