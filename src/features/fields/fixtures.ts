@@ -1,83 +1,4 @@
-import type { TagVariant } from '@/components/ui';
 import { toMoney, type Money } from '@/lib/decimal';
-
-import type { IrrigationSource, SoilType } from './model';
-
-/**
- * Sample data for the Fields feature (design handoff: FarmOS Land). Stands
- * in for the fields domain until the API exposes it — see the same caveat on
- * src/features/home/fixtures.ts.
- */
-export interface Field {
-  id: string;
-  code: string;
-  title: string;
-  areaHa: number;
-  note: string;
-  /** Muted grey badge/border (currently only the fallow field). */
-  fallow: boolean;
-  tagLabel: string;
-  tagVariant: TagVariant;
-  soilType: SoilType;
-  irrigationSource: IrrigationSource;
-  boundaryMapped: boolean;
-}
-
-/** The map diagram's layout is fixed to these exact 4 parcels (see FieldMap). */
-export const fields: readonly [Field, Field, Field, Field] = [
-  {
-    id: 'field-f1',
-    code: 'F1',
-    title: 'Cotton · IUB-13',
-    areaHa: 3.4,
-    note: 'Sandy loam',
-    fallow: false,
-    tagLabel: 'Flowering',
-    tagVariant: 'neutral',
-    soilType: 'sandy-loam',
-    irrigationSource: 'tubewell',
-    boundaryMapped: false,
-  },
-  {
-    id: 'field-f2',
-    code: 'F2',
-    title: 'Fallow',
-    areaHa: 1.2,
-    note: 'Resting',
-    fallow: true,
-    tagLabel: 'Idle',
-    tagVariant: 'neutral',
-    soilType: 'loam',
-    irrigationSource: 'rain-fed',
-    boundaryMapped: false,
-  },
-  {
-    id: 'field-f3',
-    code: 'F3',
-    title: 'Wheat · Faisal-11',
-    areaHa: 2.1,
-    note: 'Clay loam',
-    fallow: false,
-    tagLabel: 'Ready 14d',
-    tagVariant: 'solid',
-    soilType: 'clay-loam',
-    irrigationSource: 'tubewell',
-    boundaryMapped: false,
-  },
-  {
-    id: 'field-f4',
-    code: 'F4',
-    title: 'Mango orchard',
-    areaHa: 2.9,
-    note: '148 trees',
-    fallow: false,
-    tagLabel: 'Perennial',
-    tagVariant: 'neutral',
-    soilType: 'loam',
-    irrigationSource: 'drip',
-    boundaryMapped: false,
-  },
-];
 
 export interface CropHistoryEntry {
   id: string;
@@ -93,11 +14,14 @@ export interface CropHistoryEntry {
 
 /**
  * Crop-rotation history per field (design handoff: FarmOS Land, "Field 3"
- * detail frame) — F3's 5 entries match the handoff's numbers exactly. The
- * handoff's header/grid for that frame shows F1's stats (3.4 ha, Sandy loam)
- * instead of F3's — a copy-paste slip in the mock — so FieldDetailScreen
- * pulls area/soil/irrigation from the `fields` fixture above instead, to
- * stay consistent with the Fields list the user just came from.
+ * detail frame) — F3's 5 entries match the handoff's numbers exactly.
+ *
+ * Unlike the rest of the Fields feature, this stays a fixture: there's no
+ * crop-cycle API yet, only Field CRUD. Keyed by the old demo codes (F1–F4),
+ * so it won't match a real field's code (e.g. "F-001") — FieldDetailScreen
+ * falls back to an empty list, which is honest given no backend exists for
+ * this yet. Kept as a reference for the shape a real crop-history endpoint
+ * should return.
  */
 export const cropHistoryByFieldCode: Record<string, CropHistoryEntry[]> = {
   F1: [

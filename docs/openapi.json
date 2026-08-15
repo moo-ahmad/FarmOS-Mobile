@@ -125,6 +125,197 @@
           }
         }
       }
+    },
+    "/api/fields": {
+      "get": {
+        "tags": ["Fields"],
+        "operationId": "GetFields",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Fields"],
+        "operationId": "CreateField",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFieldRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/fields/{id}": {
+      "get": {
+        "tags": ["Fields"],
+        "operationId": "GetFieldById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Fields"],
+        "operationId": "UpdateField",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFieldRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/fields/{id}/deactivate": {
+      "post": {
+        "tags": ["Fields"],
+        "operationId": "DeactivateField",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/irrigation-sources": {
+      "get": {
+        "tags": ["IrrigationSources"],
+        "operationId": "GetIrrigationSources",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["IrrigationSources"],
+        "operationId": "CreateIrrigationSource",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateIrrigationSourceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/irrigation-sources/{id}": {
+      "get": {
+        "tags": ["IrrigationSources"],
+        "operationId": "GetIrrigationSourceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["IrrigationSources"],
+        "operationId": "UpdateIrrigationSource",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateIrrigationSourceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -137,6 +328,113 @@
             "type": "string"
           }
         }
+      },
+      "CreateFieldRequest": {
+        "required": [
+          "code",
+          "name",
+          "areaValue",
+          "areaUomId",
+          "usageType",
+          "soilTextureId",
+          "primaryIrrigationSourceId",
+          "parentFieldId",
+          "centroidLat",
+          "centroidLng"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "areaValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "areaUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "usageType": {
+            "$ref": "#/components/schemas/FieldUsageType"
+          },
+          "soilTextureId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "primaryIrrigationSourceId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "parentFieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "centroidLat": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "centroidLng": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          }
+        }
+      },
+      "CreateIrrigationSourceRequest": {
+        "required": [
+          "name",
+          "sourceType",
+          "costModel",
+          "ratePerUnit",
+          "dischargeLpm",
+          "pumpAssetId"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sourceType": {
+            "$ref": "#/components/schemas/IrrigationSourceType"
+          },
+          "costModel": {
+            "$ref": "#/components/schemas/IrrigationCostModel"
+          },
+          "ratePerUnit": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "dischargeLpm": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "pumpAssetId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          }
+        }
+      },
+      "FieldUsageType": {
+        "type": "integer"
+      },
+      "IrrigationCostModel": {
+        "type": "integer"
+      },
+      "IrrigationSourceType": {
+        "type": "integer"
       },
       "LoginRequest": {
         "required": ["email", "password"],
@@ -185,6 +483,104 @@
             "type": "string"
           }
         }
+      },
+      "UpdateFieldRequest": {
+        "required": [
+          "code",
+          "name",
+          "areaValue",
+          "areaUomId",
+          "usageType",
+          "soilTextureId",
+          "primaryIrrigationSourceId",
+          "parentFieldId",
+          "centroidLat",
+          "centroidLng"
+        ],
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "areaValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "areaUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "usageType": {
+            "$ref": "#/components/schemas/FieldUsageType"
+          },
+          "soilTextureId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "primaryIrrigationSourceId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "parentFieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "centroidLat": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "centroidLng": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          }
+        }
+      },
+      "UpdateIrrigationSourceRequest": {
+        "required": [
+          "name",
+          "sourceType",
+          "costModel",
+          "ratePerUnit",
+          "dischargeLpm",
+          "pumpAssetId"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "sourceType": {
+            "$ref": "#/components/schemas/IrrigationSourceType"
+          },
+          "costModel": {
+            "$ref": "#/components/schemas/IrrigationCostModel"
+          },
+          "ratePerUnit": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "dischargeLpm": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "pumpAssetId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          }
+        }
       }
     },
     "securitySchemes": {
@@ -207,6 +603,12 @@
     },
     {
       "name": "Farms"
+    },
+    {
+      "name": "Fields"
+    },
+    {
+      "name": "IrrigationSources"
     }
   ]
 }

@@ -1,9 +1,10 @@
 import { EllipsisVertical } from 'lucide-react-native';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
 import {
   AppHeader,
+  Callout,
   Divider,
   MicroLabel,
   ProgressBar,
@@ -13,26 +14,29 @@ import {
 } from '@/components/ui';
 import { cropCycles, moneyRatio } from '@/features/home';
 import { moneyToString } from '@/lib/decimal';
+import type { FieldDto } from '@/lib/fields';
 import { colors } from '@/theme';
 
 import { CropHistoryRow } from './crop-history-row';
 import { DeactivateFieldDialog } from './deactivate-field-dialog';
 import { FieldDetailGrid } from './field-detail-grid';
-import { cropHistoryByFieldCode, type Field } from '../fixtures';
-import { IRRIGATION_SOURCE_LABEL, SOIL_TYPE_LABEL } from '../model';
+import { fieldApiErrorMessage } from '../errors';
+import { fieldAreaLabel, fieldSoilLabel } from '../field-display';
+import { cropHistoryByFieldCode } from '../fixtures';
+import { useDeactivateField, useIrrigationSources } from '../hooks';
 
 export interface FieldDetailScreenProps {
-  field: Field;
+  field: FieldDto;
   onBack: () => void;
-  /** Fired once the user confirms Deactivate — UI-first, no persistence yet. */
   onDeactivated: () => void;
 }
 
 /**
  * Field Detail (design handoff: FarmOS Land, "Field 3" frame): the active
- * cycle summary, an area/soil/irrigation/boundary grid, and the full
- * crop-rotation history. See ../fixtures for the note on the handoff's
- * header/grid copy-paste slip that this screen deliberately doesn't repeat.
+ * cycle summary, an area/soil/irrigation/boundary grid, and the (fixture)
+ * crop-rotation history. Wired to the real field via `GET /api/fields/{id}`
+ * (fetched by the route) and the Deactivate action to
+ * `POST /api/fields/{id}/deactivate`.
  */
 export function FieldDetailScreen({
   field,
@@ -40,18 +44,26 @@ export function FieldDetailScreen({
   onDeactivated,
 }: FieldDetailScreenProps) {
   const [confirmingDeactivate, setConfirmingDeactivate] = useState(false);
-  const cycle = useMemo(
-    () => cropCycles.find((c) => c.fieldCode === field.code),
-    [field.code],
-  );
+  const irrigationSources = useIrrigationSources();
+  const deactivateField = useDeactivateField(field.fieldId);
+
+  const cycle = cropCycles.find((c) => c.fieldCode === field.code);
   const history = cropHistoryByFieldCode[field.code] ?? [];
-  const fieldNumber = field.code.replace(/^F/, '');
+  const fieldNumber = field.code.replace(/^F-?/, '');
+  const soilLabel = fieldSoilLabel(field) ?? 'Not set';
+  const irrigationLabel =
+    field.primaryIrrigationSourceId === null
+      ? 'None'
+      : (irrigationSources.data?.find(
+          (source) =>
+            source.irrigationSourceId === field.primaryIrrigationSourceId,
+        )?.name ?? (irrigationSources.isPending ? 'Loading…' : '—'));
 
   return (
     <Screen edgeToEdgeBottom={false}>
       <AppHeader
         compact
-        kicker={`${field.areaHa} ha · ${SOIL_TYPE_LABEL[field.soilType]}`}
+        kicker={`${fieldAreaLabel(field)} · ${soilLabel}`}
         title={`Field ${fieldNumber}`}
         onBack={onBack}
         right={
@@ -74,7 +86,7 @@ export function FieldDetailScreen({
                 <View className="flex-1">
                   <Text variant="row">{cycle.title}</Text>
                   <Text variant="caption" tone="muted">
-                    {field.areaHa} ha · {cycle.sub.split(' · ').at(-1)}
+                    {fieldAreaLabel(field)} · {cycle.sub.split(' · ').at(-1)}
                   </Text>
                 </View>
                 <View className="items-end">
@@ -101,10 +113,12 @@ export function FieldDetailScreen({
         ) : null}
 
         <FieldDetailGrid
-          areaLabel={`${field.areaHa} ha`}
-          soilLabel={SOIL_TYPE_LABEL[field.soilType]}
-          irrigationLabel={IRRIGATION_SOURCE_LABEL[field.irrigationSource]}
-          boundaryMapped={field.boundaryMapped}
+          areaLabel={fieldAreaLabel(field)}
+          soilLabel={soilLabel}
+          irrigationLabel={irrigationLabel}
+          boundaryMapped={
+            field.centroidLat !== null && field.centroidLng !== null
+          }
         />
         <Divider />
 
@@ -123,15 +137,26 @@ export function FieldDetailScreen({
             />
           ))}
         </View>
+
+        {deactivateField.isError ? (
+          <Callout className="mx-4 mb-4">
+            {fieldApiErrorMessage(deactivateField.error)}
+          </Callout>
+        ) : null}
       </ScrollView>
 
       <DeactivateFieldDialog
         visible={confirmingDeactivate}
         fieldTitle={`Field ${fieldNumber}`}
+        loading={deactivateField.isPending}
         onCancel={() => setConfirmingDeactivate(false)}
         onConfirm={() => {
-          setConfirmingDeactivate(false);
-          onDeactivated();
+          deactivateField.mutate(undefined, {
+            onSuccess: () => {
+              setConfirmingDeactivate(false);
+              onDeactivated();
+            },
+          });
         }}
       />
     </Screen>

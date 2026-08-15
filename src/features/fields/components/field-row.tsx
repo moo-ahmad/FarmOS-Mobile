@@ -3,23 +3,32 @@ import { Pressable, View } from 'react-native';
 
 import { SquareBadge, Tag, Text } from '@/components/ui';
 import { cn } from '@/lib/cn';
+import type { FieldDto } from '@/lib/fields';
 import { colors } from '@/theme';
 
-import type { Field } from '../fixtures';
+import {
+  fieldAreaLabel,
+  fieldSoilLabel,
+  fieldUsageTag,
+} from '../field-display';
+import { FieldUsageType } from '../model';
 
 export interface FieldRowProps {
-  field: Field;
+  field: FieldDto;
   onPress?: () => void;
   /** The field the user arrived to see — a light accent tint, not in the design. */
   highlighted?: boolean;
 }
 
-/** One field-list row: 38px badge (muted for fallow), title/sub, tag, chevron. */
+/** One field-list row: badge (muted for fallow), title/sub, usage tag, chevron. */
 export function FieldRow({
   field,
   onPress,
   highlighted = false,
 }: FieldRowProps) {
+  const tag = fieldUsageTag(field);
+  const soil = fieldSoilLabel(field);
+
   return (
     <Pressable
       accessibilityRole="button"
@@ -29,14 +38,19 @@ export function FieldRow({
         highlighted && 'bg-accent-100',
       )}
     >
-      <SquareBadge code={field.code} size={38} muted={field.fallow} />
+      <SquareBadge
+        code={field.code}
+        size={38}
+        muted={field.usageType === FieldUsageType.Fallow}
+      />
       <View className="flex-1">
-        <Text variant="row">{field.title}</Text>
+        <Text variant="row">{field.name}</Text>
         <Text variant="caption" tone="muted">
-          {field.areaHa} ha · {field.note}
+          {fieldAreaLabel(field)}
+          {soil ? ` · ${soil}` : ''}
         </Text>
       </View>
-      <Tag label={field.tagLabel} variant={field.tagVariant} />
+      <Tag label={tag.label} variant={tag.variant} />
       <ChevronRight size={18} color={colors.neutral[500]} strokeWidth={2} />
     </Pressable>
   );

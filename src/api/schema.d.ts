@@ -99,6 +99,86 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/fields": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetFields"];
+        put?: never;
+        post: operations["CreateField"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/fields/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetFieldById"];
+        put: operations["UpdateField"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/fields/{id}/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DeactivateField"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/irrigation-sources": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetIrrigationSources"];
+        put?: never;
+        post: operations["CreateIrrigationSource"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/irrigation-sources/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetIrrigationSourceById"];
+        put: operations["UpdateIrrigationSource"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -106,6 +186,39 @@ export interface components {
         CreateFarmRequest: {
             farmName: string;
         };
+        CreateFieldRequest: {
+            code: string;
+            name: string;
+            /** Format: double */
+            areaValue: number | string;
+            /** Format: int32 */
+            areaUomId: number | string;
+            usageType: components["schemas"]["FieldUsageType"];
+            /** Format: int32 */
+            soilTextureId: null | number | string;
+            /** Format: int32 */
+            primaryIrrigationSourceId: null | number | string;
+            /** Format: int32 */
+            parentFieldId: null | number | string;
+            /** Format: double */
+            centroidLat: null | number | string;
+            /** Format: double */
+            centroidLng: null | number | string;
+        };
+        CreateIrrigationSourceRequest: {
+            name: string;
+            sourceType: components["schemas"]["IrrigationSourceType"];
+            costModel: components["schemas"]["IrrigationCostModel"];
+            /** Format: double */
+            ratePerUnit: number | string;
+            /** Format: double */
+            dischargeLpm: null | number | string;
+            /** Format: int32 */
+            pumpAssetId: null | number | string;
+        };
+        FieldUsageType: number;
+        IrrigationCostModel: number;
+        IrrigationSourceType: number;
         LoginRequest: {
             email: string;
             password: string;
@@ -121,6 +234,36 @@ export interface components {
             ownerName: string;
             email: string;
             password: string;
+        };
+        UpdateFieldRequest: {
+            code: string;
+            name: string;
+            /** Format: double */
+            areaValue: number | string;
+            /** Format: int32 */
+            areaUomId: number | string;
+            usageType: components["schemas"]["FieldUsageType"];
+            /** Format: int32 */
+            soilTextureId: null | number | string;
+            /** Format: int32 */
+            primaryIrrigationSourceId: null | number | string;
+            /** Format: int32 */
+            parentFieldId: null | number | string;
+            /** Format: double */
+            centroidLat: null | number | string;
+            /** Format: double */
+            centroidLng: null | number | string;
+        };
+        UpdateIrrigationSourceRequest: {
+            name: string;
+            sourceType: components["schemas"]["IrrigationSourceType"];
+            costModel: components["schemas"]["IrrigationCostModel"];
+            /** Format: double */
+            ratePerUnit: number | string;
+            /** Format: double */
+            dischargeLpm: null | number | string;
+            /** Format: int32 */
+            pumpAssetId: null | number | string;
         };
     };
     responses: never;
@@ -247,6 +390,194 @@ export interface operations {
         requestBody: {
             content: {
                 "application/json": components["schemas"]["CreateFarmRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetFields: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateField: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateFieldRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetFieldById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateField: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateFieldRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeactivateField: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetIrrigationSources: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateIrrigationSource: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateIrrigationSourceRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetIrrigationSourceById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateIrrigationSource: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateIrrigationSourceRequest"];
             };
         };
         responses: {
