@@ -1,0 +1,13 @@
+# Normalize text files to LF in the repo; Windows checkouts were flipping
+# these to CRLF on every touch (prettier, eslint --fix, git checkout),
+# which made `git status` flag dozens of files with no real content change.
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.ttf binary
+*.otf binary
+*.woff binary
+*.woff2 binary
