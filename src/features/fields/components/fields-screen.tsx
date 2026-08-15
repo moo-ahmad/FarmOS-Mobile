@@ -17,8 +17,8 @@ export interface FieldsScreenProps {
 }
 
 /**
- * Fields (canvas `1a`, frame 4): a schematic parcel map plus the field list.
- * Built against sample fixtures — see ../fixtures.
+ * Fields (design handoff: FarmOS Land, "Fields" frame): a schematic parcel
+ * map plus the field list. Built against sample fixtures — see ../fixtures.
  */
 export function FieldsScreen({
   onAddField,

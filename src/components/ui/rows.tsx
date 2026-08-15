@@ -10,11 +10,11 @@ import { Text } from './text';
 export interface SquareBadgeProps {
   code: string;
   size?: number;
-  /** Muted grey badge (e.g. a fallow field). */
+  /** Muted grey badge, e.g. a fallow field or an absent worker. */
   muted?: boolean;
 }
 
-/** Solid-ink square badge with a white field/entity code. */
+/** Solid-ink square badge with a white code; muted badges use a light-grey pairing instead. */
 export function SquareBadge({
   code,
   size = 36,
@@ -25,10 +25,15 @@ export function SquareBadge({
       style={{ width: size, height: size }}
       className={cn(
         'items-center justify-center',
-        muted ? 'bg-neutral-400' : 'bg-ink',
+        muted ? 'bg-neutral-300' : 'bg-ink',
       )}
     >
-      <Text tone="inverse" className="font-archivo-bold text-label">
+      <Text
+        className={cn(
+          'font-archivo-bold text-label',
+          muted ? 'text-neutral-700' : 'text-neutral-0',
+        )}
+      >
         {code}
       </Text>
     </View>

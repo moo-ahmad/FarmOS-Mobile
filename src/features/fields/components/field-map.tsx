@@ -28,8 +28,9 @@ const PARCEL_BOUNDS: Record<
 
 /**
  * Schematic field-parcel diagram (344×176) — not a geographic map. Layout is
- * fixed to match the design exactly (canvas `1a`, frame 4); labels are pulled
- * from `fields` so the diagram stays in sync with the list below it.
+ * fixed to match the design exactly (design handoff: FarmOS Land, "Fields"
+ * frame); labels are pulled from `fields` so the diagram stays in sync with
+ * the list below it.
  */
 export function FieldMap({
   fields: [f1, f2, f3, f4],
