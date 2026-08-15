@@ -15,23 +15,25 @@ export interface SquareBadgeProps {
 }
 
 /**
- * Solid-ink square badge with a white code; muted badges use a light-grey
- * pairing instead. Codes over 3 characters (e.g. a real field's "F-001",
- * versus the design's demo "F1") drop to the smaller caption size and
- * `numberOfLines={1}` so they don't wrap or overflow the box.
+ * Solid-ink badge with a white code; muted badges use a light-grey pairing
+ * instead. Square (`minWidth` == `height`) for a short code like the
+ * design's demo "F1", but flexible — it grows past that minimum rather than
+ * cramming — for longer real codes (e.g. "F001"). Over 2 characters also
+ * drops to the smaller caption size, with `numberOfLines={1}` as a last
+ * resort so it truncates instead of wrapping.
  */
 export function SquareBadge({
   code,
   size = 36,
   muted = false,
 }: SquareBadgeProps) {
-  const compact = code.length > 3;
+  const compact = code.length > 2;
 
   return (
     <View
-      style={{ width: size, height: size }}
+      style={{ minWidth: size, height: size }}
       className={cn(
-        'items-center justify-center px-0.5',
+        'items-center justify-center px-1',
         muted ? 'bg-neutral-300' : 'bg-ink',
       )}
     >
