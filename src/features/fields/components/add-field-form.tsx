@@ -1,7 +1,7 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronDown, MapPin } from 'lucide-react-native';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
 
@@ -23,12 +23,14 @@ import {
   FieldUsageType,
   SOIL_TEXTURES,
 } from '../model';
-import { addFieldFormSchema, type AddFieldFormValues } from '../schema';
+import { createAddFieldFormSchema, type AddFieldFormValues } from '../schema';
 import { OptionPicker } from './option-picker';
 
 export interface AddFieldFormProps {
-  /** The next available field code (e.g. "F-002"), pre-filled but editable. */
+  /** The next available field code (e.g. "F002"), pre-filled but editable. */
   nextCode: string;
+  /** Every code already on the farm — the code field must be unique among these. */
+  existingCodes: readonly string[];
   onSubmit: (values: AddFieldFormValues) => void;
 }
 
@@ -45,10 +47,12 @@ const NONE_IRRIGATION_SOURCE = -1;
  * (`usageType` — `IsInEnum`, no default) and a required Field name (the
  * backend rejects an empty one; the handoff's "optional" label no longer
  * applies). Irrigation source is now the farm's own created sources
- * (`GET /api/irrigation-sources`), not a fixed list.
+ * (`GET /api/irrigation-sources`), not a fixed list. The code field is
+ * stricter than the backend requires: ≤4 alphanumeric characters, unique
+ * among `existingCodes`.
  */
 export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
-  function AddFieldForm({ nextCode, onSubmit }, ref) {
+  function AddFieldForm({ nextCode, existingCodes, onSubmit }, ref) {
     const soilPickerRef = useRef<BottomSheetModal>(null);
     const irrigationPickerRef = useRef<BottomSheetModal>(null);
     const usagePickerRef = useRef<BottomSheetModal>(null);
@@ -56,8 +60,13 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
 
     const irrigationSources = useIrrigationSources();
 
+    const schema = useMemo(
+      () => createAddFieldFormSchema(existingCodes),
+      [existingCodes],
+    );
+
     const { control, handleSubmit } = useForm<AddFieldFormValues>({
-      resolver: zodResolver(addFieldFormSchema),
+      resolver: zodResolver(schema),
       defaultValues: {
         code: nextCode,
         name: '',
@@ -81,16 +90,18 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
         <Controller
           control={control}
           name="code"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <>
               <View className="mt-2 flex-row items-center gap-3">
                 <TextField
                   value={field.value}
                   onChangeText={(text) => field.onChange(text.toUpperCase())}
                   autoCapitalize="characters"
-                  maxLength={20}
+                  maxLength={4}
                   containerClassName="w-28"
-                  fieldClassName="border-ink"
+                  fieldClassName={
+                    fieldState.error ? 'border-accent' : 'border-ink'
+                  }
                   className="font-archivo-bold text-label"
                 />
                 <SquareBadge code={field.value || '—'} size={34} />
@@ -98,9 +109,13 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                   Badge preview
                 </Text>
               </View>
-              <Text variant="caption" tone="muted" className="mt-1.5">
-                Used as the short badge label throughout the app — e.g. F-001,
-                F-002.
+              <Text
+                variant="caption"
+                tone={fieldState.error ? 'accent' : 'muted'}
+                className="mt-1.5"
+              >
+                {fieldState.error?.message ??
+                  'Used as the short badge label throughout the app — e.g. F001, F002.'}
               </Text>
             </>
           )}

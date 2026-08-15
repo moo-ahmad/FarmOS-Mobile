@@ -28,9 +28,16 @@ export function AddFieldScreen({ onClose, onSaved }: AddFieldScreenProps) {
   const fields = useFields();
   const createField = useCreateField();
 
+  const existingCodes = useMemo(
+    () => fields.data?.fields.map((f) => f.code) ?? [],
+    [fields.data],
+  );
+
+  // 4-char alphanumeric only (Add Field's own, stricter-than-backend rule) —
+  // "F" + a zero-padded count fits within that for the first 999 fields.
   const nextCode = useMemo(() => {
     const count = fields.data?.fields.length ?? 0;
-    return `F-${String(count + 1).padStart(3, '0')}`;
+    return `F${String(count + 1).padStart(3, '0')}`;
   }, [fields.data]);
 
   const handleSubmit = (values: AddFieldFormValues) => {
@@ -58,6 +65,7 @@ export function AddFieldScreen({ onClose, onSaved }: AddFieldScreenProps) {
         <AddFieldForm
           ref={formRef}
           nextCode={nextCode}
+          existingCodes={existingCodes}
           onSubmit={handleSubmit}
         />
         {createField.isError ? (
