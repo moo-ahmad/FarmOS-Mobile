@@ -8,7 +8,6 @@ import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
 import {
   MicroLabel,
   NumericField,
-  SegmentedControl,
   SquareBadge,
   Tag,
   Text,
@@ -53,6 +52,7 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
     const soilPickerRef = useRef<BottomSheetModal>(null);
     const irrigationPickerRef = useRef<BottomSheetModal>(null);
     const usagePickerRef = useRef<BottomSheetModal>(null);
+    const unitPickerRef = useRef<BottomSheetModal>(null);
 
     const irrigationSources = useIrrigationSources();
 
@@ -181,14 +181,29 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                 <Text variant="micro" tone="muted" className="mb-1.5">
                   Unit
                 </Text>
-                <SegmentedControl
-                  compact
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => unitPickerRef.current?.present()}
+                  className="min-h-tap flex-row items-center justify-between border-field border-ink px-3"
+                >
+                  <Text className="font-archivo-bold text-label">
+                    {AREA_UOMS.find((uom) => uom.id === field.value)?.label ??
+                      'Select'}
+                  </Text>
+                  <ChevronDown size={18} color={colors.accent.DEFAULT} />
+                </Pressable>
+                <OptionPicker
+                  ref={unitPickerRef}
+                  title="Area unit"
+                  value={field.value}
                   options={AREA_UOMS.map((uom) => ({
                     value: uom.id,
-                    label: uom.code,
+                    label: uom.label,
                   }))}
-                  value={field.value}
-                  onChange={field.onChange}
+                  onSelect={(value) => {
+                    field.onChange(value);
+                    unitPickerRef.current?.dismiss();
+                  }}
                 />
               </View>
             )}
