@@ -1,11 +1,15 @@
-import { Modal, Pressable, View } from 'react-native';
+import { ActivityIndicator, Modal, Pressable, View } from 'react-native';
 
 import { Text } from '@/components/ui';
+import { cn } from '@/lib/cn';
+import { colors } from '@/theme';
 
 export interface DeactivateFieldDialogProps {
   visible: boolean;
   /** e.g. "Field 3". */
   fieldTitle: string;
+  /** Disables both actions and shows a spinner on Deactivate while the request is in flight. */
+  loading?: boolean;
   onCancel: () => void;
   onConfirm: () => void;
 }
@@ -19,6 +23,7 @@ export interface DeactivateFieldDialogProps {
 export function DeactivateFieldDialog({
   visible,
   fieldTitle,
+  loading = false,
   onCancel,
   onConfirm,
 }: DeactivateFieldDialogProps) {
@@ -42,19 +47,31 @@ export function DeactivateFieldDialog({
           <View className="mt-1 flex-row justify-end gap-2.5">
             <Pressable
               accessibilityRole="button"
+              disabled={loading}
               onPress={onCancel}
-              className="min-h-tap justify-center border-field border-divider px-4"
+              className={cn(
+                'min-h-tap justify-center border-field border-divider px-4',
+                loading && 'opacity-45',
+              )}
             >
               <Text className="font-archivo-bold text-label">Cancel</Text>
             </Pressable>
             <Pressable
               accessibilityRole="button"
+              disabled={loading}
               onPress={onConfirm}
-              className="min-h-tap justify-center bg-accent px-4"
+              className={cn(
+                'min-h-tap min-w-[110px] items-center justify-center bg-accent px-4',
+                loading && 'opacity-70',
+              )}
             >
-              <Text tone="inverse" className="font-archivo-bold text-label">
-                Deactivate
-              </Text>
+              {loading ? (
+                <ActivityIndicator size="small" color={colors.white} />
+              ) : (
+                <Text tone="inverse" className="font-archivo-bold text-label">
+                  Deactivate
+                </Text>
+              )}
             </Pressable>
           </View>
         </View>

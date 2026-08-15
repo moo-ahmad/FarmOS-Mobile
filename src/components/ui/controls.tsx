@@ -4,12 +4,12 @@ import { cn } from '@/lib/cn';
 
 import { Text } from './text';
 
-export interface SegmentOption<T extends string> {
+export interface SegmentOption<T extends string | number> {
   value: T;
   label: string;
 }
 
-export interface SegmentedControlProps<T extends string> {
+export interface SegmentedControlProps<T extends string | number> {
   options: readonly SegmentOption<T>[];
   value: T;
   onChange: (value: T) => void;
@@ -21,7 +21,7 @@ export interface SegmentedControlProps<T extends string> {
 }
 
 /** Full-width segmented control; selected segment is solid red (or ink). */
-export function SegmentedControl<T extends string>({
+export function SegmentedControl<T extends string | number>({
   options,
   value,
   onChange,

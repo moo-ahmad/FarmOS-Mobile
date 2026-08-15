@@ -1,14 +1,13 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ChevronDown, MapPin } from 'lucide-react-native';
-import { forwardRef, useImperativeHandle, useRef } from 'react';
+import { forwardRef, useImperativeHandle, useMemo, useRef } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { Alert, Pressable, View } from 'react-native';
+import { ActivityIndicator, Alert, Pressable, View } from 'react-native';
 
 import {
   MicroLabel,
   NumericField,
-  SegmentedControl,
   SquareBadge,
   Tag,
   Text,
@@ -16,22 +15,22 @@ import {
 } from '@/components/ui';
 import { colors } from '@/theme';
 
+import { useIrrigationSources } from '../hooks';
 import {
-  AREA_UNIT_LABEL,
-  AREA_UNITS,
-  IRRIGATION_SOURCE_LABEL,
-  IRRIGATION_SOURCES,
-  type IrrigationSource,
-  SOIL_TYPE_LABEL,
-  SOIL_TYPES,
-  type SoilType,
+  AREA_UOMS,
+  FIELD_USAGE_TYPE_LABEL,
+  FIELD_USAGE_TYPES,
+  FieldUsageType,
+  SOIL_TEXTURES,
 } from '../model';
-import { addFieldFormSchema, type AddFieldFormValues } from '../schema';
+import { createAddFieldFormSchema, type AddFieldFormValues } from '../schema';
 import { OptionPicker } from './option-picker';
 
 export interface AddFieldFormProps {
-  /** The next available field code (e.g. "F5"), pre-filled but editable. */
+  /** The next available field code (e.g. "F002"), pre-filled but editable. */
   nextCode: string;
+  /** Every code already on the farm — the code field must be unique among these. */
+  existingCodes: readonly string[];
   onSubmit: (values: AddFieldFormValues) => void;
 }
 
@@ -39,27 +38,43 @@ export interface AddFieldFormHandle {
   submit: () => void;
 }
 
+const NONE_IRRIGATION_SOURCE = -1;
+
 /**
- * Add Field form (design handoff: FarmOS Land, "Add field" frame): field
- * code with a live badge preview, optional name, area + unit, soil type and
- * irrigation source pickers, and a not-yet-mapped boundary row. UI-first —
- * Save validates and returns to the screen it was opened from; persistence
- * isn't wired yet (same convention as ExpenseForm).
+ * Add Field form (design handoff: FarmOS Land, "Add field" frame), wired to
+ * the real `POST /api/fields` contract. Two things the handoff doesn't show
+ * were added because the backend requires them: a "Field type" picker
+ * (`usageType` — `IsInEnum`, no default) and a required Field name (the
+ * backend rejects an empty one; the handoff's "optional" label no longer
+ * applies). Irrigation source is now the farm's own created sources
+ * (`GET /api/irrigation-sources`), not a fixed list. The code field is
+ * stricter than the backend requires: ≤4 alphanumeric characters, unique
+ * among `existingCodes`.
  */
 export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
-  function AddFieldForm({ nextCode, onSubmit }, ref) {
+  function AddFieldForm({ nextCode, existingCodes, onSubmit }, ref) {
     const soilPickerRef = useRef<BottomSheetModal>(null);
     const irrigationPickerRef = useRef<BottomSheetModal>(null);
+    const usagePickerRef = useRef<BottomSheetModal>(null);
+    const unitPickerRef = useRef<BottomSheetModal>(null);
+
+    const irrigationSources = useIrrigationSources();
+
+    const schema = useMemo(
+      () => createAddFieldFormSchema(existingCodes),
+      [existingCodes],
+    );
 
     const { control, handleSubmit } = useForm<AddFieldFormValues>({
-      resolver: zodResolver(addFieldFormSchema),
+      resolver: zodResolver(schema),
       defaultValues: {
         code: nextCode,
         name: '',
         area: '',
-        unit: 'ha',
-        soilType: 'sandy-loam',
-        irrigationSource: 'tubewell',
+        areaUomId: AREA_UOMS[0]!.id,
+        usageType: FieldUsageType.RowCrop,
+        soilTextureId: SOIL_TEXTURES[0]!.id,
+        primaryIrrigationSourceId: null,
       },
     });
 
@@ -75,7 +90,7 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
         <Controller
           control={control}
           name="code"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <>
               <View className="mt-2 flex-row items-center gap-3">
                 <TextField
@@ -83,8 +98,10 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                   onChangeText={(text) => field.onChange(text.toUpperCase())}
                   autoCapitalize="characters"
                   maxLength={4}
-                  containerClassName="w-24"
-                  fieldClassName="border-ink"
+                  containerClassName="w-28"
+                  fieldClassName={
+                    fieldState.error ? 'border-accent' : 'border-ink'
+                  }
                   className="font-archivo-bold text-label"
                 />
                 <SquareBadge code={field.value || '—'} size={34} />
@@ -92,8 +109,13 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                   Badge preview
                 </Text>
               </View>
-              <Text variant="caption" tone="muted" className="mt-1.5">
-                Used as the short badge label throughout the app — e.g. F1, F2.
+              <Text
+                variant="caption"
+                tone={fieldState.error ? 'accent' : 'muted'}
+                className="mt-1.5"
+              >
+                {fieldState.error?.message ??
+                  'Used as the short badge label throughout the app — e.g. F001, F002.'}
               </Text>
             </>
           )}
@@ -102,16 +124,52 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
         <Controller
           control={control}
           name="name"
-          render={({ field }) => (
+          render={({ field, fieldState }) => (
             <TextField
-              label="Field name · optional"
-              placeholder="e.g. North plot"
+              label="Field name"
+              placeholder="e.g. North Block"
               value={field.value}
               onChangeText={field.onChange}
+              error={fieldState.error ? 'Enter a field name' : undefined}
               containerClassName="mt-4"
             />
           )}
         />
+
+        <View className="mt-[18px]">
+          <MicroLabel>Field type</MicroLabel>
+          <Controller
+            control={control}
+            name="usageType"
+            render={({ field }) => (
+              <>
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => usagePickerRef.current?.present()}
+                  className="mt-2 min-h-tap flex-row items-center justify-between border-field border-ink px-3"
+                >
+                  <Text className="font-archivo-bold text-label">
+                    {FIELD_USAGE_TYPE_LABEL[field.value as FieldUsageType]}
+                  </Text>
+                  <ChevronDown size={18} color={colors.accent.DEFAULT} />
+                </Pressable>
+                <OptionPicker
+                  ref={usagePickerRef}
+                  title="Field type"
+                  value={field.value}
+                  options={FIELD_USAGE_TYPES.map((type) => ({
+                    value: type,
+                    label: FIELD_USAGE_TYPE_LABEL[type],
+                  }))}
+                  onSelect={(value) => {
+                    field.onChange(value);
+                    usagePickerRef.current?.dismiss();
+                  }}
+                />
+              </>
+            )}
+          />
+        </View>
 
         <View className="mt-4 flex-row items-end gap-2.5">
           <Controller
@@ -132,20 +190,35 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
           />
           <Controller
             control={control}
-            name="unit"
+            name="areaUomId"
             render={({ field }) => (
               <View className="flex-1">
                 <Text variant="micro" tone="muted" className="mb-1.5">
                   Unit
                 </Text>
-                <SegmentedControl
-                  compact
-                  options={AREA_UNITS.map((unit) => ({
-                    value: unit,
-                    label: AREA_UNIT_LABEL[unit],
-                  }))}
+                <Pressable
+                  accessibilityRole="button"
+                  onPress={() => unitPickerRef.current?.present()}
+                  className="min-h-tap flex-row items-center justify-between border-field border-ink px-3"
+                >
+                  <Text className="font-archivo-bold text-label">
+                    {AREA_UOMS.find((uom) => uom.id === field.value)?.label ??
+                      'Select'}
+                  </Text>
+                  <ChevronDown size={18} color={colors.accent.DEFAULT} />
+                </Pressable>
+                <OptionPicker
+                  ref={unitPickerRef}
+                  title="Area unit"
                   value={field.value}
-                  onChange={field.onChange}
+                  options={AREA_UOMS.map((uom) => ({
+                    value: uom.id,
+                    label: uom.label,
+                  }))}
+                  onSelect={(value) => {
+                    field.onChange(value);
+                    unitPickerRef.current?.dismiss();
+                  }}
                 />
               </View>
             )}
@@ -156,7 +229,7 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
           <MicroLabel>Soil type</MicroLabel>
           <Controller
             control={control}
-            name="soilType"
+            name="soilTextureId"
             render={({ field }) => (
               <>
                 <Pressable
@@ -165,20 +238,21 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                   className="mt-2 min-h-tap flex-row items-center justify-between border-field border-ink px-3"
                 >
                   <Text className="font-archivo-bold text-label">
-                    {SOIL_TYPE_LABEL[field.value]}
+                    {SOIL_TEXTURES.find((t) => t.id === field.value)?.label ??
+                      'Select'}
                   </Text>
                   <ChevronDown size={18} color={colors.accent.DEFAULT} />
                 </Pressable>
                 <OptionPicker
                   ref={soilPickerRef}
                   title="Soil type"
-                  value={field.value}
-                  options={SOIL_TYPES.map((soil) => ({
-                    value: soil,
-                    label: SOIL_TYPE_LABEL[soil],
+                  value={field.value ?? SOIL_TEXTURES[0]!.id}
+                  options={SOIL_TEXTURES.map((texture) => ({
+                    value: texture.id,
+                    label: texture.label,
                   }))}
                   onSelect={(value) => {
-                    field.onChange(value as SoilType);
+                    field.onChange(value);
                     soilPickerRef.current?.dismiss();
                   }}
                 />
@@ -191,34 +265,59 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
           <MicroLabel>Irrigation source</MicroLabel>
           <Controller
             control={control}
-            name="irrigationSource"
-            render={({ field }) => (
-              <>
-                <Pressable
-                  accessibilityRole="button"
-                  onPress={() => irrigationPickerRef.current?.present()}
-                  className="mt-2 min-h-tap flex-row items-center justify-between border-field border-ink px-3"
-                >
-                  <Text className="font-archivo-bold text-label">
-                    {IRRIGATION_SOURCE_LABEL[field.value]}
-                  </Text>
-                  <ChevronDown size={18} color={colors.accent.DEFAULT} />
-                </Pressable>
-                <OptionPicker
-                  ref={irrigationPickerRef}
-                  title="Irrigation source"
-                  value={field.value}
-                  options={IRRIGATION_SOURCES.map((source) => ({
-                    value: source,
-                    label: IRRIGATION_SOURCE_LABEL[source],
-                  }))}
-                  onSelect={(value) => {
-                    field.onChange(value as IrrigationSource);
-                    irrigationPickerRef.current?.dismiss();
-                  }}
-                />
-              </>
-            )}
+            name="primaryIrrigationSourceId"
+            render={({ field }) => {
+              const selectedSource = irrigationSources.data?.find(
+                (source) => source.irrigationSourceId === field.value,
+              );
+              const label = irrigationSources.isPending
+                ? 'Loading…'
+                : (selectedSource?.name ?? 'None');
+
+              return (
+                <>
+                  <Pressable
+                    accessibilityRole="button"
+                    disabled={irrigationSources.isPending}
+                    onPress={() => irrigationPickerRef.current?.present()}
+                    className="mt-2 min-h-tap flex-row items-center justify-between border-field border-ink px-3"
+                  >
+                    <Text className="font-archivo-bold text-label">
+                      {label}
+                    </Text>
+                    {irrigationSources.isPending ? (
+                      <ActivityIndicator size="small" color={colors.ink} />
+                    ) : (
+                      <ChevronDown size={18} color={colors.accent.DEFAULT} />
+                    )}
+                  </Pressable>
+                  {irrigationSources.data &&
+                  irrigationSources.data.length === 0 ? (
+                    <Text variant="caption" tone="muted" className="mt-1.5">
+                      No irrigation sources on this farm yet.
+                    </Text>
+                  ) : null}
+                  <OptionPicker
+                    ref={irrigationPickerRef}
+                    title="Irrigation source"
+                    value={field.value ?? NONE_IRRIGATION_SOURCE}
+                    options={[
+                      { value: NONE_IRRIGATION_SOURCE, label: 'None' },
+                      ...(irrigationSources.data ?? []).map((source) => ({
+                        value: source.irrigationSourceId,
+                        label: source.name,
+                      })),
+                    ]}
+                    onSelect={(value) => {
+                      field.onChange(
+                        value === NONE_IRRIGATION_SOURCE ? null : value,
+                      );
+                      irrigationPickerRef.current?.dismiss();
+                    }}
+                  />
+                </>
+              );
+            }}
           />
         </View>
 
