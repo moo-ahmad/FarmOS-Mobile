@@ -14,7 +14,7 @@ export default function LoginRoute() {
   const signIn = useSignIn();
 
   if (signedIn) {
-    return <Redirect href="/field/new" />;
+    return <Redirect href="/" />;
   }
 
   return (

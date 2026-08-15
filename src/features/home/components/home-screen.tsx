@@ -11,25 +11,33 @@ import {
   cropCycles,
   homeSummary,
   incomeExpenseByMonth,
+  teamSummary,
 } from '../fixtures';
 import { AttentionRow } from './attention-row';
 import { ChartLegend } from './chart-legend';
 import { CycleRow } from './cycle-row';
+import { HomeLinksRow } from './home-links-row';
 import { IncomeExpenseChart } from './income-expense-chart';
 import { NetCashSummary } from './net-cash-summary';
 import { SectionHeader } from './section-header';
+import { TeamRow } from './team-row';
 
 export interface HomeScreenProps {
   onOpenCycle?: (cycleId: string) => void;
+  onOpenFields?: () => void;
 }
 
 /**
- * Home (canvas `1a`, frame 1): glance-first daily overview. Built against the
- * sample fixtures in ../fixtures until the cycles/reminders API exists.
+ * Home (design handoff: FarmOS Home): glance-first daily overview. Built
+ * against the sample fixtures in ../fixtures until the cycles/reminders API
+ * exists.
  */
-export function HomeScreen({ onOpenCycle }: HomeScreenProps) {
+export function HomeScreen({ onOpenCycle, onOpenFields }: HomeScreenProps) {
   const { t } = useTranslation();
   const signOut = useSignOut();
+
+  const comingSoon = (title: string) =>
+    Alert.alert(title, 'This is coming soon.');
 
   const confirmLogout = () => {
     Alert.alert(t('home.logoutConfirmTitle'), t('home.logoutConfirmMessage'), [
@@ -64,6 +72,8 @@ export function HomeScreen({ onOpenCycle }: HomeScreenProps) {
           netCash={homeSummary.netCash}
           moneyIn={homeSummary.moneyIn}
           moneyOut={homeSummary.moneyOut}
+          onPressMoneyIn={() => comingSoon('Money in')}
+          onPressMoneyOut={() => comingSoon('Money out')}
         />
         <Divider />
 
@@ -79,6 +89,10 @@ export function HomeScreen({ onOpenCycle }: HomeScreenProps) {
             ) : null}
           </View>
         ))}
+        <HomeLinksRow
+          onSeeAllActivity={() => comingSoon('Activity')}
+          onSeeAllFields={() => onOpenFields?.()}
+        />
         <Divider />
 
         <SectionHeader label="Income vs expense · 6 mo" />
@@ -86,6 +100,13 @@ export function HomeScreen({ onOpenCycle }: HomeScreenProps) {
           <IncomeExpenseChart data={incomeExpenseByMonth} />
         </View>
         <ChartLegend />
+        <Divider />
+
+        <TeamRow
+          workerCount={teamSummary.workerCount}
+          weeklyWages={teamSummary.weeklyWages}
+          onPress={() => comingSoon('Team')}
+        />
         <Divider />
 
         <SectionHeader label="Needs attention" />

@@ -1,3 +1,4 @@
+import type { TagVariant } from '@/components/ui';
 import { toMoney, type Money } from '@/lib/decimal';
 
 import type { MonthPoint } from './components/income-expense-chart';
@@ -46,11 +47,11 @@ export const cropCycles: CropCycle[] = [
   {
     id: 'cycle-f1-cotton',
     fieldCode: 'F1',
-    title: 'Cotton · Bt-121',
+    title: 'Cotton · IUB-13',
     sub: 'Field 1 · 3.4 ha · Flowering',
-    daysToHarvest: 62,
-    cost: toMoney('2380'),
-    budget: toMoney('6200'),
+    daysToHarvest: 61,
+    cost: toMoney('6880'),
+    budget: toMoney('9200'),
   },
   {
     id: 'cycle-f4-mango',
@@ -80,7 +81,7 @@ export interface AttentionAlert {
   message: string;
   emphasis: string;
   tagLabel: string;
-  tagVariant: 'solid' | 'neutral';
+  tagVariant: TagVariant;
 }
 
 export const attentionAlerts: AttentionAlert[] = [
@@ -90,12 +91,12 @@ export const attentionAlerts: AttentionAlert[] = [
     message: 'Spray PHI ends today — ',
     emphasis: 'F3 Wheat',
     tagLabel: 'Today',
-    tagVariant: 'solid',
+    tagVariant: 'accent',
   },
   {
     id: 'alert-irrigation',
     kind: 'irrigation',
-    message: 'Irrigation overdue by 2 days — ',
+    message: 'Irrigation due — ',
     emphasis: 'F1 Cotton',
     tagLabel: 'Overdue',
     tagVariant: 'solid',
@@ -103,9 +104,20 @@ export const attentionAlerts: AttentionAlert[] = [
   {
     id: 'alert-reorder',
     kind: 'reorder',
-    message: 'Urea stock below reorder level — ',
-    emphasis: 'Store',
+    message: 'Urea low — ',
+    emphasis: '2 bags left',
     tagLabel: 'Reorder',
     tagVariant: 'neutral',
   },
 ];
+
+export interface TeamSummary {
+  workerCount: number;
+  weeklyWages: Money;
+}
+
+/** "Team" row summary — independent of src/features/attendance's fixtures. */
+export const teamSummary: TeamSummary = {
+  workerCount: 8,
+  weeklyWages: toMoney('310'),
+};
