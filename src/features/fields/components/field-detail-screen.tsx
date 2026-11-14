@@ -19,7 +19,7 @@ import type { FieldDto } from '@/lib/fields';
 import { colors } from '@/theme';
 
 import { CropHistoryRow } from './crop-history-row';
-import { ConfirmFieldDialog } from './confirm-field-dialog';
+import { ConfirmDialog } from '@/components/confirm-dialog';
 import { FieldActionsSheet } from './field-actions-sheet';
 import { FieldDetailGrid } from './field-detail-grid';
 import { deleteFieldErrorMessage, fieldApiErrorMessage } from '../errors';
@@ -175,7 +175,7 @@ export function FieldDetailScreen({
         onDelete={() => setConfirming('delete')}
       />
 
-      <ConfirmFieldDialog
+      <ConfirmDialog
         visible={confirming === 'deactivate'}
         title="Deactivate this field?"
         message={`Field ${fieldNumber} will be hidden from active lists. Its crop history stays intact.`}
@@ -197,7 +197,7 @@ export function FieldDetailScreen({
         }
       />
 
-      <ConfirmFieldDialog
+      <ConfirmDialog
         visible={confirming === 'delete'}
         title="Delete this field?"
         message={`Field ${fieldNumber} will be removed for good. This only works if it has no crop cycles, activities or harvests yet — otherwise deactivate it.`}

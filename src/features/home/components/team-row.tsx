@@ -17,12 +17,12 @@ export function TeamRow({ workerCount, weeklyWages, onPress }: TeamRowProps) {
     <Pressable
       accessibilityRole="button"
       onPress={onPress}
-      className="flex-row items-center gap-3 px-4 py-3.5"
+      className="min-h-tap flex-row items-center gap-3 px-4 py-3.5"
     >
       <View className="flex-1">
         <Text variant="row">Team</Text>
         <Text variant="caption" tone="muted">
-          {workerCount} workers · ${formatMoneyDisplay(weeklyWages)} this week
+          {workerCount} workers · Rs {formatMoneyDisplay(weeklyWages)} this week
         </Text>
       </View>
       <ChevronRight size={18} color={colors.accent.DEFAULT} strokeWidth={2} />

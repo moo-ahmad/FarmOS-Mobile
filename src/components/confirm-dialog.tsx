@@ -1,10 +1,11 @@
+import type { ReactNode } from 'react';
 import { ActivityIndicator, Modal, Pressable, View } from 'react-native';
 
 import { Callout, Text } from '@/components/ui';
 import { cn } from '@/lib/cn';
 import { colors } from '@/theme';
 
-export interface ConfirmFieldDialogProps {
+export interface ConfirmDialogProps {
   visible: boolean;
   /** e.g. "Deactivate this field?". */
   title: string;
@@ -15,26 +16,29 @@ export interface ConfirmFieldDialogProps {
   loading?: boolean;
   /** A failed request's message, shown inside the dialog so it isn't hidden behind it. */
   errorMessage?: string;
+  /** Extra input shown under the message, e.g. a worker's exit date. */
+  children?: ReactNode;
   onCancel: () => void;
   onConfirm: () => void;
 }
 
 /**
- * Confirmation for a destructive field action — Deactivate or Delete
- * (design handoff: FarmOS Land, "Field 3" detail frame's dialog overlay): a centered, ink-bordered card over a dimmed
- * backdrop. No shadow token — the Modernist system carries structure with
+ * Confirmation for a destructive action (Deactivate, Delete) on a field,
+ * customer or worker (design handoff: FarmOS Land, "Field 3" detail frame's
+ * dialog overlay): a centered, ink-bordered card over a dimmed backdrop. No shadow token — the Modernist system carries structure with
  * ink rules alone, never elevation.
  */
-export function ConfirmFieldDialog({
+export function ConfirmDialog({
   visible,
   title,
   message,
   confirmLabel,
   loading = false,
   errorMessage,
+  children,
   onCancel,
   onConfirm,
-}: ConfirmFieldDialogProps) {
+}: ConfirmDialogProps) {
   return (
     <Modal
       visible={visible}
@@ -49,6 +53,7 @@ export function ConfirmFieldDialog({
         <View className="w-full gap-3 border-rule border-ink bg-surface p-[18px]">
           <Text variant="title-sm">{title}</Text>
           <Text className="text-[13.5px] leading-[18px]">{message}</Text>
+          {children}
           {errorMessage ? <Callout>{errorMessage}</Callout> : null}
           <View className="mt-1 flex-row justify-end gap-2.5">
             <Pressable

@@ -4,7 +4,10 @@ import { Alert, Pressable, ScrollView, View } from 'react-native';
 
 import { AppHeader, Divider, Screen } from '@/components/ui';
 import { useSignOut } from '@/features/auth';
+import { useCustomers } from '@/features/customers';
 import { SetupCard } from '@/features/farm-setup';
+import { useSeasons } from '@/features/season-form';
+import { useWorkers } from '@/features/workers';
 import { colors } from '@/theme';
 
 import {
@@ -16,10 +19,12 @@ import {
 } from '../fixtures';
 import { AttentionRow } from './attention-row';
 import { ChartLegend } from './chart-legend';
+import { CustomersRow } from './customers-row';
 import { CycleRow } from './cycle-row';
 import { HomeLinksRow } from './home-links-row';
 import { IncomeExpenseChart } from './income-expense-chart';
 import { NetCashSummary } from './net-cash-summary';
+import { SeasonsRow } from './seasons-row';
 import { SectionHeader } from './section-header';
 import { TeamRow } from './team-row';
 
@@ -28,20 +33,33 @@ export interface HomeScreenProps {
   onOpenFields?: () => void;
   onAddSeason?: () => void;
   onAddIrrigationSource?: () => void;
+  onOpenTeam?: () => void;
+  onOpenCustomers?: () => void;
+  onOpenSeasons?: () => void;
 }
 
 /**
  * Home (design handoff: FarmOS Home): glance-first daily overview. Built
  * against the sample fixtures in ../fixtures until the cycles/reminders API
- * exists.
+ * exists — except the Team, Customers and Seasons counts, which are live.
  */
 export function HomeScreen({
   onOpenCycle,
   onOpenFields,
   onAddSeason,
   onAddIrrigationSource,
+  onOpenTeam,
+  onOpenCustomers,
+  onOpenSeasons,
 }: HomeScreenProps) {
   const { t } = useTranslation();
+  const workers = useWorkers();
+  const customers = useCustomers();
+  const seasons = useSeasons();
+  const activeWorkerCount =
+    workers.data?.filter((w) => w.isActive).length ?? teamSummary.workerCount;
+  const activeCustomerCount = customers.data?.filter((c) => c.isActive).length;
+  const openSeasonCount = seasons.data?.filter((s) => !s.isClosed).length;
   const signOut = useSignOut();
 
   const comingSoon = (title: string) =>
@@ -115,9 +133,19 @@ export function HomeScreen({
         <Divider />
 
         <TeamRow
-          workerCount={teamSummary.workerCount}
+          workerCount={activeWorkerCount}
           weeklyWages={teamSummary.weeklyWages}
-          onPress={() => comingSoon('Team')}
+          onPress={() => onOpenTeam?.()}
+        />
+        <Divider />
+        <CustomersRow
+          activeCount={activeCustomerCount}
+          onPress={() => onOpenCustomers?.()}
+        />
+        <Divider />
+        <SeasonsRow
+          openCount={openSeasonCount}
+          onPress={() => onOpenSeasons?.()}
         />
         <Divider />
 
