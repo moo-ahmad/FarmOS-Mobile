@@ -9,6 +9,9 @@ export default function HomeRoute() {
       onOpenFields={() => router.push('/fields')}
       onAddSeason={() => router.push('/season/new')}
       onAddIrrigationSource={() => router.push('/irrigation-source/new')}
+      onOpenTeam={() => router.push('/workers')}
+      onOpenCustomers={() => router.push('/customers')}
+      onOpenSeasons={() => router.push('/seasons')}
     />
   );
 }

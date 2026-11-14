@@ -24,7 +24,7 @@ import {
   SOIL_TEXTURES,
 } from '../model';
 import { createAddFieldFormSchema, type AddFieldFormValues } from '../schema';
-import { OptionPicker } from './option-picker';
+import { OptionPicker } from '@/components/option-picker';
 
 export interface AddFieldFormProps {
   /**

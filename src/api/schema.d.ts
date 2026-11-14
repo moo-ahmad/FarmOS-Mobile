@@ -141,7 +141,7 @@ export interface paths {
         get: operations["GetFieldById"];
         put: operations["UpdateField"];
         post?: never;
-        delete?: never;
+        delete: operations["DeleteField"];
         options?: never;
         head?: never;
         patch?: never;
@@ -403,6 +403,54 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/workers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetWorkerById"];
+        put: operations["UpdateWorker"];
+        post?: never;
+        delete: operations["DeleteWorker"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/workers/{id}/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DeactivateWorker"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/workers/{id}/reactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ReactivateWorker"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/attendance": {
         parameters: {
             query?: never;
@@ -605,6 +653,54 @@ export interface paths {
         get: operations["GetCustomers"];
         put?: never;
         post: operations["CreateCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/customers/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCustomerById"];
+        put: operations["UpdateCustomer"];
+        post?: never;
+        delete: operations["DeleteCustomer"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/customers/{id}/deactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["DeactivateCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/customers/{id}/reactivate": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["ReactivateCustomer"];
         delete?: never;
         options?: never;
         head?: never;
@@ -1079,6 +1175,10 @@ export interface components {
         };
         CropCycleStatus: number;
         CustomerType: number;
+        DeactivateWorkerRequest: {
+            /** Format: date */
+            exitDate: string;
+        };
         EmploymentType: number;
         FieldUsageType: number;
         IrrigationCostModel: number;
@@ -1269,6 +1369,18 @@ export interface components {
             plantPopulationPerAcre: null | number | string;
             notes: null | string;
         };
+        UpdateCustomerRequest: {
+            name: string;
+            customerType: components["schemas"]["CustomerType"];
+            /** Format: double */
+            commissionPct: number | string;
+            /** Format: int16 */
+            creditTermDays: number | string;
+            /** Format: double */
+            creditLimit: null | number | string;
+            phone: null | string;
+            address: null | string;
+        };
         UpdateFieldRequest: {
             code: string;
             name: string;
@@ -1305,6 +1417,23 @@ export interface components {
             startDate: string;
             /** Format: date */
             endDate: string;
+        };
+        UpdateWorkerRequest: {
+            name: string;
+            employmentType: components["schemas"]["EmploymentType"];
+            /** Format: date */
+            joinDate: string;
+            /** Format: double */
+            dailyWage: null | number | string;
+            /** Format: double */
+            hourlyRate: null | number | string;
+            /** Format: double */
+            overtimeMultiplier: number | string;
+            /** Format: double */
+            monthlySalary: null | number | string;
+            cnicOrId: null | string;
+            phone: null | string;
+            skills: null | string;
         };
         VoidActivityRequest: {
             reason: string;
@@ -1543,6 +1672,26 @@ export interface operations {
                 "application/json": components["schemas"]["UpdateFieldRequest"];
             };
         };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeleteField: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {
@@ -2043,6 +2192,114 @@ export interface operations {
             };
         };
     };
+    GetWorkerById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateWorker: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateWorkerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeleteWorker: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeactivateWorker: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["DeactivateWorkerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReactivateWorker: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     GetAttendance: {
         parameters: {
             query: {
@@ -2443,6 +2700,110 @@ export interface operations {
                 "application/json": components["schemas"]["CreateCustomerRequest"];
             };
         };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetCustomerById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCustomerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeleteCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeactivateCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ReactivateCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {
