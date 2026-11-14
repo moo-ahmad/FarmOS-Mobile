@@ -1,13 +1,23 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 
-import { CropCycleFormScreen } from '@/features/crop-cycle-form';
+import { CropCycleFormScreen } from '@/features/crop-cycles';
+import { parseRouteId } from '@/lib/route-params';
 
-// Saving only closes the screen until a crop-cycles API exists to persist to.
+/** `/cycle/new`, optionally `?seasonId=` / `?fieldId=` to pre-pick them. */
 export default function NewCropCycleRoute() {
+  const { seasonId, fieldId } = useLocalSearchParams<{
+    seasonId?: string;
+    fieldId?: string;
+  }>();
+
   return (
     <CropCycleFormScreen
+      preset={{
+        seasonId: parseRouteId(seasonId),
+        fieldId: parseRouteId(fieldId),
+      }}
       onClose={() => router.back()}
-      onSave={() => router.back()}
+      onSaved={(saved) => router.replace(`/cycle/${saved.cropCycleId}`)}
     />
   );
 }
