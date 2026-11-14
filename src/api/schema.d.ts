@@ -3,6 +3,22 @@
 // Do not edit by hand.
 
 export interface paths {
+    "/api/crop-varieties": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCropVarieties"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/auth/login": {
         parameters: {
             query?: never;
@@ -179,10 +195,761 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/seasons": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetSeasons"];
+        put?: never;
+        post: operations["CreateSeason"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/seasons/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetSeasonById"];
+        put: operations["UpdateSeason"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/seasons/{id}/close": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["CloseSeason"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lookups": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetLookups"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lookups/types": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetLookupTypes"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lookups/values/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetLookupById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lookups/{lookupType}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetLookupsByType"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/lookups/{lookupType}/{code}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetLookupByTypeAndCode"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/crops": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCrops"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/crop-cycles": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCropCycles"];
+        put?: never;
+        post: operations["CreateCropCycle"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/crop-cycles/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCropCycleById"];
+        put: operations["UpdateCropCycle"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/crop-cycles/{id}/transition": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["TransitionCropCycleStatus"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/workers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetWorkers"];
+        put?: never;
+        post: operations["CreateWorker"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/attendance": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetAttendance"];
+        put?: never;
+        post: operations["RecordAttendance"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/activities": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetActivities"];
+        put?: never;
+        post: operations["CreateActivity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/activities/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetActivityById"];
+        put: operations["UpdateActivity"];
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/activities/{id}/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["VoidActivity"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/quality-grades": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetQualityGrades"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/harvest-batches": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetHarvestBatches"];
+        put?: never;
+        post: operations["RecordHarvestBatch"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/harvest-batches/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetHarvestBatchById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/expenses": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetExpenses"];
+        put?: never;
+        post: operations["CreateManualExpense"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/expenses/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetExpenseById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/expenses/{id}/void": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["VoidExpense"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/wage-payments": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["RecordWagePayment"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/purchases": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["CreatePurchase"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/customers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCustomers"];
+        put?: never;
+        post: operations["CreateCustomer"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetSales"];
+        put?: never;
+        post: operations["CreateSale"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/{id}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetSaleById"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/{id}/receipts": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post: operations["RecordReceipt"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/receivables-ageing": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetReceivablesAgeing"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/sales/receivables-ageing/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ExportReceivablesAgeing"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/other-income": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetOtherIncomes"];
+        put?: never;
+        post: operations["CreateOtherIncome"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/crop-cycle-pnl": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetCropCyclePnl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/crop-cycle-pnl/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ExportCropCyclePnl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/monthly-pnl": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetMonthlyPnl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/monthly-pnl/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ExportMonthlyPnl"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/expense-summary": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetExpenseSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/expense-summary/drilldown": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetExpenseDrilldown"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/reports/expense-summary/export": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["ExportExpenseSummary"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
     schemas: {
+        ActivityInputLineInput: {
+            /** Format: int32 */
+            itemId: null | number | string;
+            itemName: string;
+            /** Format: double */
+            quantityValue: number | string;
+            /** Format: int32 */
+            uomId: number | string;
+            /** Format: double */
+            unitCost: number | string;
+            /** Format: double */
+            dilutionRatePerAcre: null | number | string;
+        };
+        ActivityLaborLineInput: {
+            /** Format: int32 */
+            workerId: number | string;
+            /** Format: double */
+            hours: null | number | string;
+            payBasis: components["schemas"]["PayBasis"];
+            /** Format: double */
+            units: null | number | string;
+            /** Format: int32 */
+            unitUomId: null | number | string;
+            /** Format: double */
+            rate: number | string;
+        };
+        ActivityMachineLineInput: {
+            /** Format: int32 */
+            assetId: null | number | string;
+            machineName: string;
+            /** Format: double */
+            hours: number | string;
+            /** Format: double */
+            hourlyChargeRate: number | string;
+            /** Format: double */
+            startMeter: null | number | string;
+            /** Format: double */
+            endMeter: null | number | string;
+            /** Format: double */
+            fuelQuantity: null | number | string;
+            /** Format: double */
+            fuelCost: null | number | string;
+            /** Format: int32 */
+            operatorWorkerId: null | number | string;
+        };
+        ActivityStatus: number;
+        ActivityType: number;
+        AllocationBasis: number;
+        AttendanceStatus: number;
+        CreateActivityRequest: {
+            activityType: components["schemas"]["ActivityType"];
+            /** Format: date */
+            activityDate: string;
+            /** Format: date-time */
+            clientCreatedAtUtc: string;
+            title: string;
+            isFarmLevel: boolean;
+            /** Format: int32 */
+            fieldId: null | number | string;
+            /** Format: int32 */
+            cropCycleId: null | number | string;
+            /** Format: int32 */
+            treeId: null | number | string;
+            status: components["schemas"]["ActivityStatus"];
+            description: null | string;
+            /** Format: int32 */
+            supervisedByWorkerId: null | number | string;
+            weatherNote: null | string;
+            /** Format: time */
+            startTime: null | string;
+            /** Format: time */
+            endTime: null | string;
+            inputs?: null | components["schemas"]["ActivityInputLineInput"][];
+            laborLines?: null | components["schemas"]["ActivityLaborLineInput"][];
+            machineLines?: null | components["schemas"]["ActivityMachineLineInput"][];
+        };
+        CreateCropCycleRequest: {
+            /** Format: int32 */
+            fieldId: number | string;
+            /** Format: int32 */
+            seasonId: number | string;
+            /** Format: int32 */
+            cropId: number | string;
+            /** Format: int32 */
+            varietyId: null | number | string;
+            /** Format: double */
+            areaSownValue: number | string;
+            /** Format: int32 */
+            areaUomId: number | string;
+            /** Format: int32 */
+            yieldUomId: number | string;
+            /** Format: date */
+            plannedSowDate: null | string;
+            /** Format: date */
+            plannedHarvestDate: null | string;
+            /** Format: double */
+            expectedYieldValue: null | number | string;
+            /** Format: double */
+            seedQuantityValue: null | number | string;
+            /** Format: int32 */
+            seedUomId: null | number | string;
+            /** Format: int32 */
+            seedSupplierId: null | number | string;
+            seedLotCode: null | string;
+            /** Format: double */
+            seedCost: null | number | string;
+            /** Format: int32 */
+            plantPopulationPerAcre: null | number | string;
+            isIntercrop: boolean;
+            /** Format: int32 */
+            intercropParentCycleId: null | number | string;
+            /** Format: double */
+            areaSharePct: number | string;
+            notes: null | string;
+        };
+        CreateCustomerRequest: {
+            name: string;
+            customerType: components["schemas"]["CustomerType"];
+            /** Format: double */
+            commissionPct: number | string;
+            /** Format: int16 */
+            creditTermDays: number | string;
+            /** Format: double */
+            creditLimit: null | number | string;
+            phone: null | string;
+            address: null | string;
+        };
         CreateFarmRequest: {
             farmName: string;
         };
@@ -194,8 +961,7 @@ export interface components {
             /** Format: int32 */
             areaUomId: number | string;
             usageType: components["schemas"]["FieldUsageType"];
-            /** Format: int32 */
-            soilTextureId: null | number | string;
+            soilTexture: null | components["schemas"]["SoilTexture"];
             /** Format: int32 */
             primaryIrrigationSourceId: null | number | string;
             /** Format: int32 */
@@ -216,6 +982,104 @@ export interface components {
             /** Format: int32 */
             pumpAssetId: null | number | string;
         };
+        CreateManualExpenseRequest: {
+            /** Format: date */
+            expenseDate: string;
+            /** Format: int32 */
+            categoryId: number | string;
+            /** Format: int32 */
+            payeeSupplierId: null | number | string;
+            /** Format: double */
+            amount: number | string;
+            description: null | string;
+            paymentMethod: components["schemas"]["PaymentMethod"];
+            referenceNo: null | string;
+            isCapitalized: boolean;
+            isAccrual: boolean;
+            basis: components["schemas"]["AllocationBasis"];
+            lines?: null | components["schemas"]["ManualAllocationLineInput"][];
+        };
+        CreateOtherIncomeRequest: {
+            /** Format: date */
+            incomeDate: string;
+            incomeType: components["schemas"]["OtherIncomeType"];
+            /** Format: double */
+            amount: number | string;
+            sourceName: string;
+            /** Format: int32 */
+            cropCycleId: null | number | string;
+            /** Format: int32 */
+            fieldId: null | number | string;
+            referenceNo: null | string;
+            notes: null | string;
+        };
+        CreatePurchaseRequest: {
+            /** Format: int32 */
+            supplierId: number | string;
+            invoiceNo: string;
+            /** Format: date */
+            purchaseDate: string;
+            /** Format: double */
+            taxAmount: number | string;
+            /** Format: double */
+            freightAmount: number | string;
+            /** Format: double */
+            discountAmount: number | string;
+            /** Format: date */
+            dueDate: null | string;
+            notes: null | string;
+            lines?: null | components["schemas"]["PurchaseLineInput"][];
+        };
+        CreateSaleRequest: {
+            /** Format: int32 */
+            customerId: number | string;
+            /** Format: date */
+            saleDate: string;
+            invoiceNo: string;
+            /** Format: double */
+            commissionAmount: number | string;
+            /** Format: double */
+            marketFee: number | string;
+            /** Format: double */
+            transportCost: number | string;
+            /** Format: double */
+            laborUnloadingCost: number | string;
+            /** Format: double */
+            otherDeductions: number | string;
+            /** Format: date */
+            dueDate: null | string;
+            gatePassNo: null | string;
+            vehicleNo: null | string;
+            lines?: null | components["schemas"]["SaleLineInput"][];
+        };
+        CreateSeasonRequest: {
+            name: string;
+            seasonType: components["schemas"]["SeasonType"];
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+        };
+        CreateWorkerRequest: {
+            name: string;
+            employmentType: components["schemas"]["EmploymentType"];
+            /** Format: date */
+            joinDate: string;
+            /** Format: double */
+            dailyWage: null | number | string;
+            /** Format: double */
+            hourlyRate: null | number | string;
+            /** Format: double */
+            overtimeMultiplier: number | string;
+            /** Format: double */
+            monthlySalary: null | number | string;
+            cnicOrId: null | string;
+            phone: null | string;
+            skills: null | string;
+        };
+        CropCycleStatus: number;
+        CustomerType: number;
+        EmploymentType: number;
         FieldUsageType: number;
         IrrigationCostModel: number;
         IrrigationSourceType: number;
@@ -226,6 +1090,98 @@ export interface components {
         LogoutRequest: {
             refreshToken: string;
         };
+        ManualAllocationLineInput: {
+            /** Format: int32 */
+            cropCycleId: null | number | string;
+            /** Format: int32 */
+            fieldId: null | number | string;
+            /** Format: int32 */
+            treeId: null | number | string;
+            /** Format: int32 */
+            assetId: null | number | string;
+            isFarmOverhead: boolean;
+            /** Format: double */
+            amount: number | string;
+        };
+        OtherIncomeType: number;
+        PayBasis: number;
+        PaymentMethod: number;
+        PaymentStatus: number;
+        PurchaseLineInput: {
+            /** Format: int32 */
+            itemId: null | number | string;
+            description: string;
+            /** Format: int32 */
+            categoryId: number | string;
+            /** Format: double */
+            quantityValue: number | string;
+            /** Format: int32 */
+            uomId: number | string;
+            /** Format: double */
+            unitPrice: number | string;
+            isCapital: boolean;
+            /** Format: int32 */
+            assetId: null | number | string;
+        };
+        RecordAttendanceRequest: {
+            /** Format: int32 */
+            workerId: number | string;
+            /** Format: date */
+            workDate: string;
+            status: components["schemas"]["AttendanceStatus"];
+            /** Format: double */
+            hoursWorked: number | string;
+            /** Format: double */
+            overtimeHours: number | string;
+            /** Format: time */
+            inTime: null | string;
+            /** Format: time */
+            outTime: null | string;
+        };
+        RecordHarvestBatchRequest: {
+            /** Format: int32 */
+            activityId: number | string;
+            /** Format: date */
+            harvestDate: string;
+            /** Format: double */
+            grossQuantityValue: number | string;
+            /** Format: int32 */
+            uomId: number | string;
+            /** Format: double */
+            fieldLossQuantityValue: number | string;
+            /** Format: int32 */
+            gradeId: null | number | string;
+            /** Format: double */
+            moisturePct: null | number | string;
+            /** Format: int32 */
+            containerCount: null | number | string;
+            /** Format: double */
+            laborCost: number | string;
+            notes: null | string;
+        };
+        RecordReceiptRequest: {
+            /** Format: double */
+            amount: number | string;
+            /** Format: date */
+            receivedOn: string;
+            method: components["schemas"]["PaymentMethod"];
+            referenceNo: null | string;
+            notes: null | string;
+        };
+        RecordWagePaymentRequest: {
+            /** Format: int32 */
+            workerId: number | string;
+            /** Format: date */
+            periodStart: string;
+            /** Format: date */
+            periodEnd: string;
+            /** Format: double */
+            otherDeductions: number | string;
+            /** Format: date */
+            paidOn: string;
+            paymentMethod: components["schemas"]["PaymentMethod"];
+            referenceNo: null | string;
+        };
         RefreshRequest: {
             refreshToken: string;
         };
@@ -235,6 +1191,84 @@ export interface components {
             email: string;
             password: string;
         };
+        SaleLineInput: {
+            /** Format: int32 */
+            produceLotId: null | number | string;
+            /** Format: int32 */
+            cropCycleId: null | number | string;
+            /** Format: int32 */
+            treeId: null | number | string;
+            description: null | string;
+            /** Format: int32 */
+            gradeId: null | number | string;
+            /** Format: double */
+            quantityValue: number | string;
+            /** Format: int32 */
+            uomId: number | string;
+            /** Format: double */
+            unitPrice: number | string;
+        };
+        SeasonType: number;
+        SoilTexture: number;
+        TransitionCropCycleStatusRequest: {
+            newStatus: components["schemas"]["CropCycleStatus"];
+            /** Format: date */
+            actualSowDate: null | string;
+            /** Format: date */
+            actualHarvestEnd: null | string;
+            terminationReason: null | string;
+        };
+        UpdateActivityRequest: {
+            activityType: components["schemas"]["ActivityType"];
+            /** Format: date */
+            activityDate: string;
+            title: string;
+            isFarmLevel: boolean;
+            /** Format: int32 */
+            fieldId: null | number | string;
+            /** Format: int32 */
+            cropCycleId: null | number | string;
+            /** Format: int32 */
+            treeId: null | number | string;
+            status: components["schemas"]["ActivityStatus"];
+            description: null | string;
+            /** Format: int32 */
+            supervisedByWorkerId: null | number | string;
+            weatherNote: null | string;
+            /** Format: time */
+            startTime: null | string;
+            /** Format: time */
+            endTime: null | string;
+            inputs?: null | components["schemas"]["ActivityInputLineInput"][];
+            laborLines?: null | components["schemas"]["ActivityLaborLineInput"][];
+            machineLines?: null | components["schemas"]["ActivityMachineLineInput"][];
+        };
+        UpdateCropCycleRequest: {
+            /** Format: int32 */
+            varietyId: null | number | string;
+            /** Format: double */
+            areaSownValue: number | string;
+            /** Format: int32 */
+            areaUomId: number | string;
+            /** Format: date */
+            plannedSowDate: null | string;
+            /** Format: date */
+            plannedHarvestDate: null | string;
+            /** Format: double */
+            expectedYieldValue: null | number | string;
+            /** Format: double */
+            seedQuantityValue: null | number | string;
+            /** Format: int32 */
+            seedUomId: null | number | string;
+            /** Format: int32 */
+            seedSupplierId: null | number | string;
+            seedLotCode: null | string;
+            /** Format: double */
+            seedCost: null | number | string;
+            /** Format: int32 */
+            plantPopulationPerAcre: null | number | string;
+            notes: null | string;
+        };
         UpdateFieldRequest: {
             code: string;
             name: string;
@@ -243,8 +1277,7 @@ export interface components {
             /** Format: int32 */
             areaUomId: number | string;
             usageType: components["schemas"]["FieldUsageType"];
-            /** Format: int32 */
-            soilTextureId: null | number | string;
+            soilTexture: null | components["schemas"]["SoilTexture"];
             /** Format: int32 */
             primaryIrrigationSourceId: null | number | string;
             /** Format: int32 */
@@ -265,6 +1298,20 @@ export interface components {
             /** Format: int32 */
             pumpAssetId: null | number | string;
         };
+        UpdateSeasonRequest: {
+            name: string;
+            seasonType: components["schemas"]["SeasonType"];
+            /** Format: date */
+            startDate: string;
+            /** Format: date */
+            endDate: string;
+        };
+        VoidActivityRequest: {
+            reason: string;
+        };
+        VoidExpenseRequest: {
+            reason: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -274,6 +1321,26 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+    GetCropVarieties: {
+        parameters: {
+            query?: {
+                cropId?: number | string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
     Login: {
         parameters: {
             query?: never;
@@ -580,6 +1647,1110 @@ export interface operations {
                 "application/json": components["schemas"]["UpdateIrrigationSourceRequest"];
             };
         };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetSeasons: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateSeasonRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetSeasonById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateSeasonRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CloseSeason: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetLookups: {
+        parameters: {
+            query?: {
+                type?: string;
+                code?: string;
+                value?: number | string;
+                search?: string;
+                isFlags?: boolean;
+                includeInactive?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetLookupTypes: {
+        parameters: {
+            query?: {
+                search?: string;
+                isFlags?: boolean;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetLookupById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetLookupsByType: {
+        parameters: {
+            query?: {
+                code?: string;
+                value?: number | string;
+                search?: string;
+                includeInactive?: boolean;
+            };
+            header?: never;
+            path: {
+                lookupType: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetLookupByTypeAndCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                lookupType: string;
+                code: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetCrops: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetCropCycles: {
+        parameters: {
+            query?: {
+                seasonId?: number | string;
+                fieldId?: number | string;
+                status?: components["schemas"]["CropCycleStatus"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateCropCycle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCropCycleRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetCropCycleById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateCropCycle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateCropCycleRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    TransitionCropCycleStatus: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["TransitionCropCycleStatusRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetWorkers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateWorker: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateWorkerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetAttendance: {
+        parameters: {
+            query: {
+                workerId: number | string;
+                from?: string;
+                to?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RecordAttendance: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecordAttendanceRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetActivities: {
+        parameters: {
+            query?: {
+                cropCycleId?: number | string;
+                fieldId?: number | string;
+                fromDate?: string;
+                toDate?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateActivity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateActivityRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetActivityById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    UpdateActivity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["UpdateActivityRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    VoidActivity: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VoidActivityRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetQualityGrades: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetHarvestBatches: {
+        parameters: {
+            query?: {
+                cropCycleId?: number | string;
+                activityId?: number | string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RecordHarvestBatch: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecordHarvestBatchRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetHarvestBatchById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetExpenses: {
+        parameters: {
+            query?: {
+                cropCycleId?: number | string;
+                fromDate?: string;
+                toDate?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateManualExpense: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateManualExpenseRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetExpenseById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    VoidExpense: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["VoidExpenseRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RecordWagePayment: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecordWagePaymentRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreatePurchase: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreatePurchaseRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetCustomers: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateCustomer: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateCustomerRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetSales: {
+        parameters: {
+            query?: {
+                customerId?: number | string;
+                paymentStatus?: components["schemas"]["PaymentStatus"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateSale: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateSaleRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetSaleById: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    RecordReceipt: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["RecordReceiptRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetReceivablesAgeing: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ExportReceivablesAgeing: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetOtherIncomes: {
+        parameters: {
+            query?: {
+                fromDate?: string;
+                toDate?: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    CreateOtherIncome: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["CreateOtherIncomeRequest"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetCropCyclePnl: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ExportCropCyclePnl: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetMonthlyPnl: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ExportMonthlyPnl: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetExpenseSummary: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetExpenseDrilldown: {
+        parameters: {
+            query: {
+                categoryId: number | string;
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    ExportExpenseSummary: {
+        parameters: {
+            query: {
+                from: string;
+                to: string;
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {

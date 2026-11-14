@@ -16,6 +16,11 @@ export default function RegisterRoute() {
   const createFarm = useCreateFarm();
   const joinFarm = useJoinFarm();
 
+  // A farm made here is brand new — send it through first-run setup.
+  // Anyone already signed in when they land here just goes Home.
+  if (createFarm.isSuccess || joinFarm.isSuccess) {
+    return <Redirect href="/setup" />;
+  }
   if (signedIn) {
     return <Redirect href="/" />;
   }

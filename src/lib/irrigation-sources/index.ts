@@ -1,1 +1,6 @@
-export { fetchIrrigationSources, type IrrigationSourceDto } from './api';
+export {
+  fetchIrrigationSources,
+  createIrrigationSource,
+  type IrrigationSourceDto,
+  type CreateIrrigationSourceRequestBody,
+} from './api';

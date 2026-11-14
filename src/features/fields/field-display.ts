@@ -20,10 +20,10 @@ export function fieldAreaLabel(field: Pick<FieldDto, 'areaAcres'>): string {
 
 /** Soil texture label, or undefined if the field has none set. */
 export function fieldSoilLabel(
-  field: Pick<FieldDto, 'soilTextureId'>,
+  field: Pick<FieldDto, 'soilTexture'>,
 ): string | undefined {
-  if (field.soilTextureId === null) return undefined;
-  return SOIL_TEXTURES.find((texture) => texture.id === field.soilTextureId)
+  if (field.soilTexture === null) return undefined;
+  return SOIL_TEXTURES.find((texture) => texture.id === field.soilTexture)
     ?.label;
 }
 

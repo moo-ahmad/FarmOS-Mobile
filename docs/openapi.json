@@ -10,6 +10,28 @@
     }
   ],
   "paths": {
+    "/api/crop-varieties": {
+      "get": {
+        "tags": ["Crops"],
+        "operationId": "GetCropVarieties",
+        "parameters": [
+          {
+            "name": "cropId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
@@ -316,10 +338,1736 @@
           }
         }
       }
+    },
+    "/api/seasons": {
+      "get": {
+        "tags": ["Seasons"],
+        "operationId": "GetSeasons",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Seasons"],
+        "operationId": "CreateSeason",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSeasonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seasons/{id}": {
+      "get": {
+        "tags": ["Seasons"],
+        "operationId": "GetSeasonById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Seasons"],
+        "operationId": "UpdateSeason",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSeasonRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/seasons/{id}/close": {
+      "post": {
+        "tags": ["Seasons"],
+        "operationId": "CloseSeason",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/lookups": {
+      "get": {
+        "tags": ["Lookups"],
+        "operationId": "GetLookups",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isFlags",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "includeInactive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/lookups/types": {
+      "get": {
+        "tags": ["Lookups"],
+        "operationId": "GetLookupTypes",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "isFlags",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/lookups/values/{id}": {
+      "get": {
+        "tags": ["Lookups"],
+        "operationId": "GetLookupById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/lookups/{lookupType}": {
+      "get": {
+        "tags": ["Lookups"],
+        "operationId": "GetLookupsByType",
+        "parameters": [
+          {
+            "name": "lookupType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "value",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "search",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "includeInactive",
+            "in": "query",
+            "schema": {
+              "type": "boolean"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/lookups/{lookupType}/{code}": {
+      "get": {
+        "tags": ["Lookups"],
+        "operationId": "GetLookupByTypeAndCode",
+        "parameters": [
+          {
+            "name": "lookupType",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/crops": {
+      "get": {
+        "tags": ["Crops"],
+        "operationId": "GetCrops",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/crop-cycles": {
+      "get": {
+        "tags": ["CropCycles"],
+        "operationId": "GetCropCycles",
+        "parameters": [
+          {
+            "name": "seasonId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fieldId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/CropCycleStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["CropCycles"],
+        "operationId": "CreateCropCycle",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCropCycleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/crop-cycles/{id}": {
+      "get": {
+        "tags": ["CropCycles"],
+        "operationId": "GetCropCycleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["CropCycles"],
+        "operationId": "UpdateCropCycle",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCropCycleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/crop-cycles/{id}/transition": {
+      "post": {
+        "tags": ["CropCycles"],
+        "operationId": "TransitionCropCycleStatus",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TransitionCropCycleStatusRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/workers": {
+      "get": {
+        "tags": ["Workers"],
+        "operationId": "GetWorkers",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Workers"],
+        "operationId": "CreateWorker",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWorkerRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/attendance": {
+      "get": {
+        "tags": ["Attendance"],
+        "operationId": "GetAttendance",
+        "parameters": [
+          {
+            "name": "workerId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Attendance"],
+        "operationId": "RecordAttendance",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordAttendanceRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities": {
+      "get": {
+        "tags": ["Activities"],
+        "operationId": "GetActivities",
+        "parameters": [
+          {
+            "name": "cropCycleId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fieldId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Activities"],
+        "operationId": "CreateActivity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/{id}": {
+      "get": {
+        "tags": ["Activities"],
+        "operationId": "GetActivityById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Activities"],
+        "operationId": "UpdateActivity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/activities/{id}/void": {
+      "post": {
+        "tags": ["Activities"],
+        "operationId": "VoidActivity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoidActivityRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/quality-grades": {
+      "get": {
+        "tags": ["QualityGrades"],
+        "operationId": "GetQualityGrades",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/harvest-batches": {
+      "get": {
+        "tags": ["HarvestBatches"],
+        "operationId": "GetHarvestBatches",
+        "parameters": [
+          {
+            "name": "cropCycleId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "activityId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["HarvestBatches"],
+        "operationId": "RecordHarvestBatch",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordHarvestBatchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/harvest-batches/{id}": {
+      "get": {
+        "tags": ["HarvestBatches"],
+        "operationId": "GetHarvestBatchById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/expenses": {
+      "get": {
+        "tags": ["Expenses"],
+        "operationId": "GetExpenses",
+        "parameters": [
+          {
+            "name": "cropCycleId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Expenses"],
+        "operationId": "CreateManualExpense",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateManualExpenseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/expenses/{id}": {
+      "get": {
+        "tags": ["Expenses"],
+        "operationId": "GetExpenseById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/expenses/{id}/void": {
+      "post": {
+        "tags": ["Expenses"],
+        "operationId": "VoidExpense",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VoidExpenseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/wage-payments": {
+      "post": {
+        "tags": ["WagePayments"],
+        "operationId": "RecordWagePayment",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordWagePaymentRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/purchases": {
+      "post": {
+        "tags": ["Purchases"],
+        "operationId": "CreatePurchase",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePurchaseRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/customers": {
+      "get": {
+        "tags": ["Customers"],
+        "operationId": "GetCustomers",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Customers"],
+        "operationId": "CreateCustomer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCustomerRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sales": {
+      "get": {
+        "tags": ["Sales"],
+        "operationId": "GetSales",
+        "parameters": [
+          {
+            "name": "customerId",
+            "in": "query",
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "paymentStatus",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/PaymentStatus"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["Sales"],
+        "operationId": "CreateSale",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSaleRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sales/{id}": {
+      "get": {
+        "tags": ["Sales"],
+        "operationId": "GetSaleById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sales/{id}/receipts": {
+      "post": {
+        "tags": ["Sales"],
+        "operationId": "RecordReceipt",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RecordReceiptRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sales/receivables-ageing": {
+      "get": {
+        "tags": ["Sales"],
+        "operationId": "GetReceivablesAgeing",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/sales/receivables-ageing/export": {
+      "get": {
+        "tags": ["Sales"],
+        "operationId": "ExportReceivablesAgeing",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/other-income": {
+      "get": {
+        "tags": ["OtherIncome"],
+        "operationId": "GetOtherIncomes",
+        "parameters": [
+          {
+            "name": "fromDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "toDate",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": ["OtherIncome"],
+        "operationId": "CreateOtherIncome",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateOtherIncomeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/crop-cycle-pnl": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "GetCropCyclePnl",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/crop-cycle-pnl/export": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "ExportCropCyclePnl",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/monthly-pnl": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "GetMonthlyPnl",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/monthly-pnl/export": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "ExportMonthlyPnl",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/expense-summary": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "GetExpenseSummary",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/expense-summary/drilldown": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "GetExpenseDrilldown",
+        "parameters": [
+          {
+            "name": "categoryId",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "pattern": "^-?(?:0|[1-9]\\d*)$",
+              "type": ["integer", "string"],
+              "format": "int32"
+            }
+          },
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/reports/expense-summary/export": {
+      "get": {
+        "tags": ["Reports"],
+        "operationId": "ExportExpenseSummary",
+        "parameters": [
+          {
+            "name": "from",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "to",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "ActivityInputLineInput": {
+        "required": [
+          "itemId",
+          "itemName",
+          "quantityValue",
+          "uomId",
+          "unitCost",
+          "dilutionRatePerAcre"
+        ],
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "itemName": {
+            "type": "string"
+          },
+          "quantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "uomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "unitCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "dilutionRatePerAcre": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          }
+        }
+      },
+      "ActivityLaborLineInput": {
+        "required": [
+          "workerId",
+          "hours",
+          "payBasis",
+          "units",
+          "unitUomId",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+          "workerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "hours": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "payBasis": {
+            "$ref": "#/components/schemas/PayBasis"
+          },
+          "units": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "unitUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "rate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          }
+        }
+      },
+      "ActivityMachineLineInput": {
+        "required": [
+          "assetId",
+          "machineName",
+          "hours",
+          "hourlyChargeRate",
+          "startMeter",
+          "endMeter",
+          "fuelQuantity",
+          "fuelCost",
+          "operatorWorkerId"
+        ],
+        "type": "object",
+        "properties": {
+          "assetId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "machineName": {
+            "type": "string"
+          },
+          "hours": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "hourlyChargeRate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "startMeter": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "endMeter": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "fuelQuantity": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "fuelCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "operatorWorkerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          }
+        }
+      },
+      "ActivityStatus": {
+        "type": "integer"
+      },
+      "ActivityType": {
+        "type": "integer"
+      },
+      "AllocationBasis": {
+        "type": "integer"
+      },
+      "AttendanceStatus": {
+        "type": "integer"
+      },
+      "CreateActivityRequest": {
+        "required": [
+          "activityType",
+          "activityDate",
+          "clientCreatedAtUtc",
+          "title",
+          "isFarmLevel",
+          "fieldId",
+          "cropCycleId",
+          "treeId",
+          "status",
+          "description",
+          "supervisedByWorkerId",
+          "weatherNote",
+          "startTime",
+          "endTime"
+        ],
+        "type": "object",
+        "properties": {
+          "activityType": {
+            "$ref": "#/components/schemas/ActivityType"
+          },
+          "activityDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "clientCreatedAtUtc": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "title": {
+            "type": "string"
+          },
+          "isFarmLevel": {
+            "type": "boolean"
+          },
+          "fieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "cropCycleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "treeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActivityStatus"
+          },
+          "description": {
+            "type": ["null", "string"]
+          },
+          "supervisedByWorkerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "weatherNote": {
+            "type": ["null", "string"]
+          },
+          "startTime": {
+            "type": ["null", "string"],
+            "format": "time"
+          },
+          "endTime": {
+            "type": ["null", "string"],
+            "format": "time"
+          },
+          "inputs": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ActivityInputLineInput"
+            }
+          },
+          "laborLines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ActivityLaborLineInput"
+            }
+          },
+          "machineLines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ActivityMachineLineInput"
+            }
+          }
+        }
+      },
+      "CreateCropCycleRequest": {
+        "required": [
+          "fieldId",
+          "seasonId",
+          "cropId",
+          "varietyId",
+          "areaSownValue",
+          "areaUomId",
+          "yieldUomId",
+          "plannedSowDate",
+          "plannedHarvestDate",
+          "expectedYieldValue",
+          "seedQuantityValue",
+          "seedUomId",
+          "seedSupplierId",
+          "seedLotCode",
+          "seedCost",
+          "plantPopulationPerAcre",
+          "isIntercrop",
+          "intercropParentCycleId",
+          "areaSharePct",
+          "notes"
+        ],
+        "type": "object",
+        "properties": {
+          "fieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "seasonId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "cropId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "varietyId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "areaSownValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "areaUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "yieldUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "plannedSowDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "plannedHarvestDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "expectedYieldValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "seedQuantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "seedUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "seedSupplierId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "seedLotCode": {
+            "type": ["null", "string"]
+          },
+          "seedCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "plantPopulationPerAcre": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "isIntercrop": {
+            "type": "boolean"
+          },
+          "intercropParentCycleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "areaSharePct": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "notes": {
+            "type": ["null", "string"]
+          }
+        }
+      },
+      "CreateCustomerRequest": {
+        "required": [
+          "name",
+          "customerType",
+          "commissionPct",
+          "creditTermDays",
+          "creditLimit",
+          "phone",
+          "address"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "customerType": {
+            "$ref": "#/components/schemas/CustomerType"
+          },
+          "commissionPct": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "creditTermDays": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int16"
+          },
+          "creditLimit": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "phone": {
+            "type": ["null", "string"]
+          },
+          "address": {
+            "type": ["null", "string"]
+          }
+        }
+      },
       "CreateFarmRequest": {
         "required": ["farmName"],
         "type": "object",
@@ -336,7 +2084,7 @@
           "areaValue",
           "areaUomId",
           "usageType",
-          "soilTextureId",
+          "soilTexture",
           "primaryIrrigationSourceId",
           "parentFieldId",
           "centroidLat",
@@ -363,10 +2111,15 @@
           "usageType": {
             "$ref": "#/components/schemas/FieldUsageType"
           },
-          "soilTextureId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": ["null", "integer", "string"],
-            "format": "int32"
+          "soilTexture": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SoilTexture"
+              }
+            ]
           },
           "primaryIrrigationSourceId": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
@@ -427,6 +2180,323 @@
           }
         }
       },
+      "CreateManualExpenseRequest": {
+        "required": [
+          "expenseDate",
+          "categoryId",
+          "payeeSupplierId",
+          "amount",
+          "description",
+          "paymentMethod",
+          "referenceNo",
+          "isCapitalized",
+          "isAccrual",
+          "basis"
+        ],
+        "type": "object",
+        "properties": {
+          "expenseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "categoryId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "payeeSupplierId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "amount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "description": {
+            "type": ["null", "string"]
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "referenceNo": {
+            "type": ["null", "string"]
+          },
+          "isCapitalized": {
+            "type": "boolean"
+          },
+          "isAccrual": {
+            "type": "boolean"
+          },
+          "basis": {
+            "$ref": "#/components/schemas/AllocationBasis"
+          },
+          "lines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ManualAllocationLineInput"
+            }
+          }
+        }
+      },
+      "CreateOtherIncomeRequest": {
+        "required": [
+          "incomeDate",
+          "incomeType",
+          "amount",
+          "sourceName",
+          "cropCycleId",
+          "fieldId",
+          "referenceNo",
+          "notes"
+        ],
+        "type": "object",
+        "properties": {
+          "incomeDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "incomeType": {
+            "$ref": "#/components/schemas/OtherIncomeType"
+          },
+          "amount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "sourceName": {
+            "type": "string"
+          },
+          "cropCycleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "fieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "referenceNo": {
+            "type": ["null", "string"]
+          },
+          "notes": {
+            "type": ["null", "string"]
+          }
+        }
+      },
+      "CreatePurchaseRequest": {
+        "required": [
+          "supplierId",
+          "invoiceNo",
+          "purchaseDate",
+          "taxAmount",
+          "freightAmount",
+          "discountAmount",
+          "dueDate",
+          "notes"
+        ],
+        "type": "object",
+        "properties": {
+          "supplierId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "invoiceNo": {
+            "type": "string"
+          },
+          "purchaseDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "taxAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "freightAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "discountAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "dueDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "notes": {
+            "type": ["null", "string"]
+          },
+          "lines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/PurchaseLineInput"
+            }
+          }
+        }
+      },
+      "CreateSaleRequest": {
+        "required": [
+          "customerId",
+          "saleDate",
+          "invoiceNo",
+          "commissionAmount",
+          "marketFee",
+          "transportCost",
+          "laborUnloadingCost",
+          "otherDeductions",
+          "dueDate",
+          "gatePassNo",
+          "vehicleNo"
+        ],
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "saleDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "invoiceNo": {
+            "type": "string"
+          },
+          "commissionAmount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "marketFee": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "transportCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "laborUnloadingCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "otherDeductions": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "dueDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "gatePassNo": {
+            "type": ["null", "string"]
+          },
+          "vehicleNo": {
+            "type": ["null", "string"]
+          },
+          "lines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/SaleLineInput"
+            }
+          }
+        }
+      },
+      "CreateSeasonRequest": {
+        "required": ["name", "seasonType", "startDate", "endDate"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "seasonType": {
+            "$ref": "#/components/schemas/SeasonType"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "CreateWorkerRequest": {
+        "required": [
+          "name",
+          "employmentType",
+          "joinDate",
+          "dailyWage",
+          "hourlyRate",
+          "overtimeMultiplier",
+          "monthlySalary",
+          "cnicOrId",
+          "phone",
+          "skills"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "employmentType": {
+            "$ref": "#/components/schemas/EmploymentType"
+          },
+          "joinDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "dailyWage": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "hourlyRate": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "overtimeMultiplier": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "monthlySalary": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "cnicOrId": {
+            "type": ["null", "string"]
+          },
+          "phone": {
+            "type": ["null", "string"]
+          },
+          "skills": {
+            "type": ["null", "string"]
+          }
+        }
+      },
+      "CropCycleStatus": {
+        "type": "integer"
+      },
+      "CustomerType": {
+        "type": "integer"
+      },
+      "EmploymentType": {
+        "type": "integer"
+      },
       "FieldUsageType": {
         "type": "integer"
       },
@@ -457,6 +2527,284 @@
           }
         }
       },
+      "ManualAllocationLineInput": {
+        "required": [
+          "cropCycleId",
+          "fieldId",
+          "treeId",
+          "assetId",
+          "isFarmOverhead",
+          "amount"
+        ],
+        "type": "object",
+        "properties": {
+          "cropCycleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "fieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "treeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "assetId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "isFarmOverhead": {
+            "type": "boolean"
+          },
+          "amount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          }
+        }
+      },
+      "OtherIncomeType": {
+        "type": "integer"
+      },
+      "PayBasis": {
+        "type": "integer"
+      },
+      "PaymentMethod": {
+        "type": "integer"
+      },
+      "PaymentStatus": {
+        "type": "integer"
+      },
+      "PurchaseLineInput": {
+        "required": [
+          "itemId",
+          "description",
+          "categoryId",
+          "quantityValue",
+          "uomId",
+          "unitPrice",
+          "isCapital",
+          "assetId"
+        ],
+        "type": "object",
+        "properties": {
+          "itemId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "description": {
+            "type": "string"
+          },
+          "categoryId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "quantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "uomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "unitPrice": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "isCapital": {
+            "type": "boolean"
+          },
+          "assetId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          }
+        }
+      },
+      "RecordAttendanceRequest": {
+        "required": [
+          "workerId",
+          "workDate",
+          "status",
+          "hoursWorked",
+          "overtimeHours",
+          "inTime",
+          "outTime"
+        ],
+        "type": "object",
+        "properties": {
+          "workerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "workDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AttendanceStatus"
+          },
+          "hoursWorked": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "overtimeHours": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "inTime": {
+            "type": ["null", "string"],
+            "format": "time"
+          },
+          "outTime": {
+            "type": ["null", "string"],
+            "format": "time"
+          }
+        }
+      },
+      "RecordHarvestBatchRequest": {
+        "required": [
+          "activityId",
+          "harvestDate",
+          "grossQuantityValue",
+          "uomId",
+          "fieldLossQuantityValue",
+          "gradeId",
+          "moisturePct",
+          "containerCount",
+          "laborCost",
+          "notes"
+        ],
+        "type": "object",
+        "properties": {
+          "activityId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "harvestDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "grossQuantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "uomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "fieldLossQuantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "gradeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "moisturePct": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "containerCount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "laborCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "notes": {
+            "type": ["null", "string"]
+          }
+        }
+      },
+      "RecordReceiptRequest": {
+        "required": ["amount", "receivedOn", "method", "referenceNo", "notes"],
+        "type": "object",
+        "properties": {
+          "amount": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "receivedOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "method": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "referenceNo": {
+            "type": ["null", "string"]
+          },
+          "notes": {
+            "type": ["null", "string"]
+          }
+        }
+      },
+      "RecordWagePaymentRequest": {
+        "required": [
+          "workerId",
+          "periodStart",
+          "periodEnd",
+          "otherDeductions",
+          "paidOn",
+          "paymentMethod",
+          "referenceNo"
+        ],
+        "type": "object",
+        "properties": {
+          "workerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "periodStart": {
+            "type": "string",
+            "format": "date"
+          },
+          "periodEnd": {
+            "type": "string",
+            "format": "date"
+          },
+          "otherDeductions": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "paidOn": {
+            "type": "string",
+            "format": "date"
+          },
+          "paymentMethod": {
+            "$ref": "#/components/schemas/PaymentMethod"
+          },
+          "referenceNo": {
+            "type": ["null", "string"]
+          }
+        }
+      },
       "RefreshRequest": {
         "required": ["refreshToken"],
         "type": "object",
@@ -484,6 +2832,257 @@
           }
         }
       },
+      "SaleLineInput": {
+        "required": [
+          "produceLotId",
+          "cropCycleId",
+          "treeId",
+          "description",
+          "gradeId",
+          "quantityValue",
+          "uomId",
+          "unitPrice"
+        ],
+        "type": "object",
+        "properties": {
+          "produceLotId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "cropCycleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "treeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "description": {
+            "type": ["null", "string"]
+          },
+          "gradeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "quantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "uomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "unitPrice": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          }
+        }
+      },
+      "SeasonType": {
+        "type": "integer"
+      },
+      "SoilTexture": {
+        "type": "integer"
+      },
+      "TransitionCropCycleStatusRequest": {
+        "required": [
+          "newStatus",
+          "actualSowDate",
+          "actualHarvestEnd",
+          "terminationReason"
+        ],
+        "type": "object",
+        "properties": {
+          "newStatus": {
+            "$ref": "#/components/schemas/CropCycleStatus"
+          },
+          "actualSowDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "actualHarvestEnd": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "terminationReason": {
+            "type": ["null", "string"]
+          }
+        }
+      },
+      "UpdateActivityRequest": {
+        "required": [
+          "activityType",
+          "activityDate",
+          "title",
+          "isFarmLevel",
+          "fieldId",
+          "cropCycleId",
+          "treeId",
+          "status",
+          "description",
+          "supervisedByWorkerId",
+          "weatherNote",
+          "startTime",
+          "endTime"
+        ],
+        "type": "object",
+        "properties": {
+          "activityType": {
+            "$ref": "#/components/schemas/ActivityType"
+          },
+          "activityDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "title": {
+            "type": "string"
+          },
+          "isFarmLevel": {
+            "type": "boolean"
+          },
+          "fieldId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "cropCycleId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "treeId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "status": {
+            "$ref": "#/components/schemas/ActivityStatus"
+          },
+          "description": {
+            "type": ["null", "string"]
+          },
+          "supervisedByWorkerId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "weatherNote": {
+            "type": ["null", "string"]
+          },
+          "startTime": {
+            "type": ["null", "string"],
+            "format": "time"
+          },
+          "endTime": {
+            "type": ["null", "string"],
+            "format": "time"
+          },
+          "inputs": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ActivityInputLineInput"
+            }
+          },
+          "laborLines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ActivityLaborLineInput"
+            }
+          },
+          "machineLines": {
+            "type": ["null", "array"],
+            "items": {
+              "$ref": "#/components/schemas/ActivityMachineLineInput"
+            }
+          }
+        }
+      },
+      "UpdateCropCycleRequest": {
+        "required": [
+          "varietyId",
+          "areaSownValue",
+          "areaUomId",
+          "plannedSowDate",
+          "plannedHarvestDate",
+          "expectedYieldValue",
+          "seedQuantityValue",
+          "seedUomId",
+          "seedSupplierId",
+          "seedLotCode",
+          "seedCost",
+          "plantPopulationPerAcre",
+          "notes"
+        ],
+        "type": "object",
+        "properties": {
+          "varietyId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "areaSownValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["number", "string"],
+            "format": "double"
+          },
+          "areaUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["integer", "string"],
+            "format": "int32"
+          },
+          "plannedSowDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "plannedHarvestDate": {
+            "type": ["null", "string"],
+            "format": "date"
+          },
+          "expectedYieldValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "seedQuantityValue": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "seedUomId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "seedSupplierId": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "seedLotCode": {
+            "type": ["null", "string"]
+          },
+          "seedCost": {
+            "pattern": "^-?(?:0|[1-9]\\d*)(?:\\.\\d+)?$",
+            "type": ["null", "number", "string"],
+            "format": "double"
+          },
+          "plantPopulationPerAcre": {
+            "pattern": "^-?(?:0|[1-9]\\d*)$",
+            "type": ["null", "integer", "string"],
+            "format": "int32"
+          },
+          "notes": {
+            "type": ["null", "string"]
+          }
+        }
+      },
       "UpdateFieldRequest": {
         "required": [
           "code",
@@ -491,7 +3090,7 @@
           "areaValue",
           "areaUomId",
           "usageType",
-          "soilTextureId",
+          "soilTexture",
           "primaryIrrigationSourceId",
           "parentFieldId",
           "centroidLat",
@@ -518,10 +3117,15 @@
           "usageType": {
             "$ref": "#/components/schemas/FieldUsageType"
           },
-          "soilTextureId": {
-            "pattern": "^-?(?:0|[1-9]\\d*)$",
-            "type": ["null", "integer", "string"],
-            "format": "int32"
+          "soilTexture": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/SoilTexture"
+              }
+            ]
           },
           "primaryIrrigationSourceId": {
             "pattern": "^-?(?:0|[1-9]\\d*)$",
@@ -581,6 +3185,44 @@
             "format": "int32"
           }
         }
+      },
+      "UpdateSeasonRequest": {
+        "required": ["name", "seasonType", "startDate", "endDate"],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "seasonType": {
+            "$ref": "#/components/schemas/SeasonType"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date"
+          }
+        }
+      },
+      "VoidActivityRequest": {
+        "required": ["reason"],
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        }
+      },
+      "VoidExpenseRequest": {
+        "required": ["reason"],
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string"
+          }
+        }
       }
     },
     "securitySchemes": {
@@ -599,6 +3241,9 @@
   ],
   "tags": [
     {
+      "name": "Crops"
+    },
+    {
       "name": "Auth"
     },
     {
@@ -609,6 +3254,51 @@
     },
     {
       "name": "IrrigationSources"
+    },
+    {
+      "name": "Seasons"
+    },
+    {
+      "name": "Lookups"
+    },
+    {
+      "name": "CropCycles"
+    },
+    {
+      "name": "Workers"
+    },
+    {
+      "name": "Attendance"
+    },
+    {
+      "name": "Activities"
+    },
+    {
+      "name": "QualityGrades"
+    },
+    {
+      "name": "HarvestBatches"
+    },
+    {
+      "name": "Expenses"
+    },
+    {
+      "name": "WagePayments"
+    },
+    {
+      "name": "Purchases"
+    },
+    {
+      "name": "Customers"
+    },
+    {
+      "name": "Sales"
+    },
+    {
+      "name": "OtherIncome"
+    },
+    {
+      "name": "Reports"
     }
   ]
 }

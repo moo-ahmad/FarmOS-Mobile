@@ -1,0 +1,2513 @@
+[
+  {
+    "lookupType": "ActivityStatus",
+    "code": "Planned",
+    "value": 2000,
+    "name": "Planned",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityStatus",
+    "code": "InProgress",
+    "value": 2001,
+    "name": "In Progress",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityStatus",
+    "code": "Done",
+    "value": 2002,
+    "name": "Done",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityStatus",
+    "code": "Cancelled",
+    "value": 2003,
+    "name": "Cancelled",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "LandPrep",
+    "value": 1000,
+    "name": "Land Prep",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Sowing",
+    "value": 1001,
+    "name": "Sowing",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Irrigation",
+    "value": 1002,
+    "name": "Irrigation",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Fertilizer",
+    "value": 1003,
+    "name": "Fertilizer",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Spray",
+    "value": 1004,
+    "name": "Spray",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Weeding",
+    "value": 1005,
+    "name": "Weeding",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Pruning",
+    "value": 1006,
+    "name": "Pruning",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Thinning",
+    "value": 1007,
+    "name": "Thinning",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Harvest",
+    "value": 1008,
+    "name": "Harvest",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "PostHarvest",
+    "value": 1009,
+    "name": "Post Harvest",
+    "sortOrder": 9,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Repair",
+    "value": 1010,
+    "name": "Repair",
+    "sortOrder": 10,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ActivityType",
+    "code": "Other",
+    "value": 1011,
+    "name": "Other",
+    "sortOrder": 11,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AdvanceType",
+    "code": "Advance",
+    "value": 33000,
+    "name": "Advance",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AdvanceType",
+    "code": "Loan",
+    "value": 33001,
+    "name": "Loan",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AdvanceType",
+    "code": "Emergency",
+    "value": 33002,
+    "name": "Emergency",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AllocationBasis",
+    "code": "Direct",
+    "value": 20000,
+    "name": "Direct",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AllocationBasis",
+    "code": "ByArea",
+    "value": 20001,
+    "name": "By Area",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AllocationBasis",
+    "code": "ByYield",
+    "value": 20002,
+    "name": "By Yield",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AllocationBasis",
+    "code": "ByHours",
+    "value": 20003,
+    "name": "By Hours",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AllocationBasis",
+    "code": "ByRevenue",
+    "value": 20004,
+    "name": "By Revenue",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AllocationBasis",
+    "code": "Manual",
+    "value": 20005,
+    "name": "Manual",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetStatus",
+    "code": "Active",
+    "value": 9000,
+    "name": "Active",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetStatus",
+    "code": "UnderRepair",
+    "value": 9001,
+    "name": "Under Repair",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetStatus",
+    "code": "Idle",
+    "value": 9002,
+    "name": "Idle",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetStatus",
+    "code": "Sold",
+    "value": 9003,
+    "name": "Sold",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetStatus",
+    "code": "WrittenOff",
+    "value": 9004,
+    "name": "Written Off",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Tractor",
+    "value": 6000,
+    "name": "Tractor",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Implement",
+    "value": 6001,
+    "name": "Implement",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Sprayer",
+    "value": 6002,
+    "name": "Sprayer",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Pump",
+    "value": 6003,
+    "name": "Pump",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Generator",
+    "value": 6004,
+    "name": "Generator",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Vehicle",
+    "value": 6005,
+    "name": "Vehicle",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Tool",
+    "value": 6006,
+    "name": "Tool",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Structure",
+    "value": 6007,
+    "name": "Structure",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AssetType",
+    "code": "Orchard",
+    "value": 6008,
+    "name": "Orchard",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AttendanceStatus",
+    "code": "Full",
+    "value": 32000,
+    "name": "Full",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AttendanceStatus",
+    "code": "Half",
+    "value": 32001,
+    "name": "Half",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AttendanceStatus",
+    "code": "Absent",
+    "value": 32002,
+    "name": "Absent",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AttendanceStatus",
+    "code": "Leave",
+    "value": 32003,
+    "name": "Leave",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "AttendanceStatus",
+    "code": "Holiday",
+    "value": 32004,
+    "name": "Holiday",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CostBehavior",
+    "code": "Direct",
+    "value": 19000,
+    "name": "Direct",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CostBehavior",
+    "code": "Overhead",
+    "value": 19001,
+    "name": "Overhead",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCategory",
+    "code": "Cereal",
+    "value": 13000,
+    "name": "Cereal",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCategory",
+    "code": "Vegetable",
+    "value": 13001,
+    "name": "Vegetable",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCategory",
+    "code": "Fodder",
+    "value": 13002,
+    "name": "Fodder",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCategory",
+    "code": "Oilseed",
+    "value": 13003,
+    "name": "Oilseed",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCategory",
+    "code": "Fruit",
+    "value": 13004,
+    "name": "Fruit",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCategory",
+    "code": "Pulse",
+    "value": 13005,
+    "name": "Pulse",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Planned",
+    "value": 14000,
+    "name": "Planned",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Sown",
+    "value": 14001,
+    "name": "Sown",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Growing",
+    "value": 14002,
+    "name": "Growing",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Harvesting",
+    "value": 14003,
+    "name": "Harvesting",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Closed",
+    "value": 14004,
+    "name": "Closed",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Failed",
+    "value": 14005,
+    "name": "Failed",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CropCycleStatus",
+    "code": "Abandoned",
+    "value": 14006,
+    "name": "Abandoned",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "Arthi",
+    "value": 24000,
+    "name": "Arthi",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "MandiTrader",
+    "value": 24001,
+    "name": "Mandi Trader",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "Retail",
+    "value": 24002,
+    "name": "Retail",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "Processor",
+    "value": 24003,
+    "name": "Processor",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "Exporter",
+    "value": 24004,
+    "name": "Exporter",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "Neighbour",
+    "value": 24005,
+    "name": "Neighbour",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "CustomerType",
+    "code": "Government",
+    "value": 24006,
+    "name": "Government",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "DepreciationMethod",
+    "code": "StraightLine",
+    "value": 7000,
+    "name": "Straight Line",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "DepreciationMethod",
+    "code": "DecliningBalance",
+    "value": 7001,
+    "name": "Declining Balance",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "DepreciationMethod",
+    "code": "UnitsOfUse",
+    "value": 7002,
+    "name": "Units Of Use",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "Dimension",
+    "code": "Mass",
+    "value": 17000,
+    "name": "Mass",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "Dimension",
+    "code": "Volume",
+    "value": 17001,
+    "name": "Volume",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "Dimension",
+    "code": "Area",
+    "value": 17002,
+    "name": "Area",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "Dimension",
+    "code": "Count",
+    "value": 17003,
+    "name": "Count",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "Dimension",
+    "code": "Time",
+    "value": 17004,
+    "name": "Time",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "Dimension",
+    "code": "Energy",
+    "value": 17005,
+    "name": "Energy",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "Permanent",
+    "value": 31000,
+    "name": "Permanent",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "Seasonal",
+    "value": 31001,
+    "name": "Seasonal",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "DailyWage",
+    "value": 31002,
+    "name": "Daily Wage",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "PieceRate",
+    "value": 31003,
+    "name": "Piece Rate",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "Contract",
+    "value": 31004,
+    "name": "Contract",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "Family",
+    "value": 31005,
+    "name": "Family",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EmploymentType",
+    "code": "Self",
+    "value": 31006,
+    "name": "Self",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EnergySource",
+    "code": "Electric",
+    "value": 4000,
+    "name": "Electric",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EnergySource",
+    "code": "Diesel",
+    "value": 4001,
+    "name": "Diesel",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EnergySource",
+    "code": "Solar",
+    "value": 4002,
+    "name": "Solar",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "EnergySource",
+    "code": "Canal",
+    "value": 4003,
+    "name": "Canal",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Manual",
+    "value": 23000,
+    "name": "Manual",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "PurchaseLine",
+    "value": 23001,
+    "name": "Purchase Line",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "InventoryIssue",
+    "value": 23002,
+    "name": "Inventory Issue",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Wage",
+    "value": 23003,
+    "name": "Wage",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Fuel",
+    "value": 23004,
+    "name": "Fuel",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Maintenance",
+    "value": 23005,
+    "name": "Maintenance",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Irrigation",
+    "value": 23006,
+    "name": "Irrigation",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Depreciation",
+    "value": 23007,
+    "name": "Depreciation",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Interest",
+    "value": 23008,
+    "name": "Interest",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ExpenseSourceType",
+    "code": "Activity",
+    "value": 23009,
+    "name": "Activity",
+    "sortOrder": 9,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FertilizerMethod",
+    "code": "Broadcast",
+    "value": 5000,
+    "name": "Broadcast",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FertilizerMethod",
+    "code": "Band",
+    "value": 5001,
+    "name": "Band",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FertilizerMethod",
+    "code": "Fertigation",
+    "value": 5002,
+    "name": "Fertigation",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FertilizerMethod",
+    "code": "Foliar",
+    "value": 5003,
+    "name": "Foliar",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FertilizerMethod",
+    "code": "Basal",
+    "value": 5004,
+    "name": "Basal",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FieldUsageType",
+    "code": "RowCrop",
+    "value": 35000,
+    "name": "Row Crop",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FieldUsageType",
+    "code": "Orchard",
+    "value": 35001,
+    "name": "Orchard",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FieldUsageType",
+    "code": "Nursery",
+    "value": 35002,
+    "name": "Nursery",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FieldUsageType",
+    "code": "Fallow",
+    "value": 35003,
+    "name": "Fallow",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FieldUsageType",
+    "code": "Structure",
+    "value": 35004,
+    "name": "Structure",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "FieldUsageType",
+    "code": "NonProductive",
+    "value": 35005,
+    "name": "Non Productive",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Seed",
+    "value": 26000,
+    "name": "Seed",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Fertilizer",
+    "value": 26001,
+    "name": "Fertilizer",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Pesticide",
+    "value": 26002,
+    "name": "Pesticide",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Herbicide",
+    "value": 26003,
+    "name": "Herbicide",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Fungicide",
+    "value": 26004,
+    "name": "Fungicide",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Fuel",
+    "value": 26005,
+    "name": "Fuel",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Packaging",
+    "value": 26006,
+    "name": "Packaging",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "SparePart",
+    "value": 26007,
+    "name": "Spare Part",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Tool",
+    "value": 26008,
+    "name": "Tool",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryItemType",
+    "code": "Other",
+    "value": 26009,
+    "name": "Other",
+    "sortOrder": 9,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "Receipt",
+    "value": 27000,
+    "name": "Receipt",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "Issue",
+    "value": 27001,
+    "name": "Issue",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "Adjustment",
+    "value": 27002,
+    "name": "Adjustment",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "Wastage",
+    "value": 27003,
+    "name": "Wastage",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "Return",
+    "value": 27004,
+    "name": "Return",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "Transfer",
+    "value": 27005,
+    "name": "Transfer",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "InventoryTransactionType",
+    "code": "OpeningBalance",
+    "value": 27006,
+    "name": "Opening Balance",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationCostModel",
+    "code": "PerHour",
+    "value": 37000,
+    "name": "Per Hour",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationCostModel",
+    "code": "PerAcreInch",
+    "value": 37001,
+    "name": "Per Acre Inch",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationCostModel",
+    "code": "PerTurn",
+    "value": 37002,
+    "name": "Per Turn",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationCostModel",
+    "code": "Free",
+    "value": 37003,
+    "name": "Free",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationSourceType",
+    "code": "Canal",
+    "value": 36000,
+    "name": "Canal",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationSourceType",
+    "code": "Tubewell",
+    "value": 36001,
+    "name": "Tubewell",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationSourceType",
+    "code": "Rain",
+    "value": 36002,
+    "name": "Rain",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationSourceType",
+    "code": "Pond",
+    "value": 36003,
+    "name": "Pond",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "IrrigationSourceType",
+    "code": "Purchased",
+    "value": 36004,
+    "name": "Purchased",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MaintenanceType",
+    "code": "ScheduledService",
+    "value": 11000,
+    "name": "Scheduled Service",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MaintenanceType",
+    "code": "Repair",
+    "value": 11001,
+    "name": "Repair",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MaintenanceType",
+    "code": "Breakdown",
+    "value": 11002,
+    "name": "Breakdown",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MaintenanceType",
+    "code": "Inspection",
+    "value": 11003,
+    "name": "Inspection",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MaintenanceType",
+    "code": "Overhaul",
+    "value": 11004,
+    "name": "Overhaul",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterReadingSource",
+    "code": "Manual",
+    "value": 10000,
+    "name": "Manual",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterReadingSource",
+    "code": "Activity",
+    "value": 10001,
+    "name": "Activity",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterReadingSource",
+    "code": "Fuel",
+    "value": 10002,
+    "name": "Fuel",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterReadingSource",
+    "code": "Service",
+    "value": 10003,
+    "name": "Service",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterType",
+    "code": "Hours",
+    "value": 8000,
+    "name": "Hours",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterType",
+    "code": "Km",
+    "value": 8001,
+    "name": "Km",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "MeterType",
+    "code": "None",
+    "value": 8002,
+    "name": "None",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "NotificationChannel",
+    "code": "None",
+    "value": 0,
+    "name": "None",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": true
+  },
+  {
+    "lookupType": "NotificationChannel",
+    "code": "InApp",
+    "value": 1,
+    "name": "In-App",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": true
+  },
+  {
+    "lookupType": "NotificationChannel",
+    "code": "Email",
+    "value": 2,
+    "name": "Email",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": true
+  },
+  {
+    "lookupType": "NotificationChannel",
+    "code": "WhatsApp",
+    "value": 4,
+    "name": "WhatsApp",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": true
+  },
+  {
+    "lookupType": "NotificationChannel",
+    "code": "SMS",
+    "value": 8,
+    "name": "SMS",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": true
+  },
+  {
+    "lookupType": "NotificationChannel",
+    "code": "Push",
+    "value": 16,
+    "name": "Push",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": true
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "Subsidy",
+    "value": 25000,
+    "name": "Subsidy",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "Rental",
+    "value": 25001,
+    "name": "Rental",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "CustomHiring",
+    "value": 25002,
+    "name": "Custom Hiring",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "ResidueSale",
+    "value": 25003,
+    "name": "Residue Sale",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "Compensation",
+    "value": 25004,
+    "name": "Compensation",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "Insurance",
+    "value": 25005,
+    "name": "Insurance",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "OtherIncomeType",
+    "code": "Other",
+    "value": 25006,
+    "name": "Other Income",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PartyType",
+    "code": "InputDealer",
+    "value": 18000,
+    "name": "Input Dealer",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PartyType",
+    "code": "ServiceProvider",
+    "value": 18001,
+    "name": "Service Provider",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PartyType",
+    "code": "Both",
+    "value": 18002,
+    "name": "Both",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PayBasis",
+    "code": "Daily",
+    "value": 3000,
+    "name": "Daily",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PayBasis",
+    "code": "Hourly",
+    "value": 3001,
+    "name": "Hourly",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PayBasis",
+    "code": "PieceRate",
+    "value": 3002,
+    "name": "Piece Rate",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PayBasis",
+    "code": "Contract",
+    "value": 3003,
+    "name": "Contract",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentMethod",
+    "code": "Cash",
+    "value": 21000,
+    "name": "Cash",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentMethod",
+    "code": "Bank",
+    "value": 21001,
+    "name": "Bank",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentMethod",
+    "code": "EasyPaisa",
+    "value": 21002,
+    "name": "EasyPaisa",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentMethod",
+    "code": "JazzCash",
+    "value": 21003,
+    "name": "JazzCash",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentStatus",
+    "code": "Unpaid",
+    "value": 22000,
+    "name": "Unpaid",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentStatus",
+    "code": "Partial",
+    "value": 22001,
+    "name": "Partial",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentStatus",
+    "code": "Paid",
+    "value": 22002,
+    "name": "Paid",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PaymentStatus",
+    "code": "BadDebt",
+    "value": 22003,
+    "name": "Bad Debt",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Insect",
+    "value": 42000,
+    "name": "Insect",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Fungal",
+    "value": 42001,
+    "name": "Fungal",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Bacterial",
+    "value": 42002,
+    "name": "Bacterial",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Viral",
+    "value": 42003,
+    "name": "Viral",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Weed",
+    "value": 42004,
+    "name": "Weed",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Nematode",
+    "value": 42005,
+    "name": "Nematode",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Deficiency",
+    "value": 42006,
+    "name": "Deficiency",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "PestDiseaseType",
+    "code": "Abiotic",
+    "value": 42007,
+    "name": "Abiotic",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceLotStatus",
+    "code": "InStore",
+    "value": 29000,
+    "name": "In Store",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceLotStatus",
+    "code": "PartlySold",
+    "value": 29001,
+    "name": "Partly Sold",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceLotStatus",
+    "code": "SoldOut",
+    "value": 29002,
+    "name": "Sold Out",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceLotStatus",
+    "code": "WrittenOff",
+    "value": 29003,
+    "name": "Written Off",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "In",
+    "value": 30000,
+    "name": "In",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Sale",
+    "value": 30001,
+    "name": "Sale",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Spoilage",
+    "value": 30002,
+    "name": "Spoilage",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Shrinkage",
+    "value": 30003,
+    "name": "Shrinkage",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "OwnUse",
+    "value": 30004,
+    "name": "Own Use",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Gift",
+    "value": 30005,
+    "name": "Gift",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Seed",
+    "value": 30006,
+    "name": "Seed",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Feed",
+    "value": 30007,
+    "name": "Feed",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Transfer",
+    "value": 30008,
+    "name": "Transfer",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ProduceMovementType",
+    "code": "Reweigh",
+    "value": 30009,
+    "name": "Reweigh",
+    "sortOrder": 9,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "RefreshTokenRevokedReason",
+    "code": "Rotated",
+    "value": 12000,
+    "name": "Rotated",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "RefreshTokenRevokedReason",
+    "code": "LoggedOut",
+    "value": 12001,
+    "name": "Logged Out",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "RefreshTokenRevokedReason",
+    "code": "ReuseDetected",
+    "value": 12002,
+    "name": "Reuse Detected",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Irrigation",
+    "value": 38000,
+    "name": "Irrigation",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Fertilizer",
+    "value": 38001,
+    "name": "Fertilizer",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Spray",
+    "value": 38002,
+    "name": "Spray",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Harvest",
+    "value": 38003,
+    "name": "Harvest",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Pruning",
+    "value": 38004,
+    "name": "Pruning",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Reorder",
+    "value": 38005,
+    "name": "Reorder",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Maintenance",
+    "value": 38006,
+    "name": "Maintenance",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Payment",
+    "value": 38007,
+    "name": "Payment",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Payroll",
+    "value": 38008,
+    "name": "Payroll",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderCategory",
+    "code": "Custom",
+    "value": 38009,
+    "name": "Custom",
+    "sortOrder": 9,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Pending",
+    "value": 41000,
+    "name": "Pending",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Sent",
+    "value": 41001,
+    "name": "Sent",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Acknowledged",
+    "value": 41002,
+    "name": "Acknowledged",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Snoozed",
+    "value": 41003,
+    "name": "Snoozed",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Dismissed",
+    "value": 41004,
+    "name": "Dismissed",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Completed",
+    "value": 41005,
+    "name": "Completed",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderStatus",
+    "code": "Overdue",
+    "value": 41006,
+    "name": "Overdue",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "FixedDate",
+    "value": 39000,
+    "name": "Fixed Date",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "Recurring",
+    "value": 39001,
+    "name": "Recurring",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "DaysAfterEvent",
+    "value": 39002,
+    "name": "Days After Event",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "GddThreshold",
+    "value": 39003,
+    "name": "GDD Threshold",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "MeterThreshold",
+    "value": 39004,
+    "name": "Meter Threshold",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "StockBelowLevel",
+    "value": 39005,
+    "name": "Stock Below Level",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "ExpiryApproaching",
+    "value": 39006,
+    "name": "Expiry Approaching",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "DueDateApproaching",
+    "value": 39007,
+    "name": "Due Date Approaching",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ReminderTriggerType",
+    "code": "WeatherCondition",
+    "value": 39008,
+    "name": "Weather Condition",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingAction",
+    "code": "Monitor",
+    "value": 43000,
+    "name": "Monitor",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingAction",
+    "code": "Treat",
+    "value": 43001,
+    "name": "Treat",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingAction",
+    "code": "Remove",
+    "value": 43002,
+    "name": "Remove",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingAction",
+    "code": "None",
+    "value": 43003,
+    "name": "None",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingOutcome",
+    "code": "Controlled",
+    "value": 44000,
+    "name": "Controlled",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingOutcome",
+    "code": "Partial",
+    "value": 44001,
+    "name": "Partial",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingOutcome",
+    "code": "Failed",
+    "value": 44002,
+    "name": "Failed",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "ScoutingOutcome",
+    "code": "Recurred",
+    "value": 44003,
+    "name": "Recurred",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SeasonType",
+    "code": "Rabi",
+    "value": 34000,
+    "name": "Rabi",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SeasonType",
+    "code": "Kharif",
+    "value": 34001,
+    "name": "Kharif",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SeasonType",
+    "code": "Annual",
+    "value": 34002,
+    "name": "Annual",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SeasonType",
+    "code": "Perennial",
+    "value": 34003,
+    "name": "Perennial",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "Sand",
+    "value": 47000,
+    "name": "Sand",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "LoamySand",
+    "value": 47001,
+    "name": "Loamy Sand",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "SandyLoam",
+    "value": 47002,
+    "name": "Sandy Loam",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "Loam",
+    "value": 47003,
+    "name": "Loam",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "SiltLoam",
+    "value": 47004,
+    "name": "Silt Loam",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "Silt",
+    "value": 47005,
+    "name": "Silt",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "SandyClayLoam",
+    "value": 47006,
+    "name": "Sandy Clay Loam",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "ClayLoam",
+    "value": 47007,
+    "name": "Clay Loam",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "SiltyClayLoam",
+    "value": 47008,
+    "name": "Silty Clay Loam",
+    "sortOrder": 8,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "SandyClay",
+    "value": 47009,
+    "name": "Sandy Clay",
+    "sortOrder": 9,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "SiltyClay",
+    "value": 47010,
+    "name": "Silty Clay",
+    "sortOrder": 10,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "SoilTexture",
+    "code": "Clay",
+    "value": 47011,
+    "name": "Clay",
+    "sortOrder": 11,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "Store",
+    "value": 28000,
+    "name": "Store",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "Godown",
+    "value": 28001,
+    "name": "Godown",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "ColdStore",
+    "value": 28002,
+    "name": "Cold Store",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "Bin",
+    "value": 28003,
+    "name": "Bin",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "Silo",
+    "value": 28004,
+    "name": "Silo",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "OpenYard",
+    "value": 28005,
+    "name": "Open Yard",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "StorageLocationType",
+    "code": "Shed",
+    "value": 28006,
+    "name": "Shed",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Prune",
+    "value": 16000,
+    "name": "Prune",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Train",
+    "value": 16001,
+    "name": "Train",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Graft",
+    "value": 16002,
+    "name": "Graft",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Thin",
+    "value": 16003,
+    "name": "Thin",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Prop",
+    "value": 16004,
+    "name": "Prop",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Whitewash",
+    "value": 16005,
+    "name": "Whitewash",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Replant",
+    "value": 16006,
+    "name": "Replant",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeEventType",
+    "code": "Transplant",
+    "value": 16007,
+    "name": "Transplant",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeStatus",
+    "code": "Alive",
+    "value": 15000,
+    "name": "Alive",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeStatus",
+    "code": "Declining",
+    "value": 15001,
+    "name": "Declining",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeStatus",
+    "code": "Dead",
+    "value": 15002,
+    "name": "Dead",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeStatus",
+    "code": "Removed",
+    "value": 15003,
+    "name": "Removed",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "TreeStatus",
+    "code": "Replaced",
+    "value": 15004,
+    "name": "Replaced",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Hail",
+    "value": 46000,
+    "name": "Hail",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Frost",
+    "value": 46001,
+    "name": "Frost",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Heatwave",
+    "value": 46002,
+    "name": "Heatwave",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Storm",
+    "value": 46003,
+    "name": "Storm",
+    "sortOrder": 3,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Flood",
+    "value": 46004,
+    "name": "Flood",
+    "sortOrder": 4,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Drought",
+    "value": 46005,
+    "name": "Drought",
+    "sortOrder": 5,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "Dust",
+    "value": 46006,
+    "name": "Dust",
+    "sortOrder": 6,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherEventType",
+    "code": "UnseasonalRain",
+    "value": 46007,
+    "name": "Unseasonal Rain",
+    "sortOrder": 7,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherSource",
+    "code": "Manual",
+    "value": 45000,
+    "name": "Manual",
+    "sortOrder": 0,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherSource",
+    "code": "Api",
+    "value": 45001,
+    "name": "API",
+    "sortOrder": 1,
+    "isActive": true,
+    "isFlags": false
+  },
+  {
+    "lookupType": "WeatherSource",
+    "code": "Station",
+    "value": 45002,
+    "name": "Station",
+    "sortOrder": 2,
+    "isActive": true,
+    "isFlags": false
+  }
+]
