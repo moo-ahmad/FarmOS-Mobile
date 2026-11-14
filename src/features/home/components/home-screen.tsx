@@ -4,6 +4,7 @@ import { Alert, Pressable, ScrollView, View } from 'react-native';
 
 import { AppHeader, Divider, Screen } from '@/components/ui';
 import { useSignOut } from '@/features/auth';
+import { SetupCard } from '@/features/farm-setup';
 import { colors } from '@/theme';
 
 import {
@@ -25,6 +26,8 @@ import { TeamRow } from './team-row';
 export interface HomeScreenProps {
   onOpenCycle?: (cycleId: string) => void;
   onOpenFields?: () => void;
+  onAddSeason?: () => void;
+  onAddIrrigationSource?: () => void;
 }
 
 /**
@@ -32,7 +35,12 @@ export interface HomeScreenProps {
  * against the sample fixtures in ../fixtures until the cycles/reminders API
  * exists.
  */
-export function HomeScreen({ onOpenCycle, onOpenFields }: HomeScreenProps) {
+export function HomeScreen({
+  onOpenCycle,
+  onOpenFields,
+  onAddSeason,
+  onAddIrrigationSource,
+}: HomeScreenProps) {
   const { t } = useTranslation();
   const signOut = useSignOut();
 
@@ -67,6 +75,10 @@ export function HomeScreen({ onOpenCycle, onOpenFields }: HomeScreenProps) {
         }
       />
       <ScrollView contentContainerStyle={{ paddingBottom: 24 }}>
+        <SetupCard
+          onAddSeason={() => onAddSeason?.()}
+          onAddIrrigationSource={() => onAddIrrigationSource?.()}
+        />
         <NetCashSummary
           month={homeSummary.month}
           netCash={homeSummary.netCash}

@@ -17,7 +17,6 @@ import {
 import { Fonts } from '@/constants/theme';
 import { colors } from '@/theme';
 
-import { existingSeasons } from '../fixtures';
 import {
   SEASON_KINDS,
   type ExistingSeason,
@@ -40,8 +39,14 @@ const KIND_OPTIONS: readonly SegmentOption<SeasonKind>[] = SEASON_KINDS.map(
 export interface SeasonFormScreenProps {
   /** Present when editing; absent for a new season. */
   season?: ExistingSeason;
+  /** The farm's seasons, for the duplicate-name and overlap checks. */
+  existingSeasons: readonly ExistingSeason[];
   onClose: () => void;
   onSave: (values: SeasonFormValues) => void;
+  /** True while the save request is in flight. */
+  saving?: boolean;
+  /** A failed save's message (e.g. the backend's validation error). */
+  errorMessage?: string;
 }
 
 function PreviewRow({
@@ -72,13 +77,16 @@ function Mono({ children }: { children: string }) {
  * frames). Picking a type pre-fills typical dates and a suggested name until
  * the user edits them; the preview updates live. Overlap with a same-type
  * season only warns; invalid dates or a duplicate name block Save. A closed
- * season opens read-only. Checks run against fixtures until the API exposes
- * seasons.
+ * season opens read-only. Checks run against the `existingSeasons` the
+ * route passes in.
  */
 export function SeasonFormScreen({
   season,
+  existingSeasons,
   onClose,
   onSave,
+  saving = false,
+  errorMessage,
 }: SeasonFormScreenProps) {
   const isEdit = season !== undefined;
   const isClosed = season?.status === 'closed';
@@ -108,12 +116,12 @@ export function SeasonFormScreen({
   const errors = useMemo(
     () => validateSeason(values, existingSeasons, season?.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [kind, name, startDate, endDate, season?.id],
+    [kind, name, startDate, endDate, season?.id, existingSeasons],
   );
   const overlap = useMemo(
     () => findOverlap(existingSeasons, values, season?.id),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [kind, startDate, endDate, season?.id],
+    [kind, startDate, endDate, season?.id, existingSeasons],
   );
   const hasErrors = Object.keys(errors).length > 0;
   const dateError = errors.startDate ?? errors.endDate;
@@ -257,6 +265,7 @@ export function SeasonFormScreen({
               </PreviewRow>
             )}
           </View>
+          {errorMessage ? <Callout>{errorMessage}</Callout> : null}
         </View>
       </ScrollView>
       <CaptureFooter>
@@ -264,6 +273,7 @@ export function SeasonFormScreen({
           title="Save season"
           haptic="success"
           disabled={isClosed || hasErrors}
+          loading={saving}
           onPress={() => onSave({ ...values, name: name.trim() })}
         />
       </CaptureFooter>

@@ -47,3 +47,37 @@ export async function fetchIrrigationSources(
   }
   return (await response.json()) as IrrigationSourceDto[];
 }
+
+/**
+ * POST /api/irrigation-sources body. `sourceType`/`costModel` are the raw
+ * `FarmOS.Domain.Enums` wire values; the decimals travel as strings (the API
+ * accepts `number | string`) so they never pass through a JS `number`.
+ */
+export interface CreateIrrigationSourceRequestBody {
+  name: string;
+  sourceType: number;
+  costModel: number;
+  ratePerUnit: string;
+  dischargeLpm: string | null;
+  pumpAssetId: number | null;
+}
+
+/** POST /api/irrigation-sources — 201 Created with the new source. */
+export async function createIrrigationSource(
+  body: CreateIrrigationSourceRequestBody,
+  auth: AuthContext,
+): Promise<IrrigationSourceDto> {
+  const response = await fetch(`${env.apiBaseUrl}/api/irrigation-sources`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${auth.accessToken}`,
+      'X-Farm-Id': auth.farmId,
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    throw await toApiError(response);
+  }
+  return (await response.json()) as IrrigationSourceDto;
+}

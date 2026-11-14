@@ -1,7 +1,12 @@
 import { describe, expect, it } from '@jest/globals';
 
 import { existingSeasons } from './fixtures';
-import type { SeasonFormValues } from './model';
+import {
+  SEASON_KINDS,
+  SEASON_TYPE_WIRE,
+  seasonKindFromWire,
+  type SeasonFormValues,
+} from './model';
 import {
   codeSuffix,
   defaultDates,
@@ -134,5 +139,22 @@ describe('validateSeason', () => {
     );
     expect(errors.startDate).toBeDefined();
     expect(errors.endDate).toBeDefined();
+  });
+});
+
+describe('season type wire values', () => {
+  it('round-trips every kind through the backend enum value', () => {
+    for (const kind of SEASON_KINDS) {
+      expect(seasonKindFromWire(SEASON_TYPE_WIRE[kind])).toBe(kind);
+    }
+  });
+
+  it('matches the backend SeasonType enum', () => {
+    expect(SEASON_TYPE_WIRE.Rabi).toBe(34000);
+    expect(SEASON_TYPE_WIRE.Perennial).toBe(34003);
+  });
+
+  it('returns undefined for an unknown value', () => {
+    expect(seasonKindFromWire(0)).toBeUndefined();
   });
 });

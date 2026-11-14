@@ -21,6 +21,7 @@
     "e2e": "maestro test .maestro",
     "db:generate": "drizzle-kit generate && node scripts/build-migrations.mjs",
     "api:generate": "node scripts/generate-api-types.mjs",
+    "lookups:generate": "node scripts/generate-lookups.mjs",
     "reset-project": "node ./scripts/reset-project.js",
     "prepare": "husky"
   },

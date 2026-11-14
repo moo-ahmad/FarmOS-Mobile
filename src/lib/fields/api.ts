@@ -3,7 +3,7 @@ import { ApiError } from '@/lib/http/errors';
 
 /**
  * A field as returned by the API (`FarmOS.Application.Fields.FieldDto`).
- * `usageType`/`soilTextureId`/`primaryIrrigationSourceId` are raw wire
+ * `usageType`/`soilTexture`/`primaryIrrigationSourceId` are raw wire
  * values — see `@/features/fields/model` for how the UI labels them.
  */
 export interface FieldDto {
@@ -15,7 +15,8 @@ export interface FieldDto {
   areaUomId: number;
   areaAcres: number;
   usageType: number;
-  soilTextureId: number | null;
+  /** `SoilTexture` lookup value (47000–47011), or null when not set. */
+  soilTexture: number | null;
   primaryIrrigationSourceId: number | null;
   parentFieldId: number | null;
   centroidLat: number | null;
@@ -38,7 +39,8 @@ export interface CreateFieldRequestBody {
   areaValue: number;
   areaUomId: number;
   usageType: number;
-  soilTextureId: number | null;
+  /** `SoilTexture` lookup value (47000–47011), or null when not set. */
+  soilTexture: number | null;
   primaryIrrigationSourceId: number | null;
   parentFieldId: number | null;
   centroidLat: number | null;

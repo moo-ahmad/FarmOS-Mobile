@@ -13,6 +13,7 @@ export default function EditSeasonRoute() {
   return (
     <SeasonFormScreen
       season={season}
+      existingSeasons={existingSeasons}
       onClose={() => router.back()}
       onSave={() => router.back()}
     />

@@ -39,6 +39,7 @@ export interface AddFieldFormHandle {
 }
 
 const NONE_IRRIGATION_SOURCE = -1;
+const NO_SOIL_TEXTURE = -1;
 
 /**
  * Add Field form (design handoff: FarmOS Land, "Add field" frame), wired to
@@ -73,7 +74,8 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
         area: '',
         areaUomId: AREA_UOMS[0]!.id,
         usageType: FieldUsageType.RowCrop,
-        soilTextureId: SOIL_TEXTURES[0]!.id,
+        // Optional on the backend — most farmers won't know their USDA class.
+        soilTexture: null,
         primaryIrrigationSourceId: null,
       },
     });
@@ -229,7 +231,7 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
           <MicroLabel>Soil type</MicroLabel>
           <Controller
             control={control}
-            name="soilTextureId"
+            name="soilTexture"
             render={({ field }) => (
               <>
                 <Pressable
@@ -239,20 +241,23 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                 >
                   <Text className="font-archivo-bold text-label">
                     {SOIL_TEXTURES.find((t) => t.id === field.value)?.label ??
-                      'Select'}
+                      'Not set'}
                   </Text>
                   <ChevronDown size={18} color={colors.accent.DEFAULT} />
                 </Pressable>
                 <OptionPicker
                   ref={soilPickerRef}
                   title="Soil type"
-                  value={field.value ?? SOIL_TEXTURES[0]!.id}
-                  options={SOIL_TEXTURES.map((texture) => ({
-                    value: texture.id,
-                    label: texture.label,
-                  }))}
+                  value={field.value ?? NO_SOIL_TEXTURE}
+                  options={[
+                    { value: NO_SOIL_TEXTURE, label: 'Not set' },
+                    ...SOIL_TEXTURES.map((texture) => ({
+                      value: texture.id,
+                      label: texture.label,
+                    })),
+                  ]}
                   onSelect={(value) => {
-                    field.onChange(value);
+                    field.onChange(value === NO_SOIL_TEXTURE ? null : value);
                     soilPickerRef.current?.dismiss();
                   }}
                 />

@@ -57,11 +57,10 @@ export function createAddFieldFormSchema(existingCodes: readonly string[]) {
     usageType: z
       .number()
       .refine(
-        (value): value is (typeof FIELD_USAGE_TYPES)[number] =>
-          (FIELD_USAGE_TYPES as readonly number[]).includes(value),
+        (value) => (FIELD_USAGE_TYPES as readonly number[]).includes(value),
         'validation.required',
       ),
-    soilTextureId: z.number().nullable(),
+    soilTexture: z.number().nullable(),
     primaryIrrigationSourceId: z.number().nullable(),
   });
 }

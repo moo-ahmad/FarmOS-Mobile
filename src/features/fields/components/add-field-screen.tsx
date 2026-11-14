@@ -48,7 +48,7 @@ export function AddFieldScreen({ onClose, onSaved }: AddFieldScreenProps) {
         areaValue: Number(values.area),
         areaUomId: values.areaUomId,
         usageType: values.usageType,
-        soilTextureId: values.soilTextureId,
+        soilTexture: values.soilTexture,
         primaryIrrigationSourceId: values.primaryIrrigationSourceId,
         parentFieldId: null,
         centroidLat: null,
