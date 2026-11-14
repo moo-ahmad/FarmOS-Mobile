@@ -45,7 +45,7 @@ export function AddFieldScreen({ onClose, onSaved }: AddFieldScreenProps) {
       {
         code: values.code,
         name: values.name,
-        areaValue: Number(values.area),
+        areaValue: values.area,
         areaUomId: values.areaUomId,
         usageType: values.usageType,
         soilTexture: values.soilTexture,
@@ -64,7 +64,7 @@ export function AddFieldScreen({ onClose, onSaved }: AddFieldScreenProps) {
       <ScrollView className="bg-neutral-0">
         <AddFieldForm
           ref={formRef}
-          nextCode={nextCode}
+          initialValues={{ code: nextCode }}
           existingCodes={existingCodes}
           onSubmit={handleSubmit}
         />

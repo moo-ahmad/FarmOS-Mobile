@@ -7,6 +7,14 @@ export {
   type AddFieldScreenProps,
 } from './components/add-field-screen';
 export {
+  FieldLookupFallback,
+  type FieldLookupFallbackProps,
+} from './components/field-lookup-fallback';
+export {
+  EditFieldScreen,
+  type EditFieldScreenProps,
+} from './components/edit-field-screen';
+export {
   FieldDetailScreen,
   type FieldDetailScreenProps,
 } from './components/field-detail-screen';
@@ -17,10 +25,12 @@ export {
   irrigationSourceKeys,
   useFields,
   useField,
+  useFieldByCode,
   useIrrigationSources,
   useCreateField,
   useUpdateField,
   useDeactivateField,
+  useDeleteField,
 } from './hooks';
 export {
   FieldUsageType,
@@ -31,4 +41,4 @@ export {
   type SoilTexture,
   type AreaUom,
 } from './model';
-export { fieldApiErrorMessage } from './errors';
+export { deleteFieldErrorMessage, fieldApiErrorMessage } from './errors';

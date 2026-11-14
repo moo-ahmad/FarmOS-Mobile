@@ -26,8 +26,14 @@ const CODE_PATTERN = /^[A-Za-z0-9]+$/;
  *
  * A factory rather than a static schema because uniqueness depends on the
  * farm's current field list, fetched at render time.
+ *
+ * `originalCode` (Edit Field) is always accepted unchanged, so a field
+ * created before the stricter code rule (e.g. "CS-1") stays editable.
  */
-export function createAddFieldFormSchema(existingCodes: readonly string[]) {
+export function createAddFieldFormSchema(
+  existingCodes: readonly string[],
+  originalCode?: string,
+) {
   const takenCodes = new Set(existingCodes.map((code) => code.toUpperCase()));
 
   return z.object({
@@ -35,12 +41,16 @@ export function createAddFieldFormSchema(existingCodes: readonly string[]) {
       .string()
       .trim()
       .min(1, 'Enter a field code')
-      .max(4, 'Max 4 characters')
-      .regex(CODE_PATTERN, 'Letters and numbers only')
-      .refine(
-        (code) => !takenCodes.has(code.toUpperCase()),
-        'This code is already in use',
-      ),
+      .superRefine((code, ctx) => {
+        if (originalCode !== undefined && code === originalCode) return;
+        const issue = (message: string) =>
+          ctx.addIssue({ code: 'custom', message });
+        if (code.length > 4) issue('Max 4 characters');
+        else if (!CODE_PATTERN.test(code)) issue('Letters and numbers only');
+        else if (takenCodes.has(code.toUpperCase())) {
+          issue('This code is already in use');
+        }
+      }),
     name: z
       .string()
       .trim()

@@ -5,6 +5,7 @@ import { getCurrentFarmId } from '@/lib/farm';
 import {
   createField,
   deactivateField,
+  deleteField,
   fetchFieldById,
   fetchFields,
   updateField,
@@ -94,4 +95,33 @@ export function useDeactivateField(fieldId: number) {
       void queryClient.invalidateQueries({ queryKey: fieldKeys.list() });
     },
   });
+}
+
+/**
+ * DELETE /api/fields/{id}, then drops the field from the cache. The backend
+ * refuses (422) once anything references the field.
+ */
+export function useDeleteField(fieldId: number) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => deleteField(fieldId, await requireAuth()),
+    onSuccess: () => {
+      queryClient.removeQueries({ queryKey: fieldKeys.detail(fieldId) });
+      void queryClient.invalidateQueries({ queryKey: fieldKeys.list() });
+    },
+  });
+}
+
+/**
+ * A field by its code, for the `/field/[code]` routes: the list row is
+ * available at once, and `GET /api/fields/{id}` takes over when it resolves.
+ */
+export function useFieldByCode(code: string | undefined) {
+  const fieldsQuery = useFields();
+  const summary = fieldsQuery.data?.fields.find((f) => f.code === code);
+  const detailQuery = useField(summary?.fieldId);
+  return {
+    field: detailQuery.data ?? summary,
+    isPending: fieldsQuery.isPending,
+  };
 }

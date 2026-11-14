@@ -27,10 +27,18 @@ import { createAddFieldFormSchema, type AddFieldFormValues } from '../schema';
 import { OptionPicker } from './option-picker';
 
 export interface AddFieldFormProps {
-  /** The next available field code (e.g. "F002"), pre-filled but editable. */
-  nextCode: string;
-  /** Every code already on the farm — the code field must be unique among these. */
+  /**
+   * Starting values. For a new field that's just the next available code
+   * (e.g. "F002"); Edit Field passes the whole field. Read once, on mount.
+   */
+  initialValues: Partial<AddFieldFormValues> & { code: string };
+  /**
+   * Codes already taken on the farm — the code must be unique among these.
+   * When editing, leave the field's own code out.
+   */
   existingCodes: readonly string[];
+  /** Edit Field: the field's current code, accepted even if it predates the 4-char rule. */
+  originalCode?: string;
   onSubmit: (values: AddFieldFormValues) => void;
 }
 
@@ -53,7 +61,10 @@ const NO_SOIL_TEXTURE = -1;
  * among `existingCodes`.
  */
 export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
-  function AddFieldForm({ nextCode, existingCodes, onSubmit }, ref) {
+  function AddFieldForm(
+    { initialValues, existingCodes, originalCode, onSubmit },
+    ref,
+  ) {
     const soilPickerRef = useRef<BottomSheetModal>(null);
     const irrigationPickerRef = useRef<BottomSheetModal>(null);
     const usagePickerRef = useRef<BottomSheetModal>(null);
@@ -62,14 +73,13 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
     const irrigationSources = useIrrigationSources();
 
     const schema = useMemo(
-      () => createAddFieldFormSchema(existingCodes),
-      [existingCodes],
+      () => createAddFieldFormSchema(existingCodes, originalCode),
+      [existingCodes, originalCode],
     );
 
     const { control, handleSubmit } = useForm<AddFieldFormValues>({
       resolver: zodResolver(schema),
       defaultValues: {
-        code: nextCode,
         name: '',
         area: '',
         areaUomId: AREA_UOMS[0]!.id,
@@ -77,6 +87,7 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
         // Optional on the backend — most farmers won't know their USDA class.
         soilTexture: null,
         primaryIrrigationSourceId: null,
+        ...initialValues,
       },
     });
 
@@ -99,7 +110,7 @@ export const AddFieldForm = forwardRef<AddFieldFormHandle, AddFieldFormProps>(
                   value={field.value}
                   onChangeText={(text) => field.onChange(text.toUpperCase())}
                   autoCapitalize="characters"
-                  maxLength={4}
+                  maxLength={Math.max(4, originalCode?.length ?? 0)}
                   containerClassName="w-28"
                   fieldClassName={
                     fieldState.error ? 'border-accent' : 'border-ink'
