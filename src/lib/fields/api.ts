@@ -36,7 +36,8 @@ export interface FieldsSummaryDto {
 export interface CreateFieldRequestBody {
   code: string;
   name: string;
-  areaValue: number;
+  /** Decimal as a string (the API accepts `number | string`) — never a JS number. */
+  areaValue: string;
   areaUomId: number;
   usageType: number;
   /** `SoilTexture` lookup value (47000–47011), or null when not set. */
@@ -157,4 +158,21 @@ export async function deactivateField(
     throw await toApiError(response);
   }
   return (await response.json()) as FieldDto;
+}
+
+/**
+ * DELETE /api/fields/{id} — 204. Only succeeds for a field nothing
+ * references yet; anything with history is a 422 (deactivate it instead).
+ */
+export async function deleteField(
+  fieldId: number,
+  auth: AuthContext,
+): Promise<void> {
+  const response = await fetch(`${env.apiBaseUrl}/api/fields/${fieldId}`, {
+    method: 'DELETE',
+    headers: authHeaders(auth),
+  });
+  if (!response.ok) {
+    throw await toApiError(response);
+  }
 }

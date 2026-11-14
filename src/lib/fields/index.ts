@@ -4,6 +4,7 @@ export {
   createField,
   updateField,
   deactivateField,
+  deleteField,
   type FieldDto,
   type FieldsSummaryDto,
   type CreateFieldRequestBody,

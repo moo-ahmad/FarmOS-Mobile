@@ -1,5 +1,6 @@
+import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { EllipsisVertical } from 'lucide-react-native';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Pressable, ScrollView, View } from 'react-native';
 
 import {
@@ -18,34 +19,54 @@ import type { FieldDto } from '@/lib/fields';
 import { colors } from '@/theme';
 
 import { CropHistoryRow } from './crop-history-row';
-import { DeactivateFieldDialog } from './deactivate-field-dialog';
+import { ConfirmFieldDialog } from './confirm-field-dialog';
+import { FieldActionsSheet } from './field-actions-sheet';
 import { FieldDetailGrid } from './field-detail-grid';
-import { fieldApiErrorMessage } from '../errors';
+import { deleteFieldErrorMessage, fieldApiErrorMessage } from '../errors';
 import { fieldAreaLabel, fieldSoilLabel } from '../field-display';
 import { cropHistoryByFieldCode } from '../fixtures';
-import { useDeactivateField, useIrrigationSources } from '../hooks';
+import {
+  useDeactivateField,
+  useDeleteField,
+  useIrrigationSources,
+} from '../hooks';
 
 export interface FieldDetailScreenProps {
   field: FieldDto;
   onBack: () => void;
+  onEdit: () => void;
   onDeactivated: () => void;
+  onDeleted: () => void;
 }
 
 /**
  * Field Detail (design handoff: FarmOS Land, "Field 3" frame): the active
  * cycle summary, an area/soil/irrigation/boundary grid, and the (fixture)
  * crop-rotation history. Wired to the real field via `GET /api/fields/{id}`
- * (fetched by the route) and the Deactivate action to
- * `POST /api/fields/{id}/deactivate`.
+ * (fetched by the route). The ⋮ menu offers Edit, Deactivate
+ * (`POST /api/fields/{id}/deactivate`) and Delete (`DELETE /api/fields/{id}`,
+ * refused by the backend once the field has history).
  */
 export function FieldDetailScreen({
   field,
   onBack,
+  onEdit,
   onDeactivated,
+  onDeleted,
 }: FieldDetailScreenProps) {
-  const [confirmingDeactivate, setConfirmingDeactivate] = useState(false);
+  const actionsRef = useRef<BottomSheetModal>(null);
+  const [confirming, setConfirming] = useState<'deactivate' | 'delete' | null>(
+    null,
+  );
   const irrigationSources = useIrrigationSources();
   const deactivateField = useDeactivateField(field.fieldId);
+  const deleteField = useDeleteField(field.fieldId);
+
+  const closeConfirm = () => {
+    setConfirming(null);
+    deactivateField.reset();
+    deleteField.reset();
+  };
 
   const cycle = cropCycles.find((c) => c.fieldCode === field.code);
   const history = cropHistoryByFieldCode[field.code] ?? [];
@@ -69,9 +90,9 @@ export function FieldDetailScreen({
         right={
           <Pressable
             accessibilityRole="button"
-            accessibilityLabel="More options"
+            accessibilityLabel="Field actions"
             hitSlop={8}
-            onPress={() => setConfirmingDeactivate(true)}
+            onPress={() => actionsRef.current?.present()}
           >
             <EllipsisVertical size={20} color={colors.ink} />
           </Pressable>
@@ -138,26 +159,64 @@ export function FieldDetailScreen({
           ))}
         </View>
 
-        {deactivateField.isError ? (
+        {field.isActive ? null : (
           <Callout className="mx-4 mb-4">
-            {fieldApiErrorMessage(deactivateField.error)}
+            This field is deactivated — it&apos;s hidden from active lists.
           </Callout>
-        ) : null}
+        )}
       </ScrollView>
 
-      <DeactivateFieldDialog
-        visible={confirmingDeactivate}
+      <FieldActionsSheet
+        ref={actionsRef}
         fieldTitle={`Field ${fieldNumber}`}
+        isActive={field.isActive}
+        onEdit={onEdit}
+        onDeactivate={() => setConfirming('deactivate')}
+        onDelete={() => setConfirming('delete')}
+      />
+
+      <ConfirmFieldDialog
+        visible={confirming === 'deactivate'}
+        title="Deactivate this field?"
+        message={`Field ${fieldNumber} will be hidden from active lists. Its crop history stays intact.`}
+        confirmLabel="Deactivate"
         loading={deactivateField.isPending}
-        onCancel={() => setConfirmingDeactivate(false)}
-        onConfirm={() => {
+        errorMessage={
+          deactivateField.isError
+            ? fieldApiErrorMessage(deactivateField.error)
+            : undefined
+        }
+        onCancel={closeConfirm}
+        onConfirm={() =>
           deactivateField.mutate(undefined, {
             onSuccess: () => {
-              setConfirmingDeactivate(false);
+              setConfirming(null);
               onDeactivated();
             },
-          });
-        }}
+          })
+        }
+      />
+
+      <ConfirmFieldDialog
+        visible={confirming === 'delete'}
+        title="Delete this field?"
+        message={`Field ${fieldNumber} will be removed for good. This only works if it has no crop cycles, activities or harvests yet — otherwise deactivate it.`}
+        confirmLabel="Delete"
+        loading={deleteField.isPending}
+        errorMessage={
+          deleteField.isError
+            ? deleteFieldErrorMessage(deleteField.error)
+            : undefined
+        }
+        onCancel={closeConfirm}
+        onConfirm={() =>
+          deleteField.mutate(undefined, {
+            onSuccess: () => {
+              setConfirming(null);
+              onDeleted();
+            },
+          })
+        }
       />
     </Screen>
   );
