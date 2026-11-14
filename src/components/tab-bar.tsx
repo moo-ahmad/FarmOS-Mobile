@@ -11,7 +11,6 @@ import { Pressable, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { Text } from '@/components/ui';
-import { cropCycles } from '@/features/home';
 import { colors } from '@/theme';
 
 interface TabItem {
@@ -19,18 +18,18 @@ interface TabItem {
   href: Href;
   label: string;
   Icon: LucideIcon;
-  /** Matches any pathname under this prefix (e.g. the per-cycle Crop P&L route). */
-  activePrefix?: string;
+  /** Also active for any pathname under one of these (e.g. a cycle's detail route). */
+  activePrefixes?: readonly string[];
 }
 
 const LEFT_TABS: TabItem[] = [
   { key: 'home', href: '/', label: 'Home', Icon: Home },
   {
     key: 'cycles',
-    href: `/crop-pnl/${cropCycles[0]?.id ?? ''}` as Href,
+    href: '/cycles',
     label: 'Cycles',
     Icon: Sprout,
-    activePrefix: '/crop-pnl',
+    activePrefixes: ['/cycle', '/crop-pnl'],
   },
 ];
 
@@ -115,9 +114,11 @@ export function TabBar() {
           key={item.key}
           item={item}
           active={
-            item.activePrefix
-              ? pathname.startsWith(item.activePrefix)
-              : pathname === item.href
+            pathname === item.href ||
+            (item.activePrefixes?.some((prefix) =>
+              pathname.startsWith(prefix),
+            ) ??
+              false)
           }
         />
       ))}

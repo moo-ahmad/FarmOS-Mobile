@@ -365,7 +365,7 @@ export interface paths {
         get: operations["GetCropCycleById"];
         put: operations["UpdateCropCycle"];
         post?: never;
-        delete?: never;
+        delete: operations["DeleteCropCycle"];
         options?: never;
         head?: never;
         patch?: never;
@@ -2118,6 +2118,26 @@ export interface operations {
                 "application/json": components["schemas"]["UpdateCropCycleRequest"];
             };
         };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    DeleteCropCycle: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                id: number;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
         responses: {
             /** @description OK */
             200: {
