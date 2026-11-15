@@ -7,6 +7,7 @@ export default function HomeRoute() {
     <HomeScreen
       onOpenCycle={(cycleId) => router.push(`/crop-pnl/${cycleId}`)}
       onOpenFields={() => router.push('/fields')}
+      onOpenActivities={() => router.push('/activities')}
       onAddSeason={() => router.push('/season/new')}
       onAddIrrigationSource={() => router.push('/irrigation-source/new')}
       onOpenTeam={() => router.push('/workers')}

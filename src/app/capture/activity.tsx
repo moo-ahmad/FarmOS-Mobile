@@ -1,30 +1,55 @@
 import { router, useLocalSearchParams } from 'expo-router';
 
 import {
-  ActivityLogScreen,
-  OPERATIONS,
-  type Operation,
-} from '@/features/activity-log';
-import { cropCycles } from '@/features/home';
+  ActivityFormScreen,
+  activityTypeForOperation,
+} from '@/features/activities';
+import { isEndedStatus, useCropCycles } from '@/features/crop-cycles';
+import { useFields } from '@/features/fields';
+import { parseRouteId } from '@/lib/route-params';
 
-function isOperation(value: string | undefined): value is Operation {
-  return !!value && (OPERATIONS as readonly string[]).includes(value);
-}
-
-// Reached via the quick-capture chooser, or a deep-link from a reminder
-// (e.g. "Fertilizer split dose — F1 Cotton") with the field/crop and
-// operation pre-filled.
+/**
+ * Log activity, as a capture modal. Reached from the quick-capture chooser,
+ * a crop cycle (`?cropCycleId=`), or a reminder deep link
+ * (`?fieldCode=F1&operation=spray`), which pre-picks the field's open cycle.
+ */
 export default function LogActivityRoute() {
-  const { fieldCode, operation } = useLocalSearchParams<{
+  const params = useLocalSearchParams<{
+    cropCycleId?: string;
     fieldCode?: string;
     operation?: string;
   }>();
-  const initialCycle = cropCycles.find((c) => c.fieldCode === fieldCode);
+  const fields = useFields();
+  const cycles = useCropCycles();
+
+  const cropCycleId = parseRouteId(params.cropCycleId);
+  const cycle = cycles.data?.find((c) => c.cropCycleId === cropCycleId);
+  const fieldByCode = fields.data?.fields.find(
+    (f) => f.code === params.fieldCode,
+  );
+  // A reminder names a field; its newest open cycle is the one being worked on.
+  const fieldCycle = fieldByCode
+    ? cycles.data?.find(
+        (c) => c.fieldId === fieldByCode.fieldId && !isEndedStatus(c.status),
+      )
+    : undefined;
+
+  // Wait for the lookups a deep link needs, so the form mounts pre-filled.
+  const waiting =
+    (params.fieldCode !== undefined &&
+      (fields.isPending || cycles.isPending)) ||
+    (cropCycleId !== undefined && cycles.isPending);
+  if (waiting) return null;
+
+  const picked = cycle ?? fieldCycle;
 
   return (
-    <ActivityLogScreen
-      initialCycle={initialCycle}
-      initialOperation={isOperation(operation) ? operation : undefined}
+    <ActivityFormScreen
+      preset={{
+        activityType: activityTypeForOperation(params.operation),
+        cropCycleId: picked?.cropCycleId,
+        fieldId: picked?.fieldId ?? fieldByCode?.fieldId,
+      }}
       onClose={() => router.back()}
       onSaved={() => router.back()}
     />

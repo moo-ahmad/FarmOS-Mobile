@@ -74,8 +74,11 @@ export type SyncMetaRow = typeof syncMeta.$inferSelect;
  * Activity log — the first domain aggregate (Phase 5), rebuilt (Log Activity,
  * canvas `1a` frame 6) to match the design exactly: an operation on a
  * field/crop, with a spray's product/dose/water/PHI details when relevant.
- * `doseValue`/`waterValue` are decimal strings (Quantity) — never REAL. The
- * enum literals mirror src/features/activity-log/model.ts — keep in sync.
+ * `doseValue`/`waterValue` are decimal strings (Quantity) — never REAL.
+ *
+ * Unused since activities moved online (`src/features/activities` saves to
+ * `/api/activities`); kept so existing devices' migrations stay intact. Drop
+ * it in a migration once offline sync is designed against the API's model.
  */
 export const activityLogs = sqliteTable(
   'activity_logs',

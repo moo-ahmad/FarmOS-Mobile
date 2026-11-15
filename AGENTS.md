@@ -53,8 +53,11 @@ Pre-commit runs `lint-staged` (eslint --fix + prettier) via Husky.
 - `db/` — SQLite (op-sqlite) + Drizzle schema/migrations _(Phase 2)_
 - `sync/` — outbox + `/sync/batch` engine _(Phase 2)_
 - `api/` — generated OpenAPI types + client _(Phase 3)_
-- `features/` — vertical feature slices (`activity-log/` is the reference slice:
-  Zod schema → RHF form → local SQLite write + outbox enqueue → TanStack Query)
+- `features/` — vertical feature slices: Zod schema → RHF form → TanStack
+  Query hooks over `src/lib/<entity>/api.ts` (`activities/` and `crop-cycles/`
+  are good references). Features currently save **online** straight to the
+  API — the backend has no `/sync/batch` yet, so the outbox in `sync/` has no
+  live writers until that endpoint lands.
 - `i18n/` — i18next (en/ur) + RTL sync; `theme/` — design tokens
 - `components/ui/` — in-house kit (NativeWind): `Button`, `TextField`,
   `NumericField`, `Text`, `Screen`

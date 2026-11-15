@@ -2,6 +2,8 @@ import type { BottomSheetModal } from '@gorhom/bottom-sheet';
 import {
   Ban,
   CircleCheck,
+  ClipboardList,
+  ClipboardPlus,
   EllipsisVertical,
   Pencil,
   Sprout,
@@ -52,6 +54,8 @@ export interface CropCycleDetailScreenProps {
   cycle: CropCycleDto;
   onBack: () => void;
   onEdit: () => void;
+  onLogActivity: () => void;
+  onOpenActivities: () => void;
   onDeleted: () => void;
 }
 
@@ -75,6 +79,8 @@ export function CropCycleDetailScreen({
   cycle,
   onBack,
   onEdit,
+  onLogActivity,
+  onOpenActivities,
   onDeleted,
 }: CropCycleDetailScreenProps) {
   const actionsRef = useRef<BottomSheetModal>(null);
@@ -133,6 +139,24 @@ export function CropCycleDetailScreen({
   };
 
   const actions: SheetAction[] = [
+    {
+      key: 'activities',
+      icon: ClipboardList,
+      label: 'See activities',
+      sub: 'Everything logged against this cycle, with costs',
+      onPress: onOpenActivities,
+    },
+    ...(ended
+      ? []
+      : [
+          {
+            key: 'log',
+            icon: ClipboardPlus,
+            label: 'Log activity',
+            sub: 'Irrigation, spray, fertilizer, field work',
+            onPress: onLogActivity,
+          },
+        ]),
     ...(ended
       ? []
       : [

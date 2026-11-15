@@ -19,6 +19,22 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/units-of-measure": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get: operations["GetUnitsOfMeasure"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/auth/login": {
         parameters: {
             query?: never;
@@ -1455,6 +1471,24 @@ export interface operations {
             query?: {
                 cropId?: number | string;
             };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+        };
+    };
+    GetUnitsOfMeasure: {
+        parameters: {
+            query?: never;
             header?: never;
             path?: never;
             cookie?: never;
