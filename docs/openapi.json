@@ -32,6 +32,17 @@
         }
       }
     },
+    "/api/units-of-measure": {
+      "get": {
+        "tags": ["UnitsOfMeasure"],
+        "operationId": "GetUnitsOfMeasure",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/auth/login": {
       "post": {
         "tags": ["Auth"],
@@ -3643,6 +3654,9 @@
   "tags": [
     {
       "name": "Crops"
+    },
+    {
+      "name": "UnitsOfMeasure"
     },
     {
       "name": "Auth"

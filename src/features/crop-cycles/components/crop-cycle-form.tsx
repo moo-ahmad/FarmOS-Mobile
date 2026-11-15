@@ -19,7 +19,7 @@ import { useSeasons } from '@/features/season-form';
 import { areaUnitLabel } from '../display';
 import { useCropVarieties, useCrops, useCycleNames } from '../hooks';
 import { cropCycleFormSchema, type CropCycleFormValues } from '../schema';
-import { PickerSheet } from './picker-sheet';
+import { PickerSheet } from '@/components/picker-sheet';
 
 export interface CropCycleFormProps {
   /** Starting values; read once, on mount. */

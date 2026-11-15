@@ -31,6 +31,7 @@ import { TeamRow } from './team-row';
 export interface HomeScreenProps {
   onOpenCycle?: (cycleId: string) => void;
   onOpenFields?: () => void;
+  onOpenActivities?: () => void;
   onAddSeason?: () => void;
   onAddIrrigationSource?: () => void;
   onOpenTeam?: () => void;
@@ -46,6 +47,7 @@ export interface HomeScreenProps {
 export function HomeScreen({
   onOpenCycle,
   onOpenFields,
+  onOpenActivities,
   onAddSeason,
   onAddIrrigationSource,
   onOpenTeam,
@@ -120,7 +122,7 @@ export function HomeScreen({
           </View>
         ))}
         <HomeLinksRow
-          onSeeAllActivity={() => comingSoon('Activity')}
+          onSeeAllActivity={() => onOpenActivities?.()}
           onSeeAllFields={() => onOpenFields?.()}
         />
         <Divider />

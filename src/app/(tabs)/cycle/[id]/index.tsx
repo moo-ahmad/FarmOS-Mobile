@@ -24,6 +24,12 @@ export default function CropCycleDetailRoute() {
       cycle={cycle}
       onBack={() => router.back()}
       onEdit={() => router.push(`/cycle/${cycle.cropCycleId}/edit`)}
+      onLogActivity={() =>
+        router.push(`/capture/activity?cropCycleId=${cycle.cropCycleId}`)
+      }
+      onOpenActivities={() =>
+        router.push(`/activities?cropCycleId=${cycle.cropCycleId}`)
+      }
       onDeleted={() => router.back()}
     />
   );
